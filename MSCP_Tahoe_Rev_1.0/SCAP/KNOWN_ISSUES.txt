@@ -1,0 +1,8 @@
+os_certificate_authority_trust - Manual Check
+os_ess_installed - Manual Check
+os_filevault_authorized_users - Manual Check
+os_home_folders_default - Manual Check
+pwpolicy_temporary_or_emergency_accounts_disable - Manual Check
+system_settings_wifi_disable - Manual Check
+
+In the Description within the XCCDF for each Rule, commands to remediate display with multiple line breaks.
