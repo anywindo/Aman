@@ -9,27 +9,50 @@
 /* Begin PBXBuildFile section */
 		441417E704184D97AA762F3B /* AuditSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3022AFFAA541B0B58D1C15 /* AuditSidebarView.swift */; };
 		5A64339F3D5242779422F2B3 /* FindingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95D242BAF884F9BB7102B23 /* FindingListView.swift */; };
+		7A3374BB2EAE286A00E37B9B /* Aman.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7A3374BA2EAE286A00E37B9B /* Aman.icon */; };
 		7A373A692E9C089B00F26CEF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373A682E9C089B00F26CEF /* AboutView.swift */; };
 		7A373B082E9CA45F00F26CEF /* AuditFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373B072E9CA45F00F26CEF /* AuditFinding.swift */; };
 		7A373B0A2E9CA46900F26CEF /* RemediationCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */; };
+		7AF2A1E62F5C617E00A1BEEF /* IntranetSecurityScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */; };
+		7AF2A1E72F5C617E00A1BEEF /* IntranetConsentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */; };
+		7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */; };
+		7AF2A1EC2F5C61F000A1BEEF /* NetworkSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1EE2F5C61F000A1BEEF /* NetworkSecurityView.swift */; };
+		7AF2A1EF2F5C61F000A1BEEF /* LandingSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1F02F5C61F000A1BEEF /* LandingSelectorView.swift */; };
+		7AF2A1F32F5C7E6100A1BEEF /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1F22F5C7E6100A1BEEF /* WindowManager.swift */; };
+		7AF2A1F62F5C900000A1BEEF /* InternetSecurityToolkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1F72F5C900000A1BEEF /* InternetSecurityToolkit.swift */; };
+		7AF2A1F82F5C900100A1BEEF /* InternetSecurityToolkitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1F92F5C900100A1BEEF /* InternetSecurityToolkitView.swift */; };
+		7AF2A2012F5C900200A1BEEF /* CRTShClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2002F5C900200A1BEEF /* CRTShClient.swift */; };
+		7AF2A2032F5C900200A1BEEF /* CertificateLookupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */; };
+		7AF2A2052F5C900200A1BEEF /* CertificateLookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2042F5C900200A1BEEF /* CertificateLookupView.swift */; };
+		7AF2A2072F5C900200A1BEEF /* CertificateLookupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2062F5C900200A1BEEF /* CertificateLookupDetailView.swift */; };
 		BB1111112F1234567890ABCD /* AuditDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1111112F1234567890ABCD /* AuditDomain.swift */; };
 		BB2222222F1234567890ABCD /* ShellCommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2222222F1234567890ABCD /* ShellCommandRunner.swift */; };
 		BCD734CC29CDF6A000C0B779 /* AmanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD734CB29CDF6A000C0B779 /* AmanApp.swift */; };
 		BCD734CE29CDF6A000C0B779 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD734CD29CDF6A000C0B779 /* ContentView.swift */; };
-		BCD734D029CDF6A200C0B779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCD734CF29CDF6A200C0B779 /* Assets.xcassets */; };
 		BCD734E529CF137C00C0B779 /* SystemCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD734E429CF137C00C0B779 /* SystemCheck.swift */; };
 		BCD734F229CF20FF00C0B779 /* AuditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD734F129CF20FF00C0B779 /* AuditCoordinator.swift */; };
-		BCD7350529D213E200C0B779 /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = BCD7350429D213E200C0B779 /* Preview Content */; };
-		BCD7350729D2165700C0B779 /* Preview in Resources */ = {isa = PBXBuildFile; fileRef = BCD7350629D2165700C0B779 /* Preview */; };
 		D2834ADBC22C43F28FA317F3 /* FindingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6510B487FB21414B9E8287A1 /* FindingDetailView.swift */; };
 		DAA8A4A102784CCB94355659 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973655FDE4444A4D9472C05F /* LandingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6510B487FB21414B9E8287A1 /* FindingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingDetailView.swift; sourceTree = "<group>"; };
+		7A3374BA2EAE286A00E37B9B /* Aman.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Aman.icon; sourceTree = "<group>"; };
 		7A373A682E9C089B00F26CEF /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		7A373B072E9CA45F00F26CEF /* AuditFinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditFinding.swift; sourceTree = "<group>"; };
 		7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediationCatalog.swift; sourceTree = "<group>"; };
+		7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetSecurityScanner.swift; sourceTree = "<group>"; };
+		7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetConsentStore.swift; sourceTree = "<group>"; };
+		7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurityViewModel.swift; sourceTree = "<group>"; };
+		7AF2A1EE2F5C61F000A1BEEF /* NetworkSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurityView.swift; sourceTree = "<group>"; };
+		7AF2A1F02F5C61F000A1BEEF /* LandingSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingSelectorView.swift; sourceTree = "<group>"; };
+		7AF2A1F22F5C7E6100A1BEEF /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		7AF2A1F72F5C900000A1BEEF /* InternetSecurityToolkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSecurityToolkit.swift; sourceTree = "<group>"; };
+		7AF2A1F92F5C900100A1BEEF /* InternetSecurityToolkitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSecurityToolkitView.swift; sourceTree = "<group>"; };
+		7AF2A2002F5C900200A1BEEF /* CRTShClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRTShClient.swift; sourceTree = "<group>"; };
+		7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLookupViewModel.swift; sourceTree = "<group>"; };
+		7AF2A2042F5C900200A1BEEF /* CertificateLookupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLookupView.swift; sourceTree = "<group>"; };
+		7AF2A2062F5C900200A1BEEF /* CertificateLookupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLookupDetailView.swift; sourceTree = "<group>"; };
 		973655FDE4444A4D9472C05F /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		9D3022AFFAA541B0B58D1C15 /* AuditSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditSidebarView.swift; sourceTree = "<group>"; };
 		AA1111112F1234567890ABCD /* AuditDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDomain.swift; sourceTree = "<group>"; };
@@ -39,11 +62,8 @@
 		BCD734C829CDF6A000C0B779 /* Aman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCD734CB29CDF6A000C0B779 /* AmanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmanApp.swift; sourceTree = "<group>"; };
 		BCD734CD29CDF6A000C0B779 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BCD734CF29CDF6A200C0B779 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCD734E429CF137C00C0B779 /* SystemCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemCheck.swift; sourceTree = "<group>"; };
 		BCD734F129CF20FF00C0B779 /* AuditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditCoordinator.swift; sourceTree = "<group>"; };
-		BCD7350429D213E200C0B779 /* Preview Content */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = "Preview Content"; path = "Aman/Preview Content"; sourceTree = SOURCE_ROOT; };
-		BCD7350629D2165700C0B779 /* Preview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Preview; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -69,8 +89,30 @@
 				6510B487FB21414B9E8287A1 /* FindingDetailView.swift */,
 				973655FDE4444A4D9472C05F /* LandingView.swift */,
 				7A373A682E9C089B00F26CEF /* AboutView.swift */,
+				7AF2A1F92F5C900100A1BEEF /* InternetSecurityToolkitView.swift */,
+				7AF2A2042F5C900200A1BEEF /* CertificateLookupView.swift */,
+				7AF2A2062F5C900200A1BEEF /* CertificateLookupDetailView.swift */,
+				7AF2A1EE2F5C61F000A1BEEF /* NetworkSecurityView.swift */,
+				7AF2A1F02F5C61F000A1BEEF /* LandingSelectorView.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */,
+				7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */,
+			);
+			path = IntranetSecurity;
+			sourceTree = "<group>";
+		};
+		7AF2A1F42F5C7E6100A1BEEF /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A1F22F5C7E6100A1BEEF /* WindowManager.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		BC6C51A529D81F8C00B85797 /* Tests */ = {
@@ -84,8 +126,15 @@
 		BCD734BF29CDF6A000C0B779 = {
 			isa = PBXGroup;
 			children = (
-				BCD734CA29CDF6A000C0B779 /* Aman */,
 				BCD734C929CDF6A000C0B779 /* Products */,
+				BC6C51A529D81F8C00B85797 /* Tests */,
+				BCD734E829CF13D800C0B779 /* Engine */,
+				7AF2A1F42F5C7E6100A1BEEF /* Support */,
+				7A373AB82E9C8F9B00F26CEF /* Modules */,
+				5C60351CB04C44E7B45E752D /* view */,
+				BCD734CB29CDF6A000C0B779 /* AmanApp.swift */,
+				BCD734CD29CDF6A000C0B779 /* ContentView.swift */,
+				7A3374BA2EAE286A00E37B9B /* Aman.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,22 +146,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BCD734CA29CDF6A000C0B779 /* Aman */ = {
-			isa = PBXGroup;
-			children = (
-				BC6C51A529D81F8C00B85797 /* Tests */,
-				BCD734E829CF13D800C0B779 /* Engine */,
-				BCD7350629D2165700C0B779 /* Preview */,
-				BCD7350429D213E200C0B779 /* Preview Content */,
-				7A373AB82E9C8F9B00F26CEF /* Modules */,
-				5C60351CB04C44E7B45E752D /* view */,
-				BCD734CB29CDF6A000C0B779 /* AmanApp.swift */,
-				BCD734CD29CDF6A000C0B779 /* ContentView.swift */,
-				BCD734CF29CDF6A200C0B779 /* Assets.xcassets */,
-			);
-			path = Aman;
-			sourceTree = "<group>";
-		};
 		BCD734E829CF13D800C0B779 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,8 +155,21 @@
 				AA1111112F1234567890ABCD /* AuditDomain.swift */,
 				7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */,
 				AA2222222F1234567890ABCD /* ShellCommandRunner.swift */,
+				7AF2A2082F5C900200A1BEEF /* Utilities */,
+				7AF2A1F72F5C900000A1BEEF /* InternetSecurityToolkit.swift */,
+				7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */,
+				7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */,
+				7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */,
 			);
 			path = Engine;
+			sourceTree = "<group>";
+		};
+		7AF2A2082F5C900200A1BEEF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A2002F5C900200A1BEEF /* CRTShClient.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,9 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCD7350729D2165700C0B779 /* Preview in Resources */,
-				BCD7350529D213E200C0B779 /* Preview Content in Resources */,
-				BCD734D029CDF6A200C0B779 /* Assets.xcassets in Resources */,
+				7A3374BB2EAE286A00E37B9B /* Aman.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +255,18 @@
 				7A373B082E9CA45F00F26CEF /* AuditFinding.swift in Sources */,
 				BB1111112F1234567890ABCD /* AuditDomain.swift in Sources */,
 				BB2222222F1234567890ABCD /* ShellCommandRunner.swift in Sources */,
+				7AF2A1E62F5C617E00A1BEEF /* IntranetSecurityScanner.swift in Sources */,
+				7AF2A1E72F5C617E00A1BEEF /* IntranetConsentStore.swift in Sources */,
+				7AF2A1F62F5C900000A1BEEF /* InternetSecurityToolkit.swift in Sources */,
+				7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */,
+				7AF2A1EC2F5C61F000A1BEEF /* NetworkSecurityView.swift in Sources */,
+				7AF2A1F82F5C900100A1BEEF /* InternetSecurityToolkitView.swift in Sources */,
+				7AF2A2012F5C900200A1BEEF /* CRTShClient.swift in Sources */,
+				7AF2A2032F5C900200A1BEEF /* CertificateLookupViewModel.swift in Sources */,
+				7AF2A2052F5C900200A1BEEF /* CertificateLookupView.swift in Sources */,
+				7AF2A2072F5C900200A1BEEF /* CertificateLookupDetailView.swift in Sources */,
+				7AF2A1EF2F5C61F000A1BEEF /* LandingSelectorView.swift in Sources */,
+				7AF2A1F32F5C7E6100A1BEEF /* WindowManager.swift in Sources */,
 				D2834ADBC22C43F28FA317F3 /* FindingDetailView.swift in Sources */,
 				DAA8A4A102784CCB94355659 /* LandingView.swift in Sources */,
 			);
@@ -346,18 +402,28 @@
 		BCD734D829CDF6A200C0B779 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Aman/Aman.entitlements;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Aman;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = Aman/Preview;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Aman;
+				INFOPLIST_KEY_CFBundleIconFile = Aman.icon;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -376,19 +442,31 @@
 		BCD734D929CDF6A200C0B779 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Aman/AmanRelease.entitlements;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Aman;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				AUTOMATION_APPLE_EVENTS = NO;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = Aman/Preview;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Aman;
+				INFOPLIST_KEY_CFBundleIconFile = Aman.icon;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -399,6 +477,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = arwindo.aman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
