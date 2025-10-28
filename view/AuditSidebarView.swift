@@ -14,6 +14,11 @@ struct AuditSidebarView: View {
     let resetAudit: () -> Void
     let exportAction: () -> Void
 
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismiss
+    @State private var showLandingConfirmation = false
+    @State private var hoverSwitch = false
+
     private var distribution: (pass: Int, review: Int, action: Int) {
         coordinator.findings.reduce(into: (0, 0, 0)) { counts, finding in
             switch finding.verdict {
@@ -31,7 +36,35 @@ struct AuditSidebarView: View {
 
     var body: some View {
         List(selection: $selectedDomain) {
-            AmanBranding()
+            Section {
+                Button {
+                    showLandingConfirmation = true
+                } label: {
+                    AmanBranding()
+                        .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                }
+                .buttonStyle(.plain)
+                .listRowInsets(EdgeInsets(top: 14, leading: 8, bottom: 10, trailing: 8))
+                .listRowBackground(Color.clear)
+            }
+
+            // Liquid Glass Switcher
+            Section {
+                // Short, simple copy
+                switchWorkspaceCard(
+                    title: "Network Security",
+                    subtitle: "Switch workspace",
+                    icon: "network",
+                    tint: .green
+                ) {
+                    openWindow(id: AmanApp.WindowID.networkSecurity.rawValue)
+                    DispatchQueue.main.async {
+                        WindowManager.closeWindows(with: AmanApp.WindowID.osSecurity.rawValue)
+                        dismiss()
+                    }
+                }
+            }
+
             Section("Audit Controls") {
                 VStack(alignment: .leading, spacing: 12) {
                     Button {
@@ -124,6 +157,86 @@ struct AuditSidebarView: View {
                 .frame(maxWidth: .infinity)
                 .allowsHitTesting(false)
         }
+        .alert("Return to landing?", isPresented: $showLandingConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Switch", role: .destructive) {
+                openWindow(id: AmanApp.WindowID.landing.rawValue)
+                dispatchCloseAuditWindow()
+            }
+        } message: {
+            Text("Your current OS Security window will close. Continue?")
+        }
+    }
+
+    private func dispatchCloseAuditWindow() {
+        DispatchQueue.main.async {
+            dismiss()
+        }
+    }
+
+    // MARK: - Liquid Glass Switcher
+
+    @ViewBuilder
+    private func switchWorkspaceCard(title: String, subtitle: String, icon: String, tint: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(tint.opacity(0.25))
+                        .frame(width: 32, height: 32)
+                        .overlay(
+                            Circle()
+                                .stroke(tint.opacity(0.35), lineWidth: 1)
+                        )
+                        .shadow(color: tint.opacity(0.05), radius: 3, x: 0, y: 0)
+                    Image(systemName: icon)
+                        .foregroundStyle(tint)
+                        .imageScale(.small)
+                        .offset(x: hoverSwitch ? 1.2 : 0, y: hoverSwitch ? 0.8 : 0)
+                        .animation(.spring(response: 0.35, dampingFraction: 0.7), value: hoverSwitch)
+                }
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(title)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                    Text(subtitle)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }
+                Spacer(minLength: 6)
+                Image(systemName: "arrow.left.arrow.right.circle.fill")
+                    .foregroundStyle(.secondary)
+                    .imageScale(.medium)
+                    .opacity(hoverSwitch ? 1.0 : 0.65)
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(tint.opacity(0.18)) // Green-tinted background
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .strokeBorder(Color.white.opacity(0.25).blendMode(.overlay), lineWidth: 0.8)
+                    )
+                    .shadow(color: .black.opacity(hoverSwitch ? 0.05 : 0.01), radius: hoverSwitch ? 5 : 2, x: 0, y: hoverSwitch ? 3 : 1)
+            )
+            .padding(.vertical, 10)
+            .padding(.horizontal, 0)
+            .scaleEffect(hoverSwitch ? 1.02 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: hoverSwitch)
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                hoverSwitch = hovering
+            }
+        }
+        .listRowInsets(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
+        .listRowBackground(Color.clear)
     }
 }
 
@@ -161,7 +274,7 @@ private struct SummaryCard: View {
 private struct AmanBranding: View {
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: "shield.fill")
+            Image(systemName: "magnifyingglass")
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(Color.accentColor)
                 .font(.system(size: 28, weight: .semibold))

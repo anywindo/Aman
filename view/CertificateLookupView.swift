@@ -19,6 +19,8 @@ struct CertificateLookupView: View {
             footer
         }
         .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color.clear)
     }
 
     private var header: some View {
@@ -80,7 +82,7 @@ struct CertificateLookupView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         } else if viewModel.results.isEmpty {
             VStack(alignment: .leading, spacing: 10) {
-                Label("No results yet", systemImage: "globe.badge.questionmark")
+                Label("No results yet", systemImage: "questionmark.circle")
                     .font(.headline)
                 Text("Run a lookup to enumerate subdomains and certificates observed by crt.sh.")
                     .font(.subheadline)

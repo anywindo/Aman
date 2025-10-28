@@ -10,6 +10,8 @@ import SwiftUI
 struct NetworkSecurityView: View {
     @StateObject private var viewModel = NetworkSecurityViewModel()
     @StateObject private var certificateLookupViewModel = CertificateLookupViewModel()
+    @StateObject private var hashGeneratorViewModel = HashGeneratorViewModel()
+    @StateObject private var networkProfileViewModel = NetworkProfileViewModel()
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
 
@@ -17,10 +19,12 @@ struct NetworkSecurityView: View {
     @State private var selectedInternetCheck: InternetSecurityCheckResult.Kind? = .dnsLeak
     @State private var selectedCertificateID: CertificateEntry.ID?
     @State private var showLandingConfirmation = false
+    @State private var hoverSwitch = false
 
     private enum SidebarCategory: String, CaseIterable, Identifiable {
         case internetSecurity = "Internet Security"
         case utilities = "Utilities"
+        case profile = ""
 
         var id: String { rawValue }
     }
@@ -31,12 +35,14 @@ struct NetworkSecurityView: View {
         case utilitiesHashGenerator
         case utilitiesNetworkAnalyzer
         case utilitiesNetworkMapping
+        case utilitiesNetworkProfile
 
         var id: String { rawValue }
 
         var category: SidebarCategory {
             switch self {
-            case .internetToolkit:
+            case .internetToolkit,
+                 .utilitiesNetworkProfile:
                 return .internetSecurity
             case .utilitiesCertificateLookup,
                  .utilitiesHashGenerator,
@@ -58,6 +64,8 @@ struct NetworkSecurityView: View {
                 return "Network Analyzer"
             case .utilitiesNetworkMapping:
                 return "Network Mapping"
+            case .utilitiesNetworkProfile:
+                return "Network Profile"
             }
         }
 
@@ -73,6 +81,8 @@ struct NetworkSecurityView: View {
                 return "waveform.path.ecg"
             case .utilitiesNetworkMapping:
                 return "map.fill"
+            case .utilitiesNetworkProfile:
+                return "person.badge.key"
             }
         }
 
@@ -83,7 +93,8 @@ struct NetworkSecurityView: View {
             case .utilitiesCertificateLookup,
                  .utilitiesHashGenerator,
                  .utilitiesNetworkAnalyzer,
-                 .utilitiesNetworkMapping:
+                 .utilitiesNetworkMapping,
+                 .utilitiesNetworkProfile:
                 return title
             }
         }
@@ -100,6 +111,8 @@ struct NetworkSecurityView: View {
                 return "Draft anomaly detection tooling with graph-first insights."
             case .utilitiesNetworkMapping:
                 return "Sketch comprehensive hosts, ports, and topology mapping."
+            case .utilitiesNetworkProfile:
+                return "See a compact snapshot of your current network connection."
             }
         }
 
@@ -134,6 +147,12 @@ struct NetworkSecurityView: View {
                     "Perform targeted port discovery",
                     "Visualise network topology live"
                 ]
+            case .utilitiesNetworkProfile:
+                return [
+                    "Public IP and ISP/ASN",
+                    "Local IP, gateway, DNS",
+                    "Security flags (VPN, IPv6, HTTPS)"
+                ]
             }
         }
 
@@ -141,6 +160,8 @@ struct NetworkSecurityView: View {
             switch self {
             case .internetToolkit:
                 return "Live suite"
+            case .utilitiesNetworkProfile:
+                return "Live snapshot"
             default:
                 return "Coming soon"
             }
@@ -153,11 +174,13 @@ struct NetworkSecurityView: View {
             case .utilitiesCertificateLookup:
                 return "Certificate discovery will tap into crt.sh to spotlight unexpected issuance and misconfigurations."
             case .utilitiesHashGenerator:
-                return "Hash Generator will streamline checksum workflows with multi-algorithm support tailored to security triage."
+                return "Hash Generator lets you compare digests from modern and legacy algorithms in one place."
             case .utilitiesNetworkAnalyzer:
                 return "Network Analyzer will crunch telemetry streams to surface anomalies, graph insights, and trends."
             case .utilitiesNetworkMapping:
                 return "Network Mapping will unify host discovery, port scans, and topology exploration for faster reconnaissance."
+            case .utilitiesNetworkProfile:
+                return "Network Profile shows a compact card with your public IP, ISP/ASN, local addressing, DNS, gateway, and security indicators."
             }
         }
     }
@@ -238,6 +261,75 @@ struct NetworkSecurityView: View {
                 .listRowBackground(Color.clear)
             }
 
+            // Liquid Glass Switcher (to OS Security)
+            Section {
+                Button {
+                    openWindow(id: AmanApp.WindowID.osSecurity.rawValue)
+                    DispatchQueue.main.async {
+                        WindowManager.closeWindows(with: AmanApp.WindowID.networkSecurity.rawValue)
+                        dismiss()
+                    }
+                } label: {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.blue.opacity(0.25))
+                                .frame(width: 32, height: 32)
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color.blue.opacity(0.35), lineWidth: 1)
+                                )
+                                .shadow(color: Color.blue.opacity(0.05), radius: 3, x: 0, y: 0)
+                            Image(systemName: "shield.fill")
+                                .foregroundStyle(.blue)
+                                .imageScale(.small)
+                                .offset(x: hoverSwitch ? 1.2 : 0, y: hoverSwitch ? 0.8 : 0)
+                                .animation(.spring(response: 0.35, dampingFraction: 0.7), value: hoverSwitch)
+                        }
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text("OS Security")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                            Text("Switch workspace")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        }
+                        Spacer(minLength: 6)
+                        Image(systemName: "arrow.left.arrow.right.circle.fill")
+                            .foregroundStyle(.secondary)
+                            .imageScale(.medium)
+                            .opacity(hoverSwitch ? 1.0 : 0.65)
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.blue.opacity(0.18))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .strokeBorder(Color.white.opacity(0.25).blendMode(.overlay), lineWidth: 0.8)
+                            )
+                            .shadow(color: .black.opacity(hoverSwitch ? 0.05 : 0.01), radius: hoverSwitch ? 5 : 2, x: 0, y: hoverSwitch ? 3 : 1)
+                    )
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 0)
+                    .scaleEffect(hoverSwitch ? 1.02 : 1.0)
+                    .animation(.easeInOut(duration: 0.15), value: hoverSwitch)
+                }
+                .buttonStyle(.plain)
+                .onHover { hovering in
+                    withAnimation(.easeInOut(duration: 0.15)) {
+                        hoverSwitch = hovering
+                    }
+                }
+                .listRowInsets(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
+                .listRowBackground(Color.clear)
+            }
+
             ForEach(sortedSidebarSections, id: \.category) { section in
                 Section(section.category.rawValue) {
                     ForEach(section.items) { item in
@@ -269,6 +361,15 @@ struct NetworkSecurityView: View {
                 viewModel: certificateLookupViewModel,
                 selectedEntryID: $selectedCertificateID
             )
+        case .utilitiesHashGenerator:
+            ScrollView {
+                HashGeneratorView(viewModel: hashGeneratorViewModel)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(Color.clear)
+        case .utilitiesNetworkProfile:
+            NetworkProfileView(viewModel: networkProfileViewModel)
         default:
             if let item = selectedItem {
                 placeholderContent(
@@ -289,6 +390,11 @@ struct NetworkSecurityView: View {
             internetDetailView()
         case .utilitiesCertificateLookup:
             CertificateLookupDetailView(entry: selectedCertificateEntry)
+        case .utilitiesHashGenerator:
+            HashGeneratorDetailView(viewModel: hashGeneratorViewModel)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        case .utilitiesNetworkProfile:
+            NetworkProfileDetailView(viewModel: networkProfileViewModel)
         default:
             if let item = selectedItem {
                 utilitiesDetailView(for: item)
@@ -340,7 +446,11 @@ struct NetworkSecurityView: View {
 private extension NetworkSecurityView {
     private var sortedSidebarSections: [(category: SidebarCategory, items: [SidebarItem])] {
         SidebarCategory.allCases
-            .sorted { $0.rawValue < $1.rawValue }
+            .sorted { lhs, rhs in
+                // Ensure Utilities appears above Network Profile
+                let order: [SidebarCategory] = [.internetSecurity, .utilities, .profile]
+                return (order.firstIndex(of: lhs) ?? 0) < (order.firstIndex(of: rhs) ?? 0)
+            }
             .map { category in
                 let items = SidebarItem.allCases
                     .filter { $0.category == category }
@@ -352,14 +462,17 @@ private extension NetworkSecurityView {
     @ViewBuilder
     private func utilitiesDetailView(for item: SidebarItem) -> some View {
         switch item {
-        case .utilitiesCertificateLookup:
-            CertificateLookupDetailView(entry: selectedCertificateEntry)
-        default:
-            PlaceholderDetailView(
-                title: item.overviewTitle,
-                subtitle: item.detailSubtitle,
-                description: item.detailDescription
-            )
+            case .utilitiesCertificateLookup:
+                CertificateLookupDetailView(entry: selectedCertificateEntry)
+            case .utilitiesHashGenerator:
+                HashGeneratorDetailView(viewModel: hashGeneratorViewModel)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            default:
+                PlaceholderDetailView(
+                    title: item.overviewTitle,
+                    subtitle: item.detailSubtitle,
+                    description: item.detailDescription
+                )
         }
     }
 }
@@ -369,7 +482,7 @@ private extension NetworkSecurityView {
 private struct AmanBranding: View {
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: "shield.fill")
+            Image(systemName: "magnifyingglass")
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(Color.accentColor)
                 .font(.system(size: 28, weight: .semibold))
