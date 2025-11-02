@@ -1,57 +1,88 @@
-## Network Security Feature Checkup – Progression Plan
+Network Analyzer Workplan
+Here’s a pragmatic, low-risk phased plan to add a Wireshark-style Network Analyzer to your macOS app, pairing Swift for capture/visualization with Python for anomaly scoring. Each phase is shippable and builds toward live, richer analysis.
 
-### Focus Shift
-- [x] Freeze new OS Security feature work; maintain critical fixes only.
-- [x] Spin up dedicated Network Security window alongside the existing OS Security window.
-- [x] Add a landing selector that routes users to either `OS Security` or `Network Security`.
+Phase 1 — Capture & Bridge Foundations ✅
+• Goal: Prove the Swift ⇄ Python bridge and deliver a usable UI with replayable captures.
+• Swift
+   • Add NetworkAnalyzerViewModel (interface inventory, live capture controller, PCAP ingestion, analyzer streaming state).
+   • Add NetworkAnalyzerView (Wireshark-inspired layout: interface picker, start/stop, BPF filter, sample/import buttons, packet table, packet inspector).
+   • Add NetworkAnalyzerDetailView (capture summary, timeline charts via Swift Charts if macOS 13+, anomalies panel fallback otherwise).
+   • Add PythonProcessRunner (Process-based JSON bridge; reuse /usr/bin/python3 pattern from HashingService).
+   • Add NetworkAnalyzerModels (PacketSample, MetricPoint, BaselinePoint, Anomaly, AnalyzerSummary, AnalyzerResult).
+   • Wire into NetworkSecurityView when “Network Analyzer” is selected.
+• Python
+   • analyzer.py (bundled resource): accepts stdin JSON batches (metrics + packets metadata), returns JSON (summary/series/baseline/anomalies).
+   • Seed with offline replay: ingest synthetic captures or bundled PCAP snippets, compute rolling baselines, flag outliers (z-score or MAD).
+• Data
+   • Bundle real PCAP/PCAPNG captures (pcap1.pcapng, pcap2.pcap) for deterministic replay and analysis.
+• Deliverables
+   • Visual timeline with anomaly markers, anomalies table, summary stats.
+   • Clear messaging if Python 3 missing or bridge fails.
 
-### UX & Navigation Baseline
-- [x] Build a dashboard-style Network Security shell (toolbar status, summary tiles, findings list).
-- [x] Establish shared view models for scan orchestration (reuse where possible, isolate network-specific logic).
-- [x] Validate window management (two independent SwiftUI windows + landing chooser).
+Phase 2 — Streaming Metrics & Rolling Detection ✅
+• Goal: Turn live packet capture into real-time metrics and anomaly updates without root requirements.
+• Inputs
+   • libpcap/tcpdump subprocess with user-granted permissions, or replay mode targeting existing captures.
+   • Lightweight system tools (netstat/lsof) as fallback for environments without libpcap access.
+• Swift
+   • Capture controller with start/stop, permission checks, and a ring buffer for PacketSample.
+   • MetricAggregator that bins packets into per-second/per-minute aggregates (bytes/sec, flows/min, protocol counts).
+   • Stream metric batches to PythonProcessRunner on a background queue; throttle UI updates on the main thread.
+• Python
+   • Incremental analyzer that maintains rolling baselines per metric, supports sliding window updates, and emits anomalies incrementally.
+   • Handle NaNs, missing timestamps, and resampling.
+• Deliverables
+   • Live metric graphs with anomaly badges arriving within a few seconds of capture.
+   • Replay mode proves parity between live and offline runs.
 
-### Stage 1 – Guardrails & Consent (Gatekeeper Stage)
-- [x] Display legal/ethical consent dialog before any network probing.
-- [x] Implement configurable rate limiting + “Test mode” that simulates scans without packets on the wire.
-- [x] Log every initiated scan with timestamp, initiator identity, scope, and mode.
-- [x] Enforce authorized target list (CIDR/IP allowlist, manual confirmation dialog).
+Phase 3 — Deep Dive Views & Context ✅
+• Goal: Make anomalies actionable with packet and entity-level drill downs.
+• Swift
+   • Extend models with tags: process/executable (when available), destination IP/ASN/Geo, port, protocol.
+   • UI filters and faceting (by tag, time range); detail pane overlays for per-tag timelines and top talkers.
+   • Packet detail inspector mirroring key Wireshark panes for anomalies.
+• Python
+   • Per-tag baselines (process, destination, port) and relative anomaly scores.
+   • Tag-aware clustering to highlight “who/where” behind spikes.
+• Deliverables
+   • Filtered charts, top-k summaries, anomaly explanations (“process X exceeded baseline 3.5σ on port 443”).
 
-### Stage 2 – Network Scanner (Initial Focus)
-- [x] Nmap integration (`-sS -sV -O --script=banner`) with safe defaults (respecting stage 1 guardrails).
-- [x] Parse results into structured models (host ➝ services ➝ banners ➝ OS fingerprint).
-- [x] Render live progress and results in the dashboard (hosts list, open ports, service versions).
-- [x] Capture scan artifacts to disk for later reporting.
-- [x] Provide remediation hints per finding (basic severity, recommended actions).
+Phase 4 — Narrative Overlay & Correlation
+• Goal: Layer richer context onto live and replayed captures without new capture inputs by narrating spikes and correlating the actors behind them.
+• Swift
+   • Extend existing timeline view model to emit annotation structs derived from anomaly + tag arrays; render annotation bands/badges while throttling density for large capture windows.
+   • Add scrubber and zoom controls that respect active filters; selection updates filter state while filters clamp annotation visibility without re-querying Python.
+   • Build a correlation side panel that groups spikes by shared destination/port/protocol tags; show burst metrics (peak bytes, affected flows) and narrative callouts per cluster.
+   • Surface correlated cluster context inside the packet inspector to explain who/where/what for the selected anomaly; add debug overlay toggle for QA insight.
+• Python
+   • Introduce tag-cohesion scorer that ingests recent anomaly windows, computes overlap across tag tuples (destination, port, process), and emits clusters with confidence scores.
+   • Stream incremental cluster updates through the existing JSON bridge alongside anomalies; version payloads and include reason codes for sparse-tag fallbacks.
+   • Maintain rolling caches so clusters update as anomalies age out; add regression tests ensuring deterministic clustering and backward compatibility.
+• Data & Tooling
+   • Create fixture captures exercising multi-tag spikes to validate clustering heuristics and UI render density.
+   • Update developer documentation describing new JSON fields and Swift model changes; provide profiling hooks to measure annotation rendering cost.
+• Validation
+   • Add Swift unit tests for annotation grouping/filter interaction; Python unit tests for cluster scoring; integration test that pipes sample anomalies through the bridge.
+   • Manual QA matrix covering live capture, replay, filtered views, scrubber interaction, and accessibility (VoiceOver, contrast).
+• Deliverables
+   • Analysts can replay or monitor a spike and immediately see the actors involved, with correlated narratives and annotations, all without importing new data.
 
-### Stage 3 – Network & Privacy Toolkit
-- [x] DNS leak detection (compare resolver IPs vs VPN expectations).
-- [x] IP/GeoIP exposure check (external IP lookup, geolocation diff).
-- [x] IPv6 leak test (detect IPv6 routes when VPN tunnel is IPv4-only).
-- [x] Firewall audit (open listening ports, stealth mode status).
-- [ ] WebRTC leak detection (browser-facing check flow).
-- [x] Proxy/VPN configuration validation (system proxies, tun/tap interfaces).
-- [x] Integrate toolkit cards into the dashboard with “Run test” controls and status badges.
+Phase 5 — Persistence & Sharing
+• Goal: Let teams pause, resume, and share investigations safely.
+• Swift
+   • Session save/load using enriched PCAP bundles (capture + tags + anomalies) and quick-restore UI.
+   • Export filtered metrics/anomalies to CSV/JSON and provide shareable top-talker summaries.
+   • Preferences for default filters, streaming window, and alert thresholds.
+• Python
+   • Deterministic re-analysis so saved sessions regenerate the same anomaly IDs and narratives.
+• Deliverables
+   • Investigations survive restarts, while exports stay lightweight (CSV/JSON) and raw data remains PCAP.
 
-### Stage 4 – Intranet Security & CVE Mapping
-- [x] Discovery: implement ARP sweep, ICMP ping, mDNS, and NetBIOS enumeration (opt-in modules).
-- [x] Scan orchestration: execute `nmap -sS -sV -O --script=banner` with per-host throttling.
-- [x] Fingerprinting: extract product/version from banners & nmap fingerprints.
-- [x] CVE mapping: query NVD/OSV/Vulners (respect API quotas, cache responses).
-- [x] Replace legacy plaintext parser with nmap XML (`-oX -`) processing to surface vulners results reliably in the CVE Scan UI.
-- [x] Split intranet scanner into a fast service sweep and optional CVE enrichment pass so the UI stays responsive even when deep scans are slow.
-- [x] Safe verification: restrict NSE scripts to non-intrusive sets; document defaults.
-- [x] Risk scoring: combine CVSS base score + exposure context + exploit maturity signals.
-- [x] Reporting: generate structured CVE summaries with remediation guidance (log + in-app summary; JSON export TBD).
-
-### Stage 5 – Platform Integration & Polish
-- [ ] Hook scan orchestration into existing Engine modules (background tasks, notifications).
-- [ ] Add scheduling and history timeline (per scan type).
-- [ ] Surface top risks on landing page (quick glance cards).
-- [ ] Ensure theming aligns with existing Aman palette and accessibility standards.
-
-### Technical & Compliance Notes
-- Explore Swift + Rust (or Go) interop for heavy scanners; keep SwiftUI front-end responsive.
-- Cache GeoIP/ASN metadata locally to minimize repeated network lookups.
-- Centralize configuration (`Engine/Config/NetworkSecurity.plist` or similar) for tuning scan limits.
-- Update documentation (`docs/`) once Stage 2 ships; add user guide covering consent and safe usage.
-- Plan automated smoke tests for scanner pipelines (mock nmap output, API fixtures).
+Phase 6 — Advanced Detection (Optional)
+• Goal: Raise detection quality for complex environments.
+• Python
+   • Seasonality-aware baselines (STL), change-point detection, multivariate scores across throughput/flows/errors, and tag entropy to spot “new talkers.”
+• Swift
+   • Multi-metric comparison views, guided tuning tooltips, and optional notifications/webhooks for high-confidence spikes.
+• Deliverables
+   • A flexible detection toolbox that reduces false positives and explains why a spike matters at a glance.
