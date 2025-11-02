@@ -8,34 +8,31 @@ struct NetworkAnalyzerPreferencesSheet: View {
         VStack(alignment: .leading, spacing: 16) {
             header
 
-            GroupBox {
-                VStack(alignment: .leading, spacing: 12) {
+            // Capture section
+            SectionCard {
+                sectionHeader("Capture")
+                ViewThatFits(in: .horizontal) {
                     HStack(alignment: .firstTextBaseline, spacing: 12) {
-                        Text("Capture Mode")
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                        Picker("Capture Mode", selection: $viewModel.selectedCaptureMode) {
-                            ForEach(viewModel.captureAdapters) { adapter in
-                                Text(adapter.title).tag(adapter.mode)
-                            }
-                        }
-                        .labelsHidden()
-                        .pickerStyle(.menu)
-                        Spacer()
+                        captureModePickerRow
+                        Spacer(minLength: 0)
                     }
-
-                    if let adapter = viewModel.captureAdapters.first(where: { $0.mode == viewModel.selectedCaptureMode }) {
-                        Text(adapter.availabilityMessage)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
+                    VStack(alignment: .leading, spacing: 12) {
+                        captureModePickerRow
                     }
                 }
-            } label: {
-                Label("Capture", systemImage: "network")
+
+                if let adapter = viewModel.captureAdapters.first(where: { $0.mode == viewModel.selectedCaptureMode }) {
+                    Text(adapter.availabilityMessage)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 2)
+                }
             }
 
-            GroupBox {
+            // Privacy / Payload section
+            SectionCard {
+                sectionHeader("Privacy")
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(spacing: 10) {
                         Image(systemName: "lock.shield")
@@ -64,69 +61,41 @@ struct NetworkAnalyzerPreferencesSheet: View {
                         }
                     }
                 }
-            } label: {
-                Label("Privacy", systemImage: "hand.raised")
             }
 
-            GroupBox {
+            // Analyzer section
+            SectionCard {
+                sectionHeader("Analyzer")
                 VStack(alignment: .leading, spacing: 12) {
-                    HStack(spacing: 12) {
-                        Text("Algorithm")
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                        Picker("Algorithm", selection: $viewModel.selectedAlgorithm) {
-                            ForEach(NetworkAnalyzerViewModel.AnalyzerAlgorithm.allCases) { alg in
-                                Text(alg.title).tag(alg)
+                    ViewThatFits(in: .horizontal) {
+                        HStack(alignment: .firstTextBaseline, spacing: 12) {
+                            algorithmPickerRow
+                            Spacer(minLength: 0)
+                        }
+                        VStack(alignment: .leading, spacing: 12) {
+                            algorithmPickerRow
+                        }
+                    }
+
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 12) {
+                            windowSlider
+                            zThresholdSlider
+                            if viewModel.selectedAlgorithm == .ewma {
+                                ewmaSlider
                             }
                         }
-                        .labelsHidden()
-                        .pickerStyle(.segmented)
-                    }
-
-                    HStack(spacing: 12) {
-                        LabeledSlider(
-                            title: "Window (s)",
-                            value: Binding(
-                                get: { Double(viewModel.windowSeconds) },
-                                set: { viewModel.windowSeconds = Int($0.rounded()) }
-                            ),
-                            range: 5...600,
-                            step: 1,
-                            display: { "\(Int($0))" }
-                        )
-
-                        LabeledSlider(
-                            title: "Z Threshold",
-                            value: $viewModel.zThreshold,
-                            range: 0.5...10.0,
-                            step: 0.1,
-                            display: { String(format: "%.1f", $0) }
-                        )
-
-                        if viewModel.selectedAlgorithm == .ewma {
-                            LabeledSlider(
-                                title: "EWMA α",
-                                value: $viewModel.ewmaAlpha,
-                                range: 0.05...0.9,
-                                step: 0.05,
-                                display: { String(format: "%.2f", $0) }
-                            )
+                        VStack(alignment: .leading, spacing: 12) {
+                            windowSlider
+                            zThresholdSlider
+                            if viewModel.selectedAlgorithm == .ewma {
+                                ewmaSlider
+                            }
                         }
                     }
 
-                    LabeledSlider(
-                        title: "Time Range (s)",
-                        value: Binding(
-                            get: { viewModel.selectedTimeRange },
-                            set: { viewModel.setTimeRange($0) }
-                        ),
-                        range: 10...600,
-                        step: 10,
-                        display: { String(format: "%.0f", $0) }
-                    )
+                    timeRangeSlider
                 }
-            } label: {
-                Label("Analyzer", systemImage: "waveform.path.ecg")
             }
 
             HStack {
@@ -136,12 +105,16 @@ struct NetworkAnalyzerPreferencesSheet: View {
             }
         }
         .padding(20)
-        .frame(minWidth: 520)
+        .frame(minWidth: 560) // slightly wider for slider labels
     }
+
+    // MARK: - Derived
 
     private var currentAdapterSupportsPayload: Bool {
         viewModel.captureAdapters.first(where: { $0.mode == viewModel.selectedCaptureMode })?.supportsPayloadInspection ?? false
     }
+
+    // MARK: - Subviews
 
     private var header: some View {
         HStack(spacing: 10) {
@@ -156,6 +129,84 @@ struct NetworkAnalyzerPreferencesSheet: View {
             }
             Spacer()
         }
+    }
+
+    private var captureModePickerRow: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            Text("Capture Mode")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+            Picker("Capture Mode", selection: $viewModel.selectedCaptureMode) {
+                ForEach(viewModel.captureAdapters) { adapter in
+                    Text(adapter.title).tag(adapter.mode)
+                }
+            }
+            .labelsHidden()
+            .pickerStyle(.menu)
+            .frame(minWidth: 200)
+        }
+    }
+
+    private var algorithmPickerRow: some View {
+        HStack(spacing: 12) {
+            Text("Algorithm")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+            Picker("Algorithm", selection: $viewModel.selectedAlgorithm) {
+                ForEach(NetworkAnalyzerViewModel.AnalyzerAlgorithm.allCases) { alg in
+                    Text(alg.title).tag(alg)
+                }
+            }
+            .labelsHidden()
+            .pickerStyle(.segmented)
+            .frame(minWidth: 260)
+        }
+    }
+
+    private var windowSlider: some View {
+        LabeledSlider(
+            title: "Window (s)",
+            value: Binding(
+                get: { Double(viewModel.windowSeconds) },
+                set: { viewModel.windowSeconds = Int($0.rounded()) }
+            ),
+            range: 5...600,
+            step: 1,
+            display: { "\(Int($0))" }
+        )
+    }
+
+    private var zThresholdSlider: some View {
+        LabeledSlider(
+            title: "Z Threshold",
+            value: $viewModel.zThreshold,
+            range: 0.5...10.0,
+            step: 0.1,
+            display: { String(format: "%.1f", $0) }
+        )
+    }
+
+    private var ewmaSlider: some View {
+        LabeledSlider(
+            title: "EWMA α",
+            value: $viewModel.ewmaAlpha,
+            range: 0.05...0.9,
+            step: 0.05,
+            display: { String(format: "%.2f", $0) }
+        )
+    }
+
+    private var timeRangeSlider: some View {
+        LabeledSlider(
+            title: "Time Range (s)",
+            value: Binding(
+                get: { viewModel.selectedTimeRange },
+                set: { viewModel.setTimeRange($0) }
+            ),
+            range: 10...600,
+            step: 10,
+            display: { String(format: "%.0f", $0) }
+        )
     }
 }
 
@@ -190,7 +241,36 @@ private struct LabeledSlider: View {
                     .font(.caption.monospacedDigit())
             }
             Slider(value: $value, in: range, step: step)
-                .frame(minWidth: 160)
+                .frame(minWidth: 200)
         }
     }
 }
+
+// Local SectionCard to match other screens
+private struct SectionCard<Content: View>: View {
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            content
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.primary.opacity(0.03))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(Color.primary.opacity(0.06), lineWidth: 1)
+        )
+    }
+}
+
+private func sectionHeader(_ title: String) -> some View {
+    Text(title)
+        .font(.subheadline.weight(.semibold))
+        .foregroundStyle(.secondary)
+        .padding(.top, 4)
+}
+

@@ -59,9 +59,7 @@ struct NetworkAnalyzerView: View {
                         }
                     }
 
-                    // Traffic immediately follows Capture Configuration (no SectionCard)
-                    trafficSectionContents
-
+                    // Move Payload Inspection above Traffic to avoid overlap with GeometryReader section below
                     if let adapter = viewModel.captureAdapters.first(where: { $0.mode == viewModel.selectedCaptureMode }),
                        adapter.supportsPayloadInspection {
                         SectionCard {
@@ -69,6 +67,9 @@ struct NetworkAnalyzerView: View {
                             payloadControls(adapter: adapter)
                         }
                     }
+
+                    // Traffic immediately follows (no SectionCard)
+                    trafficSectionContents
                 }
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -221,7 +222,7 @@ struct NetworkAnalyzerView: View {
     private var sessionMenus: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                openPCAPButton
+                openMenu
                 sessionManagementMenu
                 exportMenu
                 toolsMenu
@@ -235,66 +236,64 @@ struct NetworkAnalyzerView: View {
 
     // MARK: - Traffic content (no SectionCard)
 
-    // MARK: - Traffic content (no SectionCard)
+    private var trafficSectionContents: some View {
+        // GeometryReader: compute available viewport height and stretch the table to bottom
+        GeometryReader { proxy in
+            // Compute a viewport-relative height for this Traffic block
+            let viewportHeight: CGFloat = {
+                // Frame of this block in global space
+                let frame = proxy.frame(in: .global)
+                // Height of the app’s main screen; fall back to proxy size if unavailable
+                let screenHeight = NSScreen.main?.visibleFrame.height ?? frame.height
+                // Visible height from current block’s top to bottom of the window
+                let available = max(0, screenHeight - frame.minY)
+                // Keep a sensible floor so the section never collapses
+                return max(520, available)
+            }()
 
-        private var trafficSectionContents: some View {
-            // GeometryReader: compute available viewport height and stretch the table to bottom
-            GeometryReader { proxy in
-                // Compute a viewport-relative height for this Traffic block
-                let viewportHeight: CGFloat = {
-                    // Frame of this block in global space
-                    let frame = proxy.frame(in: .global)
-                    // Height of the app’s main screen; fall back to proxy size if unavailable
-                    let screenHeight = NSScreen.main?.visibleFrame.height ?? frame.height
-                    // Visible height from current block’s top to bottom of the window
-                    let available = max(0, screenHeight - frame.minY)
-                    // Keep a sensible floor so the section never collapses
-                    return max(520, available)
-                }()
+            VStack(alignment: .leading, spacing: 12) {
+                sectionHeader("Traffic")
 
-                VStack(alignment: .leading, spacing: 12) {
-                    sectionHeader("Traffic")
-
-                    HStack(alignment: .firstTextBaseline, spacing: 16) {
-                        Label(viewModel.captureState.label, systemImage: "dot.radiowaves.left.and.right")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        Label(viewModel.analyzerState.label, systemImage: "chart.line.uptrend.xyaxis")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        Label("Anomalies: \(viewModel.streamingAnomalies.count)", systemImage: "exclamationmark.triangle")
-                            .font(.subheadline)
-                            .foregroundStyle(viewModel.streamingAnomalies.isEmpty ? Color.secondary : Color.orange)
-                        Spacer()
-                        summaryInline
-                    }
-                    .accessibilityElement(children: .combine)
-                    .accessibilityLabel(
-                        "Capture state \(viewModel.captureState.label). Analyzer state \(viewModel.analyzerState.label). " +
-                        "Detected anomalies \(viewModel.streamingAnomalies.count)."
-                    )
-
-                    if let error = viewModel.errorMessage {
-                        Label(error, systemImage: "exclamationmark.triangle.fill")
-                            .foregroundStyle(Color.orange)
-                            .font(.caption)
-                    }
-
-                    filterRow
-
-                    Divider().accessibilityHidden(true)
-
-                    // Table expands to fill remaining space
-                    PacketListView(packets: viewModel.filteredPackets, selection: $viewModel.selectedPacketID)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        .accessibilityLabel("Captured packets list")
-                        .accessibilityHint("Select a packet to review details")
+                HStack(alignment: .firstTextBaseline, spacing: 16) {
+                    Label(viewModel.captureState.label, systemImage: "dot.radiowaves.left.and.right")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Label(viewModel.analyzerState.label, systemImage: "chart.line.uptrend.xyaxis")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Label("Anomalies: \(viewModel.streamingAnomalies.count)", systemImage: "exclamationmark.triangle")
+                        .font(.subheadline)
+                        .foregroundStyle(viewModel.streamingAnomalies.isEmpty ? Color.secondary : Color.orange)
+                    Spacer()
+                    summaryInline
                 }
-                .frame(maxWidth: .infinity, minHeight: viewportHeight, alignment: .topLeading)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(
+                    "Capture state \(viewModel.captureState.label). Analyzer state \(viewModel.analyzerState.label). " +
+                    "Detected anomalies \(viewModel.streamingAnomalies.count)."
+                )
+
+                if let error = viewModel.errorMessage {
+                    Label(error, systemImage: "exclamationmark.triangle.fill")
+                        .foregroundStyle(Color.orange)
+                        .font(.caption)
+                }
+
+                filterRow
+
+                Divider().accessibilityHidden(true)
+
+                // Table expands to fill remaining space
+                PacketListView(packets: viewModel.filteredPackets, selection: $viewModel.selectedPacketID)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .accessibilityLabel("Captured packets list")
+                    .accessibilityHint("Select a packet to review details")
             }
-            // Give the GeometryReader a concrete minimum so it participates in ScrollView layout
-            .frame(maxWidth: .infinity, minHeight: 520)
+            .frame(maxWidth: .infinity, minHeight: viewportHeight, alignment: .topLeading)
         }
+        // Give the GeometryReader a concrete minimum so it participates in ScrollView layout
+        .frame(maxWidth: .infinity, minHeight: 520)
+    }
 
     private var sessionManagementMenu: some View {
         Menu {
@@ -358,15 +357,19 @@ struct NetworkAnalyzerView: View {
         .accessibilityLabel("Tools menu")
     }
 
-    // New: standalone Open PCAP button (replacing Samples menu)
-    private var openPCAPButton: some View {
-        Button {
-            viewModel.importCaptureFromDisk()
+    // Fix: Use a Menu (not a borderless Button) so it renders enabled consistently
+    private var openMenu: some View {
+        Menu {
+            Button {
+                viewModel.importCaptureFromDisk()
+            } label: {
+                Label("Open PCAP…", systemImage: "externaldrive.connected.to.line.below")
+            }
         } label: {
-            Label("Open PCAP…", systemImage: "externaldrive.connected.to.line.below")
+            Label("Open", systemImage: "tray.and.arrow.down")
         }
-        .buttonStyle(.borderless)
-        .accessibilityLabel("Open PCAP")
+        .menuStyle(.borderlessButton)
+        .accessibilityLabel("Open menu")
     }
 
     // MARK: - Filters
