@@ -13,6 +13,12 @@
 		7A373A692E9C089B00F26CEF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373A682E9C089B00F26CEF /* AboutView.swift */; };
 		7A373B082E9CA45F00F26CEF /* AuditFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373B072E9CA45F00F26CEF /* AuditFinding.swift */; };
 		7A373B0A2E9CA46900F26CEF /* RemediationCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */; };
+		7A3BB4422EB489FC001D7200 /* analyzer.py in Resources */ = {isa = PBXBuildFile; fileRef = 7A3BB4412EB489F5001D7200 /* analyzer.py */; };
+		7A3BB4442EB48A68001D7200 /* PythonProcessRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */; };
+		7A3BB4532EB48B96001D7200 /* NetworkAnalyzerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB44F2EB48B96001D7200 /* NetworkAnalyzerModels.swift */; };
+		7A3BB4542EB48B96001D7200 /* NetworkAnalyzerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4502EB48B96001D7200 /* NetworkAnalyzerViewModel.swift */; };
+		7A3BB4552EB48B96001D7200 /* NetworkAnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4512EB48B96001D7200 /* NetworkAnalyzerView.swift */; };
+		7A3BB4562EB48B96001D7200 /* NetworkAnalyzerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */; };
 		7A9ECFB22EB0998B0030CA39 /* HashGeneratorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB12EB0998B0030CA39 /* HashGeneratorDetailView.swift */; };
 		7A9ECFB42EB0A2AB0030CA39 /* NetworkInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB32EB0A2AB0030CA39 /* NetworkInfoService.swift */; };
 		7A9ECFB62EB0A2B60030CA39 /* NetworkProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB52EB0A2B60030CA39 /* NetworkProfileViewModel.swift */; };
@@ -20,6 +26,9 @@
 		7A9ECFBA2EB0B5DC0030CA39 /* NetworkProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB92EB0B5DC0030CA39 /* NetworkProfileDetailView.swift */; };
 		7A9ECFBC2EB0CA920030CA39 /* TTLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFBB2EB0CA910030CA39 /* TTLCache.swift */; };
 		7A9ECFBE2EB0CA920030CA39 /* EnrichmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFBD2EB0CA920030CA39 /* EnrichmentService.swift */; };
+		7AC6F0532F9A0B28001234AB /* PacketListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0522F9A0B28001234AB /* PacketListView.swift */; };
+		7AC6F0612F9A0B28001234AB /* PcapCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0602F9A0B28001234AB /* PcapCaptureController.swift */; };
+		7AC6F0632F9A0B28001234AB /* PcapPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0622F9A0B28001234AB /* PcapPacket.swift */; };
 		7AF2A1E62F5C617E00A1BEEF /* IntranetSecurityScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */; };
 		7AF2A1E72F5C617E00A1BEEF /* IntranetConsentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */; };
 		7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */; };
@@ -50,6 +59,9 @@
 		7AF2A2402F5C900300A1BEEF /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2132F5C900200A1BEEF /* Common.swift */; };
 		7AF2A2422F5C900300A1BEEF /* BigEndianBytesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2152F5C900200A1BEEF /* BigEndianBytesCollection.swift */; };
 		7AF2A2442F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2172F5C900200A1BEEF /* LittleEndianBytesCollection.swift */; };
+		7AF7A9662EB59E31008843E5 /* pcap1.pcapng in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7A9642EB59E31008843E5 /* pcap1.pcapng */; };
+		7AF7A9672EB59E31008843E5 /* pcap2.pcap in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7A9652EB59E31008843E5 /* pcap2.pcap */; };
+		7AF7AE7F2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */; };
 		BB1111112F1234567890ABCD /* AuditDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1111112F1234567890ABCD /* AuditDomain.swift */; };
 		BB2222222F1234567890ABCD /* ShellCommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2222222F1234567890ABCD /* ShellCommandRunner.swift */; };
 		BCD734CC29CDF6A000C0B779 /* AmanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD734CB29CDF6A000C0B779 /* AmanApp.swift */; };
@@ -66,6 +78,12 @@
 		7A373A682E9C089B00F26CEF /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		7A373B072E9CA45F00F26CEF /* AuditFinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditFinding.swift; sourceTree = "<group>"; };
 		7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediationCatalog.swift; sourceTree = "<group>"; };
+		7A3BB4412EB489F5001D7200 /* analyzer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = analyzer.py; sourceTree = "<group>"; };
+		7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonProcessRunner.swift; sourceTree = "<group>"; };
+		7A3BB44F2EB48B96001D7200 /* NetworkAnalyzerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerModels.swift; sourceTree = "<group>"; };
+		7A3BB4502EB48B96001D7200 /* NetworkAnalyzerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerViewModel.swift; sourceTree = "<group>"; };
+		7A3BB4512EB48B96001D7200 /* NetworkAnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerView.swift; sourceTree = "<group>"; };
+		7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerDetailView.swift; sourceTree = "<group>"; };
 		7A9ECFB12EB0998B0030CA39 /* HashGeneratorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashGeneratorDetailView.swift; sourceTree = "<group>"; };
 		7A9ECFB32EB0A2AB0030CA39 /* NetworkInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfoService.swift; sourceTree = "<group>"; };
 		7A9ECFB52EB0A2B60030CA39 /* NetworkProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProfileViewModel.swift; sourceTree = "<group>"; };
@@ -73,6 +91,9 @@
 		7A9ECFB92EB0B5DC0030CA39 /* NetworkProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProfileDetailView.swift; sourceTree = "<group>"; };
 		7A9ECFBB2EB0CA910030CA39 /* TTLCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLCache.swift; sourceTree = "<group>"; };
 		7A9ECFBD2EB0CA920030CA39 /* EnrichmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentService.swift; sourceTree = "<group>"; };
+		7AC6F0522F9A0B28001234AB /* PacketListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketListView.swift; sourceTree = "<group>"; };
+		7AC6F0602F9A0B28001234AB /* PcapCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PcapCaptureController.swift; sourceTree = "<group>"; };
+		7AC6F0622F9A0B28001234AB /* PcapPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PcapPacket.swift; sourceTree = "<group>"; };
 		7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetSecurityScanner.swift; sourceTree = "<group>"; };
 		7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetConsentStore.swift; sourceTree = "<group>"; };
 		7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurityViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +126,9 @@
 		7AF2A22D2F5C900300A1BEEF /* LittleEndianBytesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleEndianBytesCollection.swift; sourceTree = "<group>"; };
 		7AF2A23A2F5C900300A1BEEF /* HashGeneratorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashGeneratorViewModel.swift; sourceTree = "<group>"; };
 		7AF2A23C2F5C900300A1BEEF /* HashGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashGeneratorView.swift; sourceTree = "<group>"; };
+		7AF7A9642EB59E31008843E5 /* pcap1.pcapng */ = {isa = PBXFileReference; lastKnownFileType = file; path = pcap1.pcapng; sourceTree = "<group>"; };
+		7AF7A9652EB59E31008843E5 /* pcap2.pcap */ = {isa = PBXFileReference; lastKnownFileType = file; path = pcap2.pcap; sourceTree = "<group>"; };
+		7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerPreferencesSheet.swift; sourceTree = "<group>"; };
 		973655FDE4444A4D9472C05F /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		9D3022AFFAA541B0B58D1C15 /* AuditSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditSidebarView.swift; sourceTree = "<group>"; };
 		AA1111112F1234567890ABCD /* AuditDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDomain.swift; sourceTree = "<group>"; };
@@ -154,8 +178,23 @@
 				7A9ECFB92EB0B5DC0030CA39 /* NetworkProfileDetailView.swift */,
 				7A9ECFBB2EB0CA910030CA39 /* TTLCache.swift */,
 				7A9ECFBD2EB0CA920030CA39 /* EnrichmentService.swift */,
+				7A3BB44F2EB48B96001D7200 /* NetworkAnalyzerModels.swift */,
+				7A3BB4502EB48B96001D7200 /* NetworkAnalyzerViewModel.swift */,
+				7A3BB4512EB48B96001D7200 /* NetworkAnalyzerView.swift */,
+				7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */,
+				7AC6F0522F9A0B28001234AB /* PacketListView.swift */,
+				7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		7AC6F0702F9A0B28001234AB /* NetworkAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				7AC6F0602F9A0B28001234AB /* PcapCaptureController.swift */,
+				7AC6F0622F9A0B28001234AB /* PcapPacket.swift */,
+			);
+			path = NetworkAnalyzer;
 			sourceTree = "<group>";
 		};
 		7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */ = {
@@ -170,8 +209,11 @@
 		7AF2A1F42F5C7E6100A1BEEF /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				7A3BB4412EB489F5001D7200 /* analyzer.py */,
 				7AF2A1F22F5C7E6100A1BEEF /* WindowManager.swift */,
 				7AF2A2222F5C900300A1BEEF /* Aman-Bridging-Header.h */,
+				7AF7A9642EB59E31008843E5 /* pcap1.pcapng */,
+				7AF7A9652EB59E31008843E5 /* pcap2.pcap */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -309,8 +351,10 @@
 				7AF2A1F72F5C900000A1BEEF /* InternetSecurityToolkit.swift */,
 				7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */,
 				7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */,
+				7AC6F0702F9A0B28001234AB /* NetworkAnalyzer */,
 				7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */,
 				7AF2A23A2F5C900300A1BEEF /* HashGeneratorViewModel.swift */,
+				7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -376,7 +420,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A3BB4422EB489FC001D7200 /* analyzer.py in Resources */,
 				7A3374BB2EAE286A00E37B9B /* Aman.icon in Resources */,
+				7AF7A9662EB59E31008843E5 /* pcap1.pcapng in Resources */,
+				7AF7A9672EB59E31008843E5 /* pcap2.pcap in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +464,7 @@
 				7AF2A23D2F5C900300A1BEEF /* HashGeneratorView.swift in Sources */,
 				7AF2A2402F5C900300A1BEEF /* Common.swift in Sources */,
 				7AF2A2422F5C900300A1BEEF /* BigEndianBytesCollection.swift in Sources */,
+				7AF7AE7F2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift in Sources */,
 				7AF2A2442F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */,
 				7AF2A20A2F5C900200A1BEEF /* BLAKE3.swift in Sources */,
 				7AF2A20C2F5C900200A1BEEF /* ChunkState.swift in Sources */,
@@ -431,6 +479,14 @@
 				7AF2A2362F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */,
 				7AF2A21A2F5C900200A1BEEF /* SIMD+EBC.swift in Sources */,
 				7AF2A21C2F5C900200A1BEEF /* Whirlpool.swift in Sources */,
+				7A3BB4532EB48B96001D7200 /* NetworkAnalyzerModels.swift in Sources */,
+				7A3BB4542EB48B96001D7200 /* NetworkAnalyzerViewModel.swift in Sources */,
+				7A3BB4552EB48B96001D7200 /* NetworkAnalyzerView.swift in Sources */,
+				7A3BB4562EB48B96001D7200 /* NetworkAnalyzerDetailView.swift in Sources */,
+				7AC6F0532F9A0B28001234AB /* PacketListView.swift in Sources */,
+				7A3BB4442EB48A68001D7200 /* PythonProcessRunner.swift in Sources */,
+				7AC6F0612F9A0B28001234AB /* PcapCaptureController.swift in Sources */,
+				7AC6F0632F9A0B28001234AB /* PcapPacket.swift in Sources */,
 				7AF2A21E2F5C900200A1BEEF /* Whirlpool.c in Sources */,
 				7AF2A1EF2F5C61F000A1BEEF /* LandingSelectorView.swift in Sources */,
 				7A9ECFBA2EB0B5DC0030CA39 /* NetworkProfileDetailView.swift in Sources */,

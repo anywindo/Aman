@@ -12,6 +12,7 @@ struct NetworkSecurityView: View {
     @StateObject private var certificateLookupViewModel = CertificateLookupViewModel()
     @StateObject private var hashGeneratorViewModel = HashGeneratorViewModel()
     @StateObject private var networkProfileViewModel = NetworkProfileViewModel()
+    @StateObject private var networkAnalyzerViewModel = NetworkAnalyzerViewModel()
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
 
@@ -370,6 +371,8 @@ struct NetworkSecurityView: View {
             .background(Color.clear)
         case .utilitiesNetworkProfile:
             NetworkProfileView(viewModel: networkProfileViewModel)
+        case .utilitiesNetworkAnalyzer:
+            NetworkAnalyzerView(viewModel: networkAnalyzerViewModel)
         default:
             if let item = selectedItem {
                 placeholderContent(
@@ -395,6 +398,8 @@ struct NetworkSecurityView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         case .utilitiesNetworkProfile:
             NetworkProfileDetailView(viewModel: networkProfileViewModel)
+        case .utilitiesNetworkAnalyzer:
+            NetworkAnalyzerDetailView(viewModel: networkAnalyzerViewModel)
         default:
             if let item = selectedItem {
                 utilitiesDetailView(for: item)
@@ -467,6 +472,8 @@ private extension NetworkSecurityView {
             case .utilitiesHashGenerator:
                 HashGeneratorDetailView(viewModel: hashGeneratorViewModel)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            case .utilitiesNetworkAnalyzer:
+                NetworkAnalyzerDetailView(viewModel: networkAnalyzerViewModel)
             default:
                 PlaceholderDetailView(
                     title: item.overviewTitle,
