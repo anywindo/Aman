@@ -16,9 +16,10 @@ struct NetworkSecurityView: View {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
 
-    @State private var selectedItem: SidebarItem? = .internetToolkit
+    @State private var selectedItem: SidebarItem? = .utilitiesNetworkProfile
     @State private var selectedInternetCheck: InternetSecurityCheckResult.Kind? = .dnsLeak
     @State private var selectedCertificateID: CertificateEntry.ID?
+    @State private var selectedMappingHostID: DiscoveredHost.ID?
     @State private var showLandingConfirmation = false
     @State private var hoverSwitch = false
 
@@ -202,6 +203,11 @@ struct NetworkSecurityView: View {
         return certificateLookupViewModel.results.first(where: { $0.id == selectedCertificateID })
     }
 
+    private var selectedMappingHost: DiscoveredHost? {
+        guard let id = selectedMappingHostID else { return nil }
+        return viewModel.networkMappingHosts.first(where: { $0.id == id })
+    }
+
     var body: some View {
         splitLayout
             .navigationSplitViewStyle(.balanced)
@@ -226,6 +232,9 @@ struct NetworkSecurityView: View {
                 }
                 if item != .utilitiesCertificateLookup {
                     selectedCertificateID = nil
+                }
+                if item != .utilitiesNetworkMapping {
+                    selectedMappingHostID = nil
                 }
             }
             .onChange(of: certificateLookupViewModel.results) { results in
@@ -346,7 +355,7 @@ struct NetworkSecurityView: View {
 
     @ViewBuilder
     private var contentPane: some View {
-        switch selectedItem ?? .internetToolkit {
+        switch selectedItem ?? .utilitiesNetworkProfile {
         case .internetToolkit:
             InternetSecurityToolkitView(
                 selection: $selectedInternetCheck,
@@ -373,6 +382,17 @@ struct NetworkSecurityView: View {
             NetworkProfileView(viewModel: networkProfileViewModel)
         case .utilitiesNetworkAnalyzer:
             NetworkAnalyzerView(viewModel: networkAnalyzerViewModel)
+        case .utilitiesNetworkMapping:
+            NetworkMappingView(
+                coordinator: viewModel.coordinatorForNetworkMapping(),
+                hosts: viewModel.networkMappingHosts,
+                lastDelta: viewModel.lastNetworkDiscoveryDelta,
+                sampleError: viewModel.networkMappingSampleError,
+                selectedHostID: $selectedMappingHostID,
+                onDiscover: { viewModel.startNetworkDiscovery() },
+                onRefreshTopology: { viewModel.refreshNetworkTopology() },
+                onLoadSample: { viewModel.loadSampleNetworkData() }
+            )
         default:
             if let item = selectedItem {
                 placeholderContent(
@@ -388,7 +408,7 @@ struct NetworkSecurityView: View {
 
     @ViewBuilder
     private var detailPane: some View {
-        switch selectedItem ?? .internetToolkit {
+        switch selectedItem ?? .utilitiesNetworkProfile {
         case .internetToolkit:
             internetDetailView()
         case .utilitiesCertificateLookup:
@@ -400,6 +420,16 @@ struct NetworkSecurityView: View {
             NetworkProfileDetailView(viewModel: networkProfileViewModel)
         case .utilitiesNetworkAnalyzer:
             NetworkAnalyzerDetailView(viewModel: networkAnalyzerViewModel)
+        case .utilitiesNetworkMapping:
+            NetworkMappingDetailView(
+                host: selectedMappingHost,
+                scanState: viewModel.portScanState(for: selectedMappingHost),
+                mode: viewModel.currentPortScanMode,
+                onModeChange: { viewModel.setPortScanMode($0) },
+                onScan: { viewModel.runPortScan(for: $0) },
+                onCancel: { viewModel.cancelPortScan(for: $0) },
+                onRetry: { viewModel.runPortScan(for: $0) }
+            )
         default:
             if let item = selectedItem {
                 utilitiesDetailView(for: item)

@@ -87,10 +87,11 @@ struct NetworkAnalyzerDetailView: View {
             let perSecondMetrics = decimatedMetrics(sortedMetrics(viewModel.filteredPerSecondMetrics), maxPoints: 600)
             let perMinuteMetrics = sortedMetrics(viewModel.filteredPerMinuteMetrics)
             let annotations = viewModel.timelineAnnotations.sorted { $0.timestamp < $1.timestamp }
-            let maxY = max(
+            let maxValue = max(
                 perSecondMetrics.map(\.bytesPerSecond).max() ?? 0,
                 perMinuteMetrics.map(\.bytesPerSecond).max() ?? 0
             )
+            let yUpperBound = max(maxValue, 1)
 
             Chart {
                 ForEach(perSecondMetrics) { point in
@@ -114,10 +115,10 @@ struct NetworkAnalyzerDetailView: View {
                     RuleMark(x: .value("Annotation", annotation.timestamp))
                         .foregroundStyle(severityColor(annotation.severity).opacity(0.55))
                         .lineStyle(StrokeStyle(lineWidth: 1, dash: [3, 3]))
-                    if maxY > 0 {
+                    if yUpperBound > 0 {
                         PointMark(
                             x: .value("Annotation", annotation.timestamp),
-                            y: .value("Bytes/sec", maxY)
+                            y: .value("Bytes/sec", yUpperBound)
                         )
                         .symbolSize(50)
                         .foregroundStyle(severityColor(annotation.severity))
@@ -125,6 +126,7 @@ struct NetworkAnalyzerDetailView: View {
                 }
             }
             .frame(minHeight: 220)
+            .chartYScale(domain: 0...yUpperBound)
         } else {
             chartUnavailable
         }
@@ -385,11 +387,12 @@ struct NetworkAnalyzerDetailView: View {
             let baselineMetrics = sortedBaseline(result.baseline.filter { $0.window == .perSecond })
             let anomalies = (viewModel.streamingAnomalies.isEmpty ? result.anomalies : viewModel.streamingAnomalies)
                 .sorted { $0.timestamp < $1.timestamp }
-            let maxY = max(
+            let maxValue = max(
                 perSecondMetrics.map(\.bytesPerSecond).max() ?? 0,
                 baselineMetrics.map(\.bytesPerSecond).max() ?? 0,
                 anomalies.map(\.value).max() ?? 0
             )
+            let yUpperBound = max(maxValue, 1)
 
             Chart {
                 ForEach(perSecondMetrics) { point in
@@ -416,11 +419,11 @@ struct NetworkAnalyzerDetailView: View {
                     .foregroundStyle(anomaly.direction == .spike ? Color.red : Color.orange)
                     .symbolSize(36)
                 }
-                if maxY > 0 {
+                if yUpperBound > 0 {
                     ForEach(anomalies) { anomaly in
                         PointMark(
                             x: .value("Time", anomaly.timestamp),
-                            y: .value("Value", maxY)
+                            y: .value("Value", yUpperBound)
                         )
                         .symbolSize(36)
                         .foregroundStyle(anomaly.direction == .spike ? Color.red.opacity(0.5) : Color.orange.opacity(0.5))
@@ -428,6 +431,7 @@ struct NetworkAnalyzerDetailView: View {
                 }
             }
             .frame(minHeight: 220)
+            .chartYScale(domain: 0...yUpperBound)
         } else {
             chartUnavailable
         }

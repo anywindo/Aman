@@ -31,6 +31,21 @@
 		7AC6F0632F9A0B28001234AB /* PcapPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0622F9A0B28001234AB /* PcapPacket.swift */; };
 		7AF2A1E62F5C617E00A1BEEF /* IntranetSecurityScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */; };
 		7AF2A1E72F5C617E00A1BEEF /* IntranetConsentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */; };
+		7AF2B3012F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2112F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift */; };
+		7AF2B3022F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2122F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift */; };
+		7AF2B3032F5D0B2B00A1BEEF /* NetworkMappingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2132F5D0B2B00A1BEEF /* NetworkMappingModels.swift */; };
+		7AF2B3042F5D0B2B00A1BEEF /* NetworkPortScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2142F5D0B2B00A1BEEF /* NetworkPortScanService.swift */; };
+		7AF2B3052F5D0B2B00A1BEEF /* NetworkTopologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2152F5D0B2B00A1BEEF /* NetworkTopologyService.swift */; };
+		7AF2B3062F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2162F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift */; };
+		7AF2B3072F5D0B2B00A1BEEF /* NetworkProbes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2172F5D0B2B00A1BEEF /* NetworkProbes.swift */; };
+		7AF2B3082F5D0B2B00A1BEEF /* NetworkMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2182F5D0B2B00A1BEEF /* NetworkMappingView.swift */; };
+		7AF2B3092F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2192F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift */; };
+		7AF2B3682F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B3672F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift */; };
+		7AF2B30A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B21A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift */; };
+		7AF2B30B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B21B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift */; };
+		7AF2B30C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B21C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift */; };
+		7AF2B30D2F5D0B2B00A1BEEF /* NetworkTopologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2462F5D0B2B00A1BEEF /* NetworkTopologyView.swift */; };
+		7AF2B30E2F5D0B2B00A1BEEF /* network_mapping_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2B2472F5D0B2B00A1BEEF /* network_mapping_sample.json */; };
 		7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */; };
 		7AF2A1EC2F5C61F000A1BEEF /* NetworkSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1EE2F5C61F000A1BEEF /* NetworkSecurityView.swift */; };
 		7AF2A1EF2F5C61F000A1BEEF /* LandingSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1F02F5C61F000A1BEEF /* LandingSelectorView.swift */; };
@@ -98,6 +113,21 @@
 		7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetConsentStore.swift; sourceTree = "<group>"; };
 		7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurityViewModel.swift; sourceTree = "<group>"; };
 		7AF2A1EE2F5C61F000A1BEEF /* NetworkSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurityView.swift; sourceTree = "<group>"; };
+		7AF2B2112F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingCoordinator.swift; sourceTree = "<group>"; };
+		7AF2B2122F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiscoveryService.swift; sourceTree = "<group>"; };
+		7AF2B2132F5D0B2B00A1BEEF /* NetworkMappingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingModels.swift; sourceTree = "<group>"; };
+		7AF2B2142F5D0B2B00A1BEEF /* NetworkPortScanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPortScanService.swift; sourceTree = "<group>"; };
+		7AF2B2152F5D0B2B00A1BEEF /* NetworkTopologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTopologyService.swift; sourceTree = "<group>"; };
+		7AF2B2162F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiscoveryHistoryStore.swift; sourceTree = "<group>"; };
+		7AF2B2172F5D0B2B00A1BEEF /* NetworkProbes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProbes.swift; sourceTree = "<group>"; };
+		7AF2B21A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPortScanHistoryStore.swift; sourceTree = "<group>"; };
+		7AF2B21B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkScanLogger.swift; sourceTree = "<group>"; };
+		7AF2B21C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterfaceService.swift; sourceTree = "<group>"; };
+		7AF2B2472F5D0B2B00A1BEEF /* network_mapping_sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = network_mapping_sample.json; sourceTree = "<group>"; };
+		7AF2B3672F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingExportManager.swift; sourceTree = "<group>"; };
+		7AF2B2182F5D0B2B00A1BEEF /* NetworkMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingView.swift; sourceTree = "<group>"; };
+		7AF2B2192F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingDetailView.swift; sourceTree = "<group>"; };
+		7AF2B2462F5D0B2B00A1BEEF /* NetworkTopologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTopologyView.swift; sourceTree = "<group>"; };
 		7AF2A1F02F5C61F000A1BEEF /* LandingSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingSelectorView.swift; sourceTree = "<group>"; };
 		7AF2A1F22F5C7E6100A1BEEF /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		7AF2A1F72F5C900000A1BEEF /* InternetSecurityToolkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSecurityToolkit.swift; sourceTree = "<group>"; };
@@ -184,6 +214,9 @@
 				7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */,
 				7AC6F0522F9A0B28001234AB /* PacketListView.swift */,
 				7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */,
+				7AF2B2182F5D0B2B00A1BEEF /* NetworkMappingView.swift */,
+				7AF2B2192F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift */,
+				7AF2B2462F5D0B2B00A1BEEF /* NetworkTopologyView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -214,6 +247,7 @@
 				7AF2A2222F5C900300A1BEEF /* Aman-Bridging-Header.h */,
 				7AF7A9642EB59E31008843E5 /* pcap1.pcapng */,
 				7AF7A9652EB59E31008843E5 /* pcap2.pcap */,
+				7AF2B2472F5D0B2B00A1BEEF /* network_mapping_sample.json */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -352,11 +386,30 @@
 				7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */,
 				7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */,
 				7AC6F0702F9A0B28001234AB /* NetworkAnalyzer */,
+				7AF2B2202F5D0B2B00A1BEEF /* NetworkMapping */,
 				7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */,
 				7AF2A23A2F5C900300A1BEEF /* HashGeneratorViewModel.swift */,
 				7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */,
 			);
 			path = Engine;
+			sourceTree = "<group>";
+		};
+		7AF2B2202F5D0B2B00A1BEEF /* NetworkMapping */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2B2112F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift */,
+				7AF2B2122F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift */,
+				7AF2B2162F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift */,
+				7AF2B21C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift */,
+				7AF2B21A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift */,
+				7AF2B2172F5D0B2B00A1BEEF /* NetworkProbes.swift */,
+				7AF2B2132F5D0B2B00A1BEEF /* NetworkMappingModels.swift */,
+				7AF2B2142F5D0B2B00A1BEEF /* NetworkPortScanService.swift */,
+				7AF2B2152F5D0B2B00A1BEEF /* NetworkTopologyService.swift */,
+				7AF2B21B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift */,
+				7AF2B3672F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift */,
+			);
+			path = NetworkMapping;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,6 +477,7 @@
 				7A3374BB2EAE286A00E37B9B /* Aman.icon in Resources */,
 				7AF7A9662EB59E31008843E5 /* pcap1.pcapng in Resources */,
 				7AF7A9672EB59E31008843E5 /* pcap2.pcap in Resources */,
+				7AF2B30E2F5D0B2B00A1BEEF /* network_mapping_sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +506,17 @@
 				7AF2A1F62F5C900000A1BEEF /* InternetSecurityToolkit.swift in Sources */,
 				7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */,
 				7AF2A1EC2F5C61F000A1BEEF /* NetworkSecurityView.swift in Sources */,
+				7AF2B3012F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift in Sources */,
+				7AF2B3022F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift in Sources */,
+				7AF2B3062F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift in Sources */,
+				7AF2B3072F5D0B2B00A1BEEF /* NetworkProbes.swift in Sources */,
+				7AF2B3032F5D0B2B00A1BEEF /* NetworkMappingModels.swift in Sources */,
+				7AF2B3042F5D0B2B00A1BEEF /* NetworkPortScanService.swift in Sources */,
+				7AF2B3052F5D0B2B00A1BEEF /* NetworkTopologyService.swift in Sources */,
+				7AF2B30A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift in Sources */,
+				7AF2B30B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift in Sources */,
+				7AF2B30C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift in Sources */,
+				7AF2B3682F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift in Sources */,
 				7AF2A1F82F5C900100A1BEEF /* InternetSecurityToolkitView.swift in Sources */,
 				7A9ECFB62EB0A2B60030CA39 /* NetworkProfileViewModel.swift in Sources */,
 				7A9ECFB42EB0A2AB0030CA39 /* NetworkInfoService.swift in Sources */,
@@ -483,6 +548,9 @@
 				7A3BB4542EB48B96001D7200 /* NetworkAnalyzerViewModel.swift in Sources */,
 				7A3BB4552EB48B96001D7200 /* NetworkAnalyzerView.swift in Sources */,
 				7A3BB4562EB48B96001D7200 /* NetworkAnalyzerDetailView.swift in Sources */,
+				7AF2B3082F5D0B2B00A1BEEF /* NetworkMappingView.swift in Sources */,
+				7AF2B3092F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift in Sources */,
+				7AF2B30D2F5D0B2B00A1BEEF /* NetworkTopologyView.swift in Sources */,
 				7AC6F0532F9A0B28001234AB /* PacketListView.swift in Sources */,
 				7A3BB4442EB48A68001D7200 /* PythonProcessRunner.swift in Sources */,
 				7AC6F0612F9A0B28001234AB /* PcapCaptureController.swift in Sources */,
