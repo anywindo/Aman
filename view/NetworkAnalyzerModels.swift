@@ -106,6 +106,76 @@ struct AnalyzerResult: Codable, Hashable {
     let summary: AnalyzerSummary
     let clusters: [CorrelationCluster]?
     let payloadSummary: [String: Double]?
+    let advancedDetection: AdvancedDetectionResult?
+    let changePoints: [ChangePointEvent]?
+    let multivariateScores: [MultivariateScore]?
+    let multivariateDiagnostics: MultivariateDiagnostics?
+    let newTalkers: [NewTalker]?
+    let newTalkerDiagnostics: NewTalkerDiagnostics?
+    let alerts: AdvancedAlertPayload?
+
+    private enum CodingKeys: String, CodingKey {
+        case metrics
+        case baseline
+        case anomalies
+        case summary
+        case clusters
+        case payloadSummary
+        case advancedDetection
+        case changePoints
+        case multivariateScores
+        case multivariateDiagnostics
+        case newTalkers
+        case newTalkerDiagnostics
+        case alerts
+    }
+
+    init(
+        metrics: [MetricPoint],
+        baseline: [BaselinePoint],
+        anomalies: [Anomaly],
+        summary: AnalyzerSummary,
+        clusters: [CorrelationCluster]?,
+        payloadSummary: [String: Double]?,
+        advancedDetection: AdvancedDetectionResult?,
+        changePoints: [ChangePointEvent]?,
+        multivariateScores: [MultivariateScore]?,
+        multivariateDiagnostics: MultivariateDiagnostics?,
+        newTalkers: [NewTalker]?,
+        newTalkerDiagnostics: NewTalkerDiagnostics?,
+        alerts: AdvancedAlertPayload?
+    ) {
+        self.metrics = metrics
+        self.baseline = baseline
+        self.anomalies = anomalies
+        self.summary = summary
+        self.clusters = clusters
+        self.payloadSummary = payloadSummary
+        self.advancedDetection = advancedDetection
+        self.changePoints = changePoints
+        self.multivariateScores = multivariateScores
+        self.multivariateDiagnostics = multivariateDiagnostics
+        self.newTalkers = newTalkers
+        self.newTalkerDiagnostics = newTalkerDiagnostics
+        self.alerts = alerts
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        metrics = try container.decodeIfPresent([MetricPoint].self, forKey: .metrics) ?? []
+        baseline = try container.decodeIfPresent([BaselinePoint].self, forKey: .baseline) ?? []
+        anomalies = try container.decodeIfPresent([Anomaly].self, forKey: .anomalies) ?? []
+        summary = try container.decode(AnalyzerSummary.self, forKey: .summary)
+        clusters = try container.decodeIfPresent([CorrelationCluster].self, forKey: .clusters)
+        payloadSummary = try container.decodeIfPresent([String: Double].self, forKey: .payloadSummary)
+        advancedDetection = try container.decodeIfPresent(AdvancedDetectionResult.self, forKey: .advancedDetection)
+        changePoints = try container.decodeIfPresent([ChangePointEvent].self, forKey: .changePoints)
+        multivariateScores = try container.decodeIfPresent([MultivariateScore].self, forKey: .multivariateScores)
+        multivariateDiagnostics = try container.decodeIfPresent(MultivariateDiagnostics.self, forKey: .multivariateDiagnostics)
+        newTalkers = try container.decodeIfPresent([NewTalker].self, forKey: .newTalkers)
+        newTalkerDiagnostics = try container.decodeIfPresent(NewTalkerDiagnostics.self, forKey: .newTalkerDiagnostics)
+        alerts = try container.decodeIfPresent(AdvancedAlertPayload.self, forKey: .alerts)
+    }
 }
 
 struct AnalyzerPayloadConfig: Codable, Hashable {
@@ -278,6 +348,21 @@ struct AnalyzerRequest: Codable, Hashable {
     let metrics: [MetricPoint]
     let params: AnalyzerParams
     let payloadConfig: AnalyzerPayloadConfig?
+    let controls: AnalyzerControls?
+}
+
+struct AnalyzerControls: Codable, Hashable {
+    let disableDetectors: [String]?
+    let detectorParams: [String: [String: Double]]?
+    let alerts: AnalyzerAlertConfig?
+}
+
+struct AnalyzerAlertConfig: Codable, Hashable {
+    let scoreThreshold: Double
+    let notificationsEnabled: Bool
+    let webhookEnabled: Bool
+    let webhookURL: String?
+    let destinations: [String]?
 }
 
 struct AnalyzerPreferencesSnapshot: Codable, Hashable {
@@ -288,6 +373,15 @@ struct AnalyzerPreferencesSnapshot: Codable, Hashable {
     let algorithm: String
     let ewmaAlpha: Double
     let payloadInspectionEnabled: Bool
+    let detectorLegacyEnabled: Bool?
+    let detectorSeasonalityEnabled: Bool?
+    let detectorChangePointEnabled: Bool?
+    let detectorMultivariateEnabled: Bool?
+    let detectorNewTalkerEnabled: Bool?
+    let alertScoreThreshold: Double?
+    let alertNotificationsEnabled: Bool?
+    let alertWebhookEnabled: Bool?
+    let alertWebhookURL: String?
 }
 
 struct AnalyzerSession: Codable, Hashable {

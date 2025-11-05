@@ -316,7 +316,42 @@ struct NetworkAnalyzerDetailView: View {
             VStack(alignment: .leading, spacing: 18) {
                 Text("Anomaly Detection")
                     .font(.headline)
+                detectorControlsPanel
+                alertControlsPanel
                 analyzerVisualization(for: result)
+                if let advanced = result.advancedDetection {
+                    if let multivariateScores = advanced.multivariate?.scores, !multivariateScores.isEmpty {
+                        multivariatePanel(scores: multivariateScores, diagnostics: advanced.multivariate?.diagnostics)
+                    } else if let fallbackScores = result.multivariateScores, !fallbackScores.isEmpty {
+                        multivariatePanel(scores: fallbackScores, diagnostics: result.multivariateDiagnostics)
+                    }
+                    if let changePoints = advanced.changePoints ?? result.changePoints, !changePoints.isEmpty {
+                        changePointPanel(changePoints: changePoints, diagnostics: advanced.changePointDiagnostics)
+                    }
+                    if let newTalkers = advanced.newTalkers?.entries, !newTalkers.isEmpty {
+                        newTalkerPanel(entries: newTalkers, diagnostics: advanced.newTalkers?.diagnostics)
+                    } else if let fallbackTalkers = result.newTalkers, !fallbackTalkers.isEmpty {
+                        newTalkerPanel(entries: fallbackTalkers, diagnostics: result.newTalkerDiagnostics)
+                    }
+                    if let alerts = advanced.alerts?.events, !alerts.isEmpty {
+                        alertPanel(events: alerts)
+                    } else if let fallbackAlerts = result.alerts?.events, !fallbackAlerts.isEmpty {
+                        alertPanel(events: fallbackAlerts)
+                    }
+                } else {
+                    if let multivariateScores = result.multivariateScores, !multivariateScores.isEmpty {
+                        multivariatePanel(scores: multivariateScores, diagnostics: result.multivariateDiagnostics)
+                    }
+                    if let changePoints = result.changePoints, !changePoints.isEmpty {
+                        changePointPanel(changePoints: changePoints, diagnostics: nil)
+                    }
+                    if let newTalkers = result.newTalkers, !newTalkers.isEmpty {
+                        newTalkerPanel(entries: newTalkers, diagnostics: result.newTalkerDiagnostics)
+                    }
+                    if let alerts = result.alerts?.events, !alerts.isEmpty {
+                        alertPanel(events: alerts)
+                    }
+                }
                 if let payload = result.payloadSummary, !payload.isEmpty {
                     payloadSummary(payload)
                 }
@@ -379,6 +414,246 @@ struct NetworkAnalyzerDetailView: View {
         }
     }
 
+    private func changePointPanel(changePoints: [ChangePointEvent], diagnostics: ChangePointDiagnostics?) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Change Points")
+                .font(.subheadline.weight(.semibold))
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(changePoints.prefix(5)) { point in
+                    HStack(alignment: .firstTextBaseline, spacing: 12) {
+                        Text(NetworkAnalyzerView.timeFormatter.string(from: point.timestamp))
+                            .font(.caption.weight(.semibold))
+                        Text(changePointLabel(point))
+                            .font(.caption)
+                        Spacer()
+                        Text(String(format: "%+.1f", point.meanDelta))
+                            .font(.caption.monospacedDigit())
+                            .foregroundStyle(point.direction == "increase" ? Color.green : Color.purple)
+                    }
+                }
+                if changePoints.count > 5 {
+                    Text("+\(changePoints.count - 5) more")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            if let diagnostics {
+                HStack(spacing: 12) {
+                    if let window = diagnostics.windowSeconds {
+                        Text(String(format: "Window %.0fs", window))
+                            .font(.caption2)
+                    }
+                    if let threshold = diagnostics.thresholdStdDevs {
+                        Text(String(format: "Threshold %.1fσ", threshold))
+                            .font(.caption2)
+                    }
+                    if let detected = diagnostics.detected {
+                        Text("Detected: \(detected)")
+                            .font(.caption2)
+                    }
+                }
+                .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+private func changePointLabel(_ point: ChangePointEvent) -> String {
+    let directionArrow = point.direction == "increase" ? "↑" : "↓"
+    return "\(point.metric) \(directionArrow)"
+}
+
+    private func multivariatePanel(scores: [MultivariateScore], diagnostics: MultivariateDiagnostics?) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Multivariate Outliers")
+                .font(.subheadline.weight(.semibold))
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(scores.prefix(5)) { score in
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 12) {
+                            Text(NetworkAnalyzerView.timeFormatter.string(from: score.timestamp))
+                                .font(.caption.weight(.semibold))
+                            Text(String(format: "%.1fσ", score.score))
+                                .font(.caption.monospacedDigit())
+                                .foregroundStyle(Color.pink)
+                        }
+                        if !score.contributions.isEmpty {
+                            HStack(spacing: 8) {
+                                ForEach(score.contributions.prefix(3)) { contribution in
+                                    Text(multivariateContributionLabel(contribution))
+                                        .font(.caption2)
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(
+                                            Capsule()
+                                                .fill((contribution.direction == "increase" ? Color.green : Color.purple).opacity(0.15))
+                                        )
+                                }
+                            }
+                        }
+                    }
+                }
+                if scores.count > 5 {
+                    Text("+\(scores.count - 5) more")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            if let diagnostics {
+                HStack(spacing: 12) {
+                    if let windowSteps = diagnostics.windowSteps {
+                        Text("Window: \(windowSteps) samples")
+                            .font(.caption2)
+                    }
+                    if let evaluated = diagnostics.evaluatedPoints {
+                        Text("Evaluated: \(evaluated)")
+                            .font(.caption2)
+                    }
+                }
+                .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func multivariateContributionLabel(_ contribution: FeatureContribution) -> String {
+        let arrow = contribution.direction == "increase" ? "↑" : "↓"
+        return "\(contribution.feature) \(arrow) \(String(format: "%.0f%%", contribution.weight * 100))"
+    }
+
+    private var detectorControlsPanel: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Detector Controls")
+                .font(.subheadline.weight(.semibold))
+            HStack(spacing: 16) {
+                Toggle("Legacy", isOn: $viewModel.detectorLegacyEnabled)
+                Toggle("Seasonality", isOn: $viewModel.detectorSeasonalityEnabled)
+                Toggle("Change-Point", isOn: $viewModel.detectorChangePointEnabled)
+            }
+            .toggleStyle(.switch)
+            HStack(spacing: 16) {
+                Toggle("Multivariate", isOn: $viewModel.detectorMultivariateEnabled)
+                Toggle("New Talker", isOn: $viewModel.detectorNewTalkerEnabled)
+            }
+            .toggleStyle(.switch)
+        }
+    }
+
+    private var alertControlsPanel: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Alerting")
+                .font(.subheadline.weight(.semibold))
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(String(format: "Threshold %.2f", viewModel.alertScoreThreshold))
+                        .font(.caption)
+                    Slider(value: $viewModel.alertScoreThreshold, in: 0.5...1.0, step: 0.05)
+                        .frame(maxWidth: 180)
+                }
+                HStack(spacing: 16) {
+                    Toggle("Notifications", isOn: $viewModel.alertNotificationsEnabled)
+                    Toggle("Webhook", isOn: $viewModel.alertWebhookEnabled)
+                }
+                .toggleStyle(.switch)
+                if viewModel.alertWebhookEnabled {
+                    TextField("Webhook URL", text: $viewModel.alertWebhookURL)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.caption)
+                        .frame(maxWidth: 320)
+                }
+            }
+        }
+    }
+
+    private func newTalkerPanel(entries: [NewTalker], diagnostics: NewTalkerDiagnostics?) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("New Talkers")
+                .font(.subheadline.weight(.semibold))
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(entries.prefix(5)) { entry in
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 12) {
+                            Text("\(entry.tagType): \(entry.tagValue)")
+                                .font(.caption.weight(.semibold))
+                            Text(NetworkAnalyzerView.timeFormatter.string(from: entry.firstSeen))
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                        HStack(spacing: 12) {
+                            Text("Bytes \(NetworkAnalyzerView.byteFormatter(Int(entry.totalBytes)))")
+                                .font(.caption2)
+                            Text("Samples \(entry.samples)")
+                                .font(.caption2)
+                            if let delta = entry.entropyDelta {
+                                Text(String(format: "ΔH %.2f", delta))
+                                    .font(.caption2)
+                            }
+                        }
+                        .foregroundStyle(.secondary)
+                    }
+                }
+                if entries.count > 5 {
+                    Text("+\(entries.count - 5) more")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            if let diagnostics {
+                HStack(spacing: 12) {
+                    if let detected = diagnostics.detected {
+                        Text("Detected: \(detected)")
+                            .font(.caption2)
+                    }
+                    if let evaluated = diagnostics.uniqueTagsEvaluated {
+                        Text("Tags seen: \(evaluated)")
+                            .font(.caption2)
+                    }
+                }
+                .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func alertPanel(events: [AlertEvent]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Alerts")
+                .font(.subheadline.weight(.semibold))
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(events.prefix(5)) { event in
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 12) {
+                            Text(NetworkAnalyzerView.timeFormatter.string(from: event.timestamp))
+                                .font(.caption.weight(.semibold))
+                            Text(event.detector.uppercased())
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                        Text(event.message)
+                            .font(.caption)
+                        HStack(spacing: 12) {
+                            Text(String(format: "Score %.2f", event.score))
+                                .font(.caption2)
+                                .foregroundStyle(event.severity == "critical" ? Color.red : Color.orange)
+                            if let destinations = event.destinations, !destinations.isEmpty {
+                                Text(destinations.joined(separator: ", "))
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(event.severity == "critical" ? Color.red.opacity(0.08) : Color.orange.opacity(0.08))
+                    )
+                }
+                if events.count > 5 {
+                    Text("+\(events.count - 5) more")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+    }
+
     @ViewBuilder
     private func analyzerChart(result: AnalyzerResult) -> some View {
         #if canImport(Charts)
@@ -393,8 +668,26 @@ struct NetworkAnalyzerDetailView: View {
                 anomalies.map(\.value).max() ?? 0
             )
             let yUpperBound = max(maxValue, 1)
+            let seasonalityBand = result.advancedDetection?
+                .seasonality?
+                .metrics["bytesPerSecond"]?
+                .band ?? []
+
+            let changePoints = result.advancedDetection?.changePoints ?? result.changePoints ?? []
+            let multivariateScores = result.advancedDetection?.multivariate?.scores ?? result.multivariateScores ?? []
 
             Chart {
+                if !seasonalityBand.isEmpty {
+                    ForEach(seasonalityBand) { band in
+                        AreaMark(
+                            x: .value("Time", band.timestamp),
+                            yStart: .value("Seasonality Lower", max(0, band.lower)),
+                            yEnd: .value("Seasonality Upper", band.upper)
+                        )
+                        .foregroundStyle(Color.cyan.opacity(0.18))
+                        .interpolationMethod(.monotone)
+                    }
+                }
                 ForEach(perSecondMetrics) { point in
                     LineMark(
                         x: .value("Time", point.timestamp),
@@ -429,9 +722,47 @@ struct NetworkAnalyzerDetailView: View {
                         .foregroundStyle(anomaly.direction == .spike ? Color.red.opacity(0.5) : Color.orange.opacity(0.5))
                     }
                 }
+                if !changePoints.isEmpty {
+                    ForEach(changePoints) { changePoint in
+                        RuleMark(x: .value("Time", changePoint.timestamp))
+                            .lineStyle(StrokeStyle(lineWidth: 1, dash: [2, 3]))
+                            .foregroundStyle(changePoint.direction == "increase" ? Color.green : Color.purple)
+                            .annotation(position: .top, alignment: .leading) {
+                                Text(changePointLabel(changePoint))
+                                    .font(.caption2)
+                                    .padding(.horizontal, 4)
+                                    .padding(.vertical, 2)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color.black.opacity(0.5))
+                                    )
+                                    .foregroundStyle(Color.white)
+                            }
+                    }
+                }
+                if !multivariateScores.isEmpty {
+                    ForEach(multivariateScores) { score in
+                        PointMark(
+                            x: .value("Time", score.timestamp),
+                            y: .value("Value", yUpperBound * 0.95)
+                        )
+                        .symbolSize(24)
+                        .foregroundStyle(Color.pink)
+                        .annotation(position: .topTrailing) {
+                            Text(String(format: "%.1fσ", score.score))
+                                .font(.caption2)
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(Color.pink.opacity(0.2))
+                                )
+                        }
+                    }
+                }
             }
-            .frame(minHeight: 220)
             .chartYScale(domain: 0...yUpperBound)
+            .frame(minHeight: 220)
         } else {
             chartUnavailable
         }

@@ -13,6 +13,7 @@ struct NetworkSecurityView: View {
     @StateObject private var hashGeneratorViewModel = HashGeneratorViewModel()
     @StateObject private var networkProfileViewModel = NetworkProfileViewModel()
     @StateObject private var networkAnalyzerViewModel = NetworkAnalyzerViewModel()
+    @StateObject private var consentStore = NetworkWorkspaceConsentStore()
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
 
@@ -22,6 +23,10 @@ struct NetworkSecurityView: View {
     @State private var selectedMappingHostID: DiscoveredHost.ID?
     @State private var showLandingConfirmation = false
     @State private var hoverSwitch = false
+    @State private var lastConfirmedItem: SidebarItem = .utilitiesNetworkProfile
+    @State private var pendingConsentFeature: NetworkConsentFeature?
+    @State private var pendingSidebarItem: SidebarItem?
+    @State private var showConsentSheet = false
 
     private enum SidebarCategory: String, CaseIterable, Identifiable {
         case internetSecurity = "Internet Security"
@@ -224,24 +229,31 @@ struct NetworkSecurityView: View {
             }
             .onChange(of: selectedItem) { item in
                 guard let item else { return }
-                if item == .internetToolkit, selectedInternetCheck == nil {
-                    selectedInternetCheck = .dnsLeak
-                }
-                if item != .internetToolkit {
-                    selectedInternetCheck = nil
-                }
-                if item != .utilitiesCertificateLookup {
-                    selectedCertificateID = nil
-                }
-                if item != .utilitiesNetworkMapping {
-                    selectedMappingHostID = nil
-                }
+                handleSelectionChange(for: item)
             }
             .onChange(of: certificateLookupViewModel.results) { results in
                 guard let currentID = selectedCertificateID else { return }
                 if !results.contains(where: { $0.id == currentID }) {
                     selectedCertificateID = nil
                 }
+            }
+            .sheet(isPresented: $showConsentSheet, onDismiss: {
+                pendingConsentFeature = nil
+                pendingSidebarItem = nil
+            }) {
+                if let feature = pendingConsentFeature {
+                    NetworkConsentView(
+                        feature: feature,
+                        onDecline: { concludeConsent(granted: false) },
+                        onAccept: { concludeConsent(granted: true) }
+                    )
+                } else {
+                    EmptyView()
+                }
+            }
+            .onAppear {
+                let current = selectedItem ?? .utilitiesNetworkProfile
+                lastConfirmedItem = current
             }
     }
 
@@ -351,6 +363,64 @@ struct NetworkSecurityView: View {
         }
         .listStyle(.sidebar)
         .frame(minWidth: 260, idealWidth: 300)
+    }
+
+    private func handleSelectionChange(for item: SidebarItem) {
+        if let feature = consentFeature(for: item), !consentStore.hasConsent(for: feature) {
+            pendingConsentFeature = feature
+            pendingSidebarItem = item
+            DispatchQueue.main.async {
+                selectedItem = lastConfirmedItem
+            }
+            showConsentSheet = true
+            return
+        }
+
+        lastConfirmedItem = item
+
+        if item == .internetToolkit, selectedInternetCheck == nil {
+            selectedInternetCheck = .dnsLeak
+        }
+        if item != .internetToolkit {
+            selectedInternetCheck = nil
+        }
+        if item != .utilitiesCertificateLookup {
+            selectedCertificateID = nil
+        }
+        if item != .utilitiesNetworkMapping {
+            selectedMappingHostID = nil
+        }
+    }
+
+    private func consentFeature(for item: SidebarItem) -> NetworkConsentFeature? {
+        switch item {
+        case .utilitiesNetworkAnalyzer:
+            return .analyzer
+        case .utilitiesNetworkMapping:
+            return .mapping
+        default:
+            return nil
+        }
+    }
+
+    private func concludeConsent(granted: Bool) {
+        guard let feature = pendingConsentFeature else {
+            showConsentSheet = false
+            return
+        }
+
+        if granted {
+            consentStore.recordConsent(true, for: feature)
+            if let item = pendingSidebarItem {
+                DispatchQueue.main.async {
+                    selectedItem = item
+                }
+            }
+        }
+
+        pendingConsentFeature = nil
+        pendingSidebarItem = nil
+        showConsentSheet = false
     }
 
     @ViewBuilder
