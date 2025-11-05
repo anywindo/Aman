@@ -218,6 +218,38 @@ final class NetworkAnalyzerViewModel: ObservableObject {
     @Published var selectedProtocolFilter: String?
     @Published var selectedDestinationFilter: String?
     @Published var selectedPortFilter: String?
+    @Published var detectorLegacyEnabled: Bool = true {
+        didSet { scheduleStreamingAnalysis(); persistPreferences() }
+    }
+    @Published var detectorSeasonalityEnabled: Bool = true {
+        didSet { scheduleStreamingAnalysis(); persistPreferences() }
+    }
+    @Published var detectorChangePointEnabled: Bool = true {
+        didSet { scheduleStreamingAnalysis(); persistPreferences() }
+    }
+    @Published var detectorMultivariateEnabled: Bool = true {
+        didSet { scheduleStreamingAnalysis(); persistPreferences() }
+    }
+    @Published var detectorNewTalkerEnabled: Bool = true {
+        didSet { scheduleStreamingAnalysis(); persistPreferences() }
+    }
+    @Published var alertScoreThreshold: Double = 0.9 {
+        didSet {
+            if alertScoreThreshold < 0.5 { alertScoreThreshold = 0.5 }
+            if alertScoreThreshold > 1.0 { alertScoreThreshold = 1.0 }
+            scheduleStreamingAnalysis()
+            persistPreferences()
+        }
+    }
+    @Published var alertNotificationsEnabled: Bool = false {
+        didSet { persistPreferences() }
+    }
+    @Published var alertWebhookEnabled: Bool = false {
+        didSet { persistPreferences() }
+    }
+    @Published var alertWebhookURL: String = "" {
+        didSet { persistPreferences() }
+    }
     @Published var selectedTimeRange: TimeInterval = 120 {
         didSet {
             applyFilters()
@@ -433,6 +465,40 @@ final class NetworkAnalyzerViewModel: ObservableObject {
         )
     }
 
+    private var disabledDetectorIdentifiers: [String] {
+        var identifiers: [String] = []
+        if !detectorLegacyEnabled { identifiers.append("legacy") }
+        if !detectorSeasonalityEnabled { identifiers.append("seasonality") }
+        if !detectorChangePointEnabled { identifiers.append("changepoint") }
+        if !detectorMultivariateEnabled { identifiers.append("multivariate") }
+        if !detectorNewTalkerEnabled { identifiers.append("newtalker") }
+        return identifiers
+    }
+
+    private var alertDestinations: [String]? {
+        var destinations: [String] = []
+        if alertNotificationsEnabled { destinations.append("notification") }
+        if alertWebhookEnabled && !alertWebhookURL.isEmpty { destinations.append("webhook") }
+        return destinations.isEmpty ? nil : destinations
+    }
+
+    private func buildAnalyzerControls() -> AnalyzerControls? {
+        let disabled = disabledDetectorIdentifiers
+        let alerts = AnalyzerAlertConfig(
+            scoreThreshold: alertScoreThreshold,
+            notificationsEnabled: alertNotificationsEnabled,
+            webhookEnabled: alertWebhookEnabled,
+            webhookURL: alertWebhookEnabled ? (alertWebhookURL.isEmpty ? nil : alertWebhookURL) : nil,
+            destinations: alertDestinations
+        )
+        let controls = AnalyzerControls(
+            disableDetectors: disabled.isEmpty ? nil : disabled,
+            detectorParams: nil,
+            alerts: alerts
+        )
+        return controls
+    }
+
     private func loadPreferences() {
         guard let data = preferencesDefaults.data(forKey: preferencesKey) else { return }
         do {
@@ -452,6 +518,15 @@ final class NetworkAnalyzerViewModel: ObservableObject {
             ewmaAlpha = stored.ewmaAlpha
             payloadInspectionEnabled = stored.payloadInspectionEnabled
             payloadConsentGranted = stored.payloadInspectionEnabled
+            detectorLegacyEnabled = stored.detectorLegacyEnabled ?? true
+            detectorSeasonalityEnabled = stored.detectorSeasonalityEnabled ?? true
+            detectorChangePointEnabled = stored.detectorChangePointEnabled ?? true
+            detectorMultivariateEnabled = stored.detectorMultivariateEnabled ?? true
+            detectorNewTalkerEnabled = stored.detectorNewTalkerEnabled ?? true
+            alertScoreThreshold = stored.alertScoreThreshold ?? 0.9
+            alertNotificationsEnabled = stored.alertNotificationsEnabled ?? false
+            alertWebhookEnabled = stored.alertWebhookEnabled ?? false
+            alertWebhookURL = stored.alertWebhookURL ?? ""
         } catch {
             // Ignore corrupted preferences; defaults will be used instead.
         }
@@ -466,7 +541,16 @@ final class NetworkAnalyzerViewModel: ObservableObject {
             timeRange: selectedTimeRange,
             algorithm: selectedAlgorithm.rawValue,
             ewmaAlpha: ewmaAlpha,
-            payloadInspectionEnabled: payloadInspectionEnabled
+            payloadInspectionEnabled: payloadInspectionEnabled,
+            detectorLegacyEnabled: detectorLegacyEnabled,
+            detectorSeasonalityEnabled: detectorSeasonalityEnabled,
+            detectorChangePointEnabled: detectorChangePointEnabled,
+            detectorMultivariateEnabled: detectorMultivariateEnabled,
+            detectorNewTalkerEnabled: detectorNewTalkerEnabled,
+            alertScoreThreshold: alertScoreThreshold,
+            alertNotificationsEnabled: alertNotificationsEnabled,
+            alertWebhookEnabled: alertWebhookEnabled,
+            alertWebhookURL: alertWebhookURL
         )
         if let data = try? JSONEncoder().encode(stored) {
             preferencesDefaults.set(data, forKey: preferencesKey)
@@ -481,7 +565,16 @@ final class NetworkAnalyzerViewModel: ObservableObject {
             timeRange: selectedTimeRange,
             algorithm: selectedAlgorithm.rawValue,
             ewmaAlpha: ewmaAlpha,
-            payloadInspectionEnabled: payloadInspectionEnabled
+            payloadInspectionEnabled: payloadInspectionEnabled,
+            detectorLegacyEnabled: detectorLegacyEnabled,
+            detectorSeasonalityEnabled: detectorSeasonalityEnabled,
+            detectorChangePointEnabled: detectorChangePointEnabled,
+            detectorMultivariateEnabled: detectorMultivariateEnabled,
+            detectorNewTalkerEnabled: detectorNewTalkerEnabled,
+            alertScoreThreshold: alertScoreThreshold,
+            alertNotificationsEnabled: alertNotificationsEnabled,
+            alertWebhookEnabled: alertWebhookEnabled,
+            alertWebhookURL: alertWebhookURL.isEmpty ? nil : alertWebhookURL
         )
         return AnalyzerSession(
             createdAt: Date(),
@@ -517,6 +610,15 @@ final class NetworkAnalyzerViewModel: ObservableObject {
 
         payloadInspectionEnabled = session.preferences.payloadInspectionEnabled
         payloadConsentGranted = session.preferences.payloadInspectionEnabled
+        detectorLegacyEnabled = session.preferences.detectorLegacyEnabled ?? true
+        detectorSeasonalityEnabled = session.preferences.detectorSeasonalityEnabled ?? true
+        detectorChangePointEnabled = session.preferences.detectorChangePointEnabled ?? true
+        detectorMultivariateEnabled = session.preferences.detectorMultivariateEnabled ?? true
+        detectorNewTalkerEnabled = session.preferences.detectorNewTalkerEnabled ?? true
+        alertScoreThreshold = session.preferences.alertScoreThreshold ?? 0.9
+        alertNotificationsEnabled = session.preferences.alertNotificationsEnabled ?? false
+        alertWebhookEnabled = session.preferences.alertWebhookEnabled ?? false
+        alertWebhookURL = session.preferences.alertWebhookURL ?? ""
 
         isRestoringPreferences = true
         if let mode = CaptureMode(rawValue: session.preferences.captureMode) {
@@ -1227,7 +1329,7 @@ final class NetworkAnalyzerViewModel: ObservableObject {
         guard !metrics.isEmpty else { return }
         do {
             let encoder = JSONEncoder.iso8601Fractional()
-            let request = AnalyzerRequest(packets: packets, metrics: metrics, params: params, payloadConfig: payloadConfig)
+            let request = AnalyzerRequest(packets: packets, metrics: metrics, params: params, payloadConfig: payloadConfig, controls: buildAnalyzerControls())
             let payload = try encoder.encode(request)
             let output: AnalyzerResult = try pythonRunner.runJSONScript(scriptURL: scriptURL, requestJSON: payload, responseType: AnalyzerResult.self)
 
@@ -1521,6 +1623,15 @@ final class NetworkAnalyzerViewModel: ObservableObject {
         let algorithm: String
         let ewmaAlpha: Double
         let payloadInspectionEnabled: Bool
+        let detectorLegacyEnabled: Bool?
+        let detectorSeasonalityEnabled: Bool?
+        let detectorChangePointEnabled: Bool?
+        let detectorMultivariateEnabled: Bool?
+        let detectorNewTalkerEnabled: Bool?
+        let alertScoreThreshold: Double?
+        let alertNotificationsEnabled: Bool?
+        let alertWebhookEnabled: Bool?
+        let alertWebhookURL: String?
     }
 
     // MARK: - Summary updates

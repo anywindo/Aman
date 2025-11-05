@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "detectors": [
+    {
+      "id": "legacy",
+      "module": "analyzer_core.detectors.legacy",
+      "class": "LegacyAnomalyDetector",
+      "enabled": true,
+      "config": {}
+    },
+    {
+      "id": "seasonality",
+      "module": "analyzer_core.detectors.seasonality",
+      "class": "SeasonalityDetector",
+      "enabled": true,
+      "config": {
+        "periodCandidates": [60.0, 300.0, 900.0, 1800.0],
+        "minCycles": 2,
+        "minSamples": 90,
+        "bandStdDevs": 2.0
+      }
+    },
+    {
+      "id": "changepoint",
+      "module": "analyzer_core.detectors.changepoint",
+      "class": "ChangePointDetector",
+      "enabled": true,
+      "config": {
+        "windowSeconds": 60.0,
+        "thresholdStdDevs": 2.0,
+        "minSamples": 180,
+        "minGapSeconds": 45.0
+      }
+    },
+    {
+      "id": "multivariate",
+      "module": "analyzer_core.detectors.multivariate",
+      "class": "MultivariateDetector",
+      "enabled": true,
+      "config": {
+        "windowSeconds": 60.0,
+        "threshold": 3.0,
+        "minSamples": 180,
+        "minFeatures": 2
+      }
+    },
+    {
+      "id": "newtalker",
+      "module": "analyzer_core.detectors.new_talker",
+      "class": "NewTalkerDetector",
+      "enabled": true,
+      "config": {
+        "recentWindowSeconds": 180.0,
+        "minBytes": 2048.0,
+        "maxEntries": 10
+      }
+    }
+  ]
+}

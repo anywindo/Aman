@@ -79,10 +79,27 @@ Phase 5 — Persistence & Sharing
    • Investigations survive restarts, while exports stay lightweight (CSV/JSON) and raw data remains PCAP.
 
 Phase 6 — Advanced Detection (Optional)
-• Goal: Raise detection quality for complex environments.
-• Python
-   • Seasonality-aware baselines (STL), change-point detection, multivariate scores across throughput/flows/errors, and tag entropy to spot “new talkers.”
-• Swift
-   • Multi-metric comparison views, guided tuning tooltips, and optional notifications/webhooks for high-confidence spikes.
+• Goal: Raise detection quality for complex environments by layering ML-driven scoring, richer narratives, and configurable analyst controls without compromising responsiveness.
+• Python Engine
+   • Modularize analyzer into detector stages (seasonality, change-point, multivariate, entropy) orchestrated by a pipeline manifest (YAML/JSON) so features can be toggled without code changes.
+   • Seasonality module: apply STL decomposition or Holt-Winters fallback per metric, cache seasonal components, and emit baseline bands plus `seasonalityConfidence` for UI shading.
+   • Change-point module: integrate ruptures or Bayesian online change-point detection; return onset/offset timestamps, magnitude, and supporting metrics.
+   • Multivariate module: fuse bytes/sec, flows/min, retransmits, drop/error ratios, and latency into a joint score (Mahalanobis + isolation forest ensemble) with feature importance weighting for explanations.
+   • New-talker/entropy module: maintain rolling sketches of tag tuples (destination/process/port) to score first-seen entities and entropy spikes; surface `reasonCodes` describing unseen actors.
+   • Runtime control: accept `config` commands via stdin to reload pipeline thresholds, detector toggles, and notification settings; respond with acknowledgements and validation errors.
+• ML Lifecycle & Diagnostics
+   • Create calibration scripts that replay labeled PCAP fixtures, compute precision/recall per detector, and persist tuned thresholds back into the pipeline manifest.
+   • Add drift monitors logging score distributions and detector health; trigger `calibrationNeeded` warnings when variance exceeds bounds.
+   • Profile processing cost (cProfile) under live capture, emit `processingLatencyMs`, and enforce backpressure if latency exceeds 100 ms batch budget.
+   • Extend tests: per-module unit tests, deterministic integration harness covering seasonal variation, correlated spikes, and unseen talkers.
+• Swift Experience
+   • Expand models (`AdvancedDetectionResult`, `DetectionComponentBreakdown`, `SeasonalityBandPoint`, `AdvancedSeasonalityPayload`, `ChangePointEvent`, `MultivariateScore`, `FeatureContribution`, `NewTalker`, `AlertEvent`, `ConfigurableDetector`) to mirror new JSON schema fields.
+   • Timeline overlays: render seasonal bands, change-point markers, and confidence badges; highlight multivariate spikes with stackable annotations.
+   • Inspector panels: show contributing metrics ranked by importance, “New Talkers” list with entropy deltas, and narrative sentences synthesizing `reasonCodes` (“Throughput + flows exceeded band; new destination 203.0.113.5 observed.”).
+   • Tuning sheet: expose detector toggles, threshold sliders, and preview graphs; persist selections to user defaults and sync with Python via config commands.
+   • Alerting: allow analysts to opt into banner/system notifications or webhooks when confidence crosses defined levels; include compact reason summaries.
+• Ops & Documentation
+   • Enhance `PythonProcessRunner` to support config sync requests, structured logging (model version, config hash, calibration timestamp), and graceful downgrade if a detector fails.
+   • Document pipeline manifest format, calibration workflow, troubleshooting steps, and rollback procedure for detector regressions.
 • Deliverables
-   • A flexible detection toolbox that reduces false positives and explains why a spike matters at a glance.
+   • ML-enhanced detection that surfaces actionable, explainable spikes with adjustable sensitivity, maintains deterministic behavior, and fits within live-capture latency budgets.

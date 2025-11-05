@@ -10,12 +10,15 @@ SUPPORT_ROOT = Path(__file__).resolve().parents[1]
 if str(SUPPORT_ROOT) not in sys.path:
     sys.path.append(str(SUPPORT_ROOT))
 
-import analyzer
+from analyzer_core.detectors.legacy import LegacyAnomalyDetector, _isoformat
+
+
+LEGACY = LegacyAnomalyDetector(config={}, base_path=SUPPORT_ROOT)
 
 
 def _ts(offset_seconds: int) -> str:
     base = datetime(2024, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
-    return analyzer.isoformat(base.timestamp() + offset_seconds)
+    return _isoformat(base.timestamp() + offset_seconds)
 
 
 class ClusterBuilderTests(unittest.TestCase):
@@ -38,7 +41,7 @@ class ClusterBuilderTests(unittest.TestCase):
                 }
             )
 
-        clusters = analyzer.build_clusters(anomalies)
+        clusters = LEGACY._build_clusters(anomalies)
         self.assertEqual(len(clusters), 1)
         cluster = clusters[0]
         self.assertEqual(cluster["tagType"], "protocol")
@@ -51,8 +54,8 @@ class ClusterBuilderTests(unittest.TestCase):
         self.assertLessEqual(cluster["confidence"], 1.0)
 
     def test_metric_fallback_cluster(self):
-        ts1 = analyzer.isoformat(datetime(2024, 1, 1, 15, 0, 0, tzinfo=timezone.utc).timestamp())
-        ts2 = analyzer.isoformat(datetime(2024, 1, 1, 15, 0, 5, tzinfo=timezone.utc).timestamp())
+        ts1 = _isoformat(datetime(2024, 1, 1, 15, 0, 0, tzinfo=timezone.utc).timestamp())
+        ts2 = _isoformat(datetime(2024, 1, 1, 15, 0, 5, tzinfo=timezone.utc).timestamp())
         anomalies = [
             {
                 "id": "metric-1",
@@ -74,7 +77,7 @@ class ClusterBuilderTests(unittest.TestCase):
             },
         ]
 
-        clusters = analyzer.build_clusters(anomalies)
+        clusters = LEGACY._build_clusters(anomalies)
         self.assertEqual(len(clusters), 1)
         cluster = clusters[0]
         self.assertIsNone(cluster["tagType"])
@@ -120,6 +123,7 @@ class ClusterBuilderTests(unittest.TestCase):
         self.assertEqual(len(output.get("metrics", [])), 2)
         self.assertEqual(len(output.get("baseline", [])), 2)
         self.assertEqual(output.get("anomalies", []), [])
+        self.assertIn("advancedDetection", output)
 
     def test_payload_summary_emitted_when_enabled(self):
         payload = {
@@ -173,6 +177,7 @@ class ClusterBuilderTests(unittest.TestCase):
         self.assertGreater(summary.get("tlsClientHello", 0), 0)
         self.assertGreater(summary.get("tlsServerHello", 0), 0)
         self.assertGreater(summary.get("httpRequests", 0), 0)
+        self.assertIn("advancedDetection", output)
         settings = output.get("settings") or {}
         self.assertTrue(settings.get("payloadInspectionEnabled"))
         self.assertEqual(settings.get("algorithm"), "zscore")

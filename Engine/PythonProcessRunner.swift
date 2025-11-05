@@ -25,6 +25,7 @@ enum PythonRunnerError: LocalizedError {
 
 final class PythonProcessRunner {
     static let shared = PythonProcessRunner()
+    private(set) var lastRawOutput: Data?
 
     private static let pythonURL: URL? = {
         let preferred = URL(fileURLWithPath: "/usr/bin/python3")
@@ -55,6 +56,16 @@ final class PythonProcessRunner {
         let process = Process()
         process.executableURL = python
         process.arguments = [scriptURL.path]
+        var environment = ProcessInfo.processInfo.environment
+        let resourcePath = scriptURL.deletingLastPathComponent().path
+        if let existing = environment["PYTHONPATH"], !existing.isEmpty {
+            if !existing.split(separator: ":").contains(where: { $0 == resourcePath }) {
+                environment["PYTHONPATH"] = resourcePath + ":" + existing
+            }
+        } else {
+            environment["PYTHONPATH"] = resourcePath
+        }
+        process.environment = environment
         let input = Pipe()
         let output = Pipe()
         let error = Pipe()
@@ -73,9 +84,26 @@ final class PythonProcessRunner {
         }
 
         let data = output.fileHandleForReading.readDataToEndOfFile()
+        lastRawOutput = data
         if data.isEmpty { throw PythonRunnerError.noOutput }
 
         let decoder = JSONDecoder.iso8601Fractional()
-        return try decoder.decode(T.self, from: data)
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            if let logURL = try? Self.ensureLogDirectory().appendingPathComponent("analyzer-last.json") {
+                try? data.write(to: logURL)
+            }
+            throw error
+        }
+    }
+
+    private static func ensureLogDirectory() throws -> URL {
+        let base = FileManager.default.homeDirectoryForCurrentUser
+        let logDir = base.appendingPathComponent("Library/Logs/Aman", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: logDir.path) {
+            try FileManager.default.createDirectory(at: logDir, withIntermediateDirectories: true)
+        }
+        return logDir
     }
 }
