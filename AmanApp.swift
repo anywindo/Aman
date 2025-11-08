@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 @main
 struct AmanApp: App {
@@ -14,6 +15,7 @@ struct AmanApp: App {
         case landing = "landing-selector"
         case osSecurity = "os-security"
         case networkSecurity = "network-security"
+        case networkTopology = "network-topology"
         case about = "about-aman-window"
     }
 
@@ -41,6 +43,12 @@ struct AmanApp: App {
             NetworkSecurityView()
         }
         .defaultPosition(.center)
+
+        Window("Network Topology", id: WindowID.networkTopology.rawValue) {
+            NetworkTopologyWindowView(coordinator: NetworkMappingCoordinator.shared)
+        }
+        .defaultPosition(.center)
+        .windowResizability(.contentSize)
 
         Window("About Aman", id: WindowID.about.rawValue) {
             AboutView()

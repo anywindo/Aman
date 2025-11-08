@@ -7,12 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EF15C95789B47A6B0E6EE00 /* NetworkWorkspaceConsentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC6401B24CD43FBBD71F6B0 /* NetworkWorkspaceConsentStore.swift */; };
+		4014108C3AF643CCAF373FB2 /* NetworkConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552D2F8EDAF49CC8CFB0BE1 /* NetworkConsentView.swift */; };
 		441417E704184D97AA762F3B /* AuditSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3022AFFAA541B0B58D1C15 /* AuditSidebarView.swift */; };
 		5A64339F3D5242779422F2B3 /* FindingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95D242BAF884F9BB7102B23 /* FindingListView.swift */; };
 		7A3374BB2EAE286A00E37B9B /* Aman.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7A3374BA2EAE286A00E37B9B /* Aman.icon */; };
 		7A373A692E9C089B00F26CEF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373A682E9C089B00F26CEF /* AboutView.swift */; };
 		7A373B082E9CA45F00F26CEF /* AuditFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373B072E9CA45F00F26CEF /* AuditFinding.swift */; };
 		7A373B0A2E9CA46900F26CEF /* RemediationCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */; };
+		7A3BB4422EB489FC001D7200 /* analyzer.py in Resources */ = {isa = PBXBuildFile; fileRef = 7A3BB4412EB489F5001D7200 /* analyzer.py */; };
+		7A3BB4442EB48A68001D7200 /* PythonProcessRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */; };
+		7A3BB4532EB48B96001D7200 /* NetworkAnalyzerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB44F2EB48B96001D7200 /* NetworkAnalyzerModels.swift */; };
+		7A3BB4542EB48B96001D7200 /* NetworkAnalyzerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4502EB48B96001D7200 /* NetworkAnalyzerViewModel.swift */; };
+		7A3BB4552EB48B96001D7200 /* NetworkAnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4512EB48B96001D7200 /* NetworkAnalyzerView.swift */; };
+		7A3BB4562EB48B96001D7200 /* NetworkAnalyzerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */; };
+		7A3BB4B62EB495BD001D7200 /* NetworkAnalyzerAdvancedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BB4B52EB495BD001D7200 /* NetworkAnalyzerAdvancedModels.swift */; };
+		7A9ECFB22EB0998B0030CA39 /* HashGeneratorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB12EB0998B0030CA39 /* HashGeneratorDetailView.swift */; };
+		7A9ECFB42EB0A2AB0030CA39 /* NetworkInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB32EB0A2AB0030CA39 /* NetworkInfoService.swift */; };
+		7A9ECFB62EB0A2B60030CA39 /* NetworkProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB52EB0A2B60030CA39 /* NetworkProfileViewModel.swift */; };
+		7A9ECFB82EB0A2BE0030CA39 /* NetworkProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB72EB0A2BE0030CA39 /* NetworkProfileView.swift */; };
+		7A9ECFBA2EB0B5DC0030CA39 /* NetworkProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFB92EB0B5DC0030CA39 /* NetworkProfileDetailView.swift */; };
+		7A9ECFBC2EB0CA920030CA39 /* TTLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFBB2EB0CA910030CA39 /* TTLCache.swift */; };
+		7A9ECFBE2EB0CA920030CA39 /* EnrichmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFBD2EB0CA920030CA39 /* EnrichmentService.swift */; };
+		7AC6F0532F9A0B28001234AB /* PacketListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0522F9A0B28001234AB /* PacketListView.swift */; };
+		7AC6F0612F9A0B28001234AB /* PcapCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0602F9A0B28001234AB /* PcapCaptureController.swift */; };
+		7AC6F0632F9A0B28001234AB /* PcapPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6F0622F9A0B28001234AB /* PcapPacket.swift */; };
 		7AF2A1E62F5C617E00A1BEEF /* IntranetSecurityScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */; };
 		7AF2A1E72F5C617E00A1BEEF /* IntranetConsentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */; };
 		7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */; };
@@ -25,6 +44,41 @@
 		7AF2A2032F5C900200A1BEEF /* CertificateLookupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */; };
 		7AF2A2052F5C900200A1BEEF /* CertificateLookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2042F5C900200A1BEEF /* CertificateLookupView.swift */; };
 		7AF2A2072F5C900200A1BEEF /* CertificateLookupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2062F5C900200A1BEEF /* CertificateLookupDetailView.swift */; };
+		7AF2A20A2F5C900200A1BEEF /* BLAKE3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2092F5C900200A1BEEF /* BLAKE3.swift */; };
+		7AF2A20C2F5C900200A1BEEF /* ChunkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A20B2F5C900200A1BEEF /* ChunkState.swift */; };
+		7AF2A20E2F5C900200A1BEEF /* TheOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A20D2F5C900200A1BEEF /* TheOutput.swift */; };
+		7AF2A2102F5C900200A1BEEF /* Duplex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A20F2F5C900200A1BEEF /* Duplex.swift */; };
+		7AF2A2122F5C900200A1BEEF /* KeyedDuplex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2112F5C900200A1BEEF /* KeyedDuplex.swift */; };
+		7AF2A21A2F5C900200A1BEEF /* SIMD+EBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2192F5C900200A1BEEF /* SIMD+EBC.swift */; };
+		7AF2A21C2F5C900200A1BEEF /* Whirlpool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A21B2F5C900200A1BEEF /* Whirlpool.swift */; };
+		7AF2A21E2F5C900200A1BEEF /* Whirlpool.c in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A21D2F5C900200A1BEEF /* Whirlpool.c */; };
+		7AF2A22E2F5C900300A1BEEF /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2292F5C900300A1BEEF /* Common.swift */; };
+		7AF2A2302F5C900300A1BEEF /* EndianBytesConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A22A2F5C900300A1BEEF /* EndianBytesConvertible.swift */; };
+		7AF2A2322F5C900300A1BEEF /* BigEndianBytesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A22B2F5C900300A1BEEF /* BigEndianBytesCollection.swift */; };
+		7AF2A2342F5C900300A1BEEF /* FixedWidthInteger+EBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A22C2F5C900300A1BEEF /* FixedWidthInteger+EBC.swift */; };
+		7AF2A2362F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A22D2F5C900300A1BEEF /* LittleEndianBytesCollection.swift */; };
+		7AF2A23B2F5C900300A1BEEF /* HashGeneratorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A23A2F5C900300A1BEEF /* HashGeneratorViewModel.swift */; };
+		7AF2A23D2F5C900300A1BEEF /* HashGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A23C2F5C900300A1BEEF /* HashGeneratorView.swift */; };
+		7AF2A2402F5C900300A1BEEF /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2132F5C900200A1BEEF /* Common.swift */; };
+		7AF2A2422F5C900300A1BEEF /* BigEndianBytesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2152F5C900200A1BEEF /* BigEndianBytesCollection.swift */; };
+		7AF2A2442F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A2172F5C900200A1BEEF /* LittleEndianBytesCollection.swift */; };
+		7AF2B3012F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2112F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift */; };
+		7AF2B3022F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2122F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift */; };
+		7AF2B3032F5D0B2B00A1BEEF /* NetworkMappingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2132F5D0B2B00A1BEEF /* NetworkMappingModels.swift */; };
+		7AF2B3042F5D0B2B00A1BEEF /* NetworkPortScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2142F5D0B2B00A1BEEF /* NetworkPortScanService.swift */; };
+		7AF2B3052F5D0B2B00A1BEEF /* NetworkTopologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2152F5D0B2B00A1BEEF /* NetworkTopologyService.swift */; };
+		7AF2B3062F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2162F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift */; };
+		7AF2B3072F5D0B2B00A1BEEF /* NetworkProbes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2172F5D0B2B00A1BEEF /* NetworkProbes.swift */; };
+		7AF2B3082F5D0B2B00A1BEEF /* NetworkMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2182F5D0B2B00A1BEEF /* NetworkMappingView.swift */; };
+		7AF2B3092F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2192F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift */; };
+		7AF2B30A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B21A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift */; };
+		7AF2B30B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B21B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift */; };
+		7AF2B30C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B21C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift */; };
+		7AF2B30D2F5D0B2B00A1BEEF /* NetworkTopologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B2462F5D0B2B00A1BEEF /* NetworkTopologyView.swift */; };
+		7AF2B3682F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2B3672F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift */; };
+		7AF2C00F2F5D70AB00A1BEEF /* analyzer_core in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2C00E2F5D70AB00A1BEEF /* analyzer_core */; };
+		7AF2C0132F5D70AB00A1BEEF /* analyzer_pipeline.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2C0122F5D70AB00A1BEEF /* analyzer_pipeline.yaml */; };
+		7AF7AE7F2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */; };
 		BB1111112F1234567890ABCD /* AuditDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1111112F1234567890ABCD /* AuditDomain.swift */; };
 		BB2222222F1234567890ABCD /* ShellCommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2222222F1234567890ABCD /* ShellCommandRunner.swift */; };
 		BCD734CC29CDF6A000C0B779 /* AmanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD734CB29CDF6A000C0B779 /* AmanApp.swift */; };
@@ -41,6 +95,23 @@
 		7A373A682E9C089B00F26CEF /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		7A373B072E9CA45F00F26CEF /* AuditFinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditFinding.swift; sourceTree = "<group>"; };
 		7A373B092E9CA46900F26CEF /* RemediationCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediationCatalog.swift; sourceTree = "<group>"; };
+		7A3BB4412EB489F5001D7200 /* analyzer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = analyzer.py; sourceTree = "<group>"; };
+		7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonProcessRunner.swift; sourceTree = "<group>"; };
+		7A3BB44F2EB48B96001D7200 /* NetworkAnalyzerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerModels.swift; sourceTree = "<group>"; };
+		7A3BB4502EB48B96001D7200 /* NetworkAnalyzerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerViewModel.swift; sourceTree = "<group>"; };
+		7A3BB4512EB48B96001D7200 /* NetworkAnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerView.swift; sourceTree = "<group>"; };
+		7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerDetailView.swift; sourceTree = "<group>"; };
+		7A3BB4B52EB495BD001D7200 /* NetworkAnalyzerAdvancedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerAdvancedModels.swift; sourceTree = "<group>"; };
+		7A9ECFB12EB0998B0030CA39 /* HashGeneratorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashGeneratorDetailView.swift; sourceTree = "<group>"; };
+		7A9ECFB32EB0A2AB0030CA39 /* NetworkInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfoService.swift; sourceTree = "<group>"; };
+		7A9ECFB52EB0A2B60030CA39 /* NetworkProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProfileViewModel.swift; sourceTree = "<group>"; };
+		7A9ECFB72EB0A2BE0030CA39 /* NetworkProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProfileView.swift; sourceTree = "<group>"; };
+		7A9ECFB92EB0B5DC0030CA39 /* NetworkProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProfileDetailView.swift; sourceTree = "<group>"; };
+		7A9ECFBB2EB0CA910030CA39 /* TTLCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLCache.swift; sourceTree = "<group>"; };
+		7A9ECFBD2EB0CA920030CA39 /* EnrichmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentService.swift; sourceTree = "<group>"; };
+		7AC6F0522F9A0B28001234AB /* PacketListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketListView.swift; sourceTree = "<group>"; };
+		7AC6F0602F9A0B28001234AB /* PcapCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PcapCaptureController.swift; sourceTree = "<group>"; };
+		7AC6F0622F9A0B28001234AB /* PcapPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PcapPacket.swift; sourceTree = "<group>"; };
 		7AF2A1E82F5C617E00A1BEEF /* IntranetSecurityScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetSecurityScanner.swift; sourceTree = "<group>"; };
 		7AF2A1E92F5C617E00A1BEEF /* IntranetConsentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntranetConsentStore.swift; sourceTree = "<group>"; };
 		7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurityViewModel.swift; sourceTree = "<group>"; };
@@ -53,8 +124,46 @@
 		7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLookupViewModel.swift; sourceTree = "<group>"; };
 		7AF2A2042F5C900200A1BEEF /* CertificateLookupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLookupView.swift; sourceTree = "<group>"; };
 		7AF2A2062F5C900200A1BEEF /* CertificateLookupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLookupDetailView.swift; sourceTree = "<group>"; };
+		7AF2A2092F5C900200A1BEEF /* BLAKE3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLAKE3.swift; sourceTree = "<group>"; };
+		7AF2A20B2F5C900200A1BEEF /* ChunkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChunkState.swift; sourceTree = "<group>"; };
+		7AF2A20D2F5C900200A1BEEF /* TheOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheOutput.swift; sourceTree = "<group>"; };
+		7AF2A20F2F5C900200A1BEEF /* Duplex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Duplex.swift; sourceTree = "<group>"; };
+		7AF2A2112F5C900200A1BEEF /* KeyedDuplex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDuplex.swift; sourceTree = "<group>"; };
+		7AF2A2132F5C900200A1BEEF /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Common.swift; path = CommonSIMD.swift; sourceTree = "<group>"; };
+		7AF2A2152F5C900200A1BEEF /* BigEndianBytesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BigEndianBytesCollection.swift; path = BigEndianBytesCollectionSIMD.swift; sourceTree = "<group>"; };
+		7AF2A2172F5C900200A1BEEF /* LittleEndianBytesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LittleEndianBytesCollection.swift; path = LittleEndianBytesCollectionSIMD.swift; sourceTree = "<group>"; };
+		7AF2A2192F5C900200A1BEEF /* SIMD+EBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SIMD+EBC.swift"; sourceTree = "<group>"; };
+		7AF2A21B2F5C900200A1BEEF /* Whirlpool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whirlpool.swift; sourceTree = "<group>"; };
+		7AF2A21D2F5C900200A1BEEF /* Whirlpool.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Whirlpool.c; sourceTree = "<group>"; };
+		7AF2A2202F5C900300A1BEEF /* nessie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nessie.h; sourceTree = "<group>"; };
+		7AF2A2222F5C900300A1BEEF /* Aman-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Aman-Bridging-Header.h"; sourceTree = "<group>"; };
+		7AF2A2292F5C900300A1BEEF /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		7AF2A22A2F5C900300A1BEEF /* EndianBytesConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndianBytesConvertible.swift; sourceTree = "<group>"; };
+		7AF2A22B2F5C900300A1BEEF /* BigEndianBytesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigEndianBytesCollection.swift; sourceTree = "<group>"; };
+		7AF2A22C2F5C900300A1BEEF /* FixedWidthInteger+EBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FixedWidthInteger+EBC.swift"; sourceTree = "<group>"; };
+		7AF2A22D2F5C900300A1BEEF /* LittleEndianBytesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleEndianBytesCollection.swift; sourceTree = "<group>"; };
+		7AF2A23A2F5C900300A1BEEF /* HashGeneratorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashGeneratorViewModel.swift; sourceTree = "<group>"; };
+		7AF2A23C2F5C900300A1BEEF /* HashGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashGeneratorView.swift; sourceTree = "<group>"; };
+		7AF2B2112F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingCoordinator.swift; sourceTree = "<group>"; };
+		7AF2B2122F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiscoveryService.swift; sourceTree = "<group>"; };
+		7AF2B2132F5D0B2B00A1BEEF /* NetworkMappingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingModels.swift; sourceTree = "<group>"; };
+		7AF2B2142F5D0B2B00A1BEEF /* NetworkPortScanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPortScanService.swift; sourceTree = "<group>"; };
+		7AF2B2152F5D0B2B00A1BEEF /* NetworkTopologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTopologyService.swift; sourceTree = "<group>"; };
+		7AF2B2162F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiscoveryHistoryStore.swift; sourceTree = "<group>"; };
+		7AF2B2172F5D0B2B00A1BEEF /* NetworkProbes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProbes.swift; sourceTree = "<group>"; };
+		7AF2B2182F5D0B2B00A1BEEF /* NetworkMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingView.swift; sourceTree = "<group>"; };
+		7AF2B2192F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingDetailView.swift; sourceTree = "<group>"; };
+		7AF2B21A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPortScanHistoryStore.swift; sourceTree = "<group>"; };
+		7AF2B21B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkScanLogger.swift; sourceTree = "<group>"; };
+		7AF2B21C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterfaceService.swift; sourceTree = "<group>"; };
+		7AF2B2462F5D0B2B00A1BEEF /* NetworkTopologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTopologyView.swift; sourceTree = "<group>"; };
+		7AF2B3672F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMappingExportManager.swift; sourceTree = "<group>"; };
+		7AF2C00E2F5D70AB00A1BEEF /* analyzer_core */ = {isa = PBXFileReference; lastKnownFileType = wrapper.folder; path = analyzer_core; sourceTree = "<group>"; };
+		7AF2C0122F5D70AB00A1BEEF /* analyzer_pipeline.yaml */ = {isa = PBXFileReference; lastKnownFileType = text; path = analyzer_pipeline.yaml; sourceTree = "<group>"; };
+		7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyzerPreferencesSheet.swift; sourceTree = "<group>"; };
 		973655FDE4444A4D9472C05F /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		9D3022AFFAA541B0B58D1C15 /* AuditSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditSidebarView.swift; sourceTree = "<group>"; };
+		9DC6401B24CD43FBBD71F6B0 /* NetworkWorkspaceConsentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorkspaceConsentStore.swift; sourceTree = "<group>"; };
 		AA1111112F1234567890ABCD /* AuditDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDomain.swift; sourceTree = "<group>"; };
 		AA2222222F1234567890ABCD /* ShellCommandRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellCommandRunner.swift; sourceTree = "<group>"; };
 		B95D242BAF884F9BB7102B23 /* FindingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingListView.swift; sourceTree = "<group>"; };
@@ -64,6 +173,7 @@
 		BCD734CD29CDF6A000C0B779 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BCD734E429CF137C00C0B779 /* SystemCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemCheck.swift; sourceTree = "<group>"; };
 		BCD734F129CF20FF00C0B779 /* AuditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditCoordinator.swift; sourceTree = "<group>"; };
+		E552D2F8EDAF49CC8CFB0BE1 /* NetworkConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConsentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -92,10 +202,38 @@
 				7AF2A1F92F5C900100A1BEEF /* InternetSecurityToolkitView.swift */,
 				7AF2A2042F5C900200A1BEEF /* CertificateLookupView.swift */,
 				7AF2A2062F5C900200A1BEEF /* CertificateLookupDetailView.swift */,
+				7AF2A23C2F5C900300A1BEEF /* HashGeneratorView.swift */,
 				7AF2A1EE2F5C61F000A1BEEF /* NetworkSecurityView.swift */,
 				7AF2A1F02F5C61F000A1BEEF /* LandingSelectorView.swift */,
+				7A9ECFB12EB0998B0030CA39 /* HashGeneratorDetailView.swift */,
+				7A9ECFB32EB0A2AB0030CA39 /* NetworkInfoService.swift */,
+				7A9ECFB52EB0A2B60030CA39 /* NetworkProfileViewModel.swift */,
+				7A9ECFB72EB0A2BE0030CA39 /* NetworkProfileView.swift */,
+				7A9ECFB92EB0B5DC0030CA39 /* NetworkProfileDetailView.swift */,
+				7A9ECFBB2EB0CA910030CA39 /* TTLCache.swift */,
+				7A9ECFBD2EB0CA920030CA39 /* EnrichmentService.swift */,
+				7A3BB44F2EB48B96001D7200 /* NetworkAnalyzerModels.swift */,
+				7A3BB4B52EB495BD001D7200 /* NetworkAnalyzerAdvancedModels.swift */,
+				7A3BB4502EB48B96001D7200 /* NetworkAnalyzerViewModel.swift */,
+				7A3BB4512EB48B96001D7200 /* NetworkAnalyzerView.swift */,
+				7A3BB4522EB48B96001D7200 /* NetworkAnalyzerDetailView.swift */,
+				E552D2F8EDAF49CC8CFB0BE1 /* NetworkConsentView.swift */,
+				7AC6F0522F9A0B28001234AB /* PacketListView.swift */,
+				7AF7AE7E2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift */,
+				7AF2B2182F5D0B2B00A1BEEF /* NetworkMappingView.swift */,
+				7AF2B2192F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift */,
+				7AF2B2462F5D0B2B00A1BEEF /* NetworkTopologyView.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		7AC6F0702F9A0B28001234AB /* NetworkAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				7AC6F0602F9A0B28001234AB /* PcapCaptureController.swift */,
+				7AC6F0622F9A0B28001234AB /* PcapPacket.swift */,
+			);
+			path = NetworkAnalyzer;
 			sourceTree = "<group>";
 		};
 		7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */ = {
@@ -110,9 +248,120 @@
 		7AF2A1F42F5C7E6100A1BEEF /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				7A3BB4412EB489F5001D7200 /* analyzer.py */,
+				7AF2C00E2F5D70AB00A1BEEF /* analyzer_core */,
 				7AF2A1F22F5C7E6100A1BEEF /* WindowManager.swift */,
+				7AF2A2222F5C900300A1BEEF /* Aman-Bridging-Header.h */,
+				7AF2C0122F5D70AB00A1BEEF /* analyzer_pipeline.yaml */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		7AF2A2082F5C900200A1BEEF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A2002F5C900200A1BEEF /* CRTShClient.swift */,
+				7AF2A2232F5C900300A1BEEF /* BLAKE3 */,
+				7AF2A2242F5C900300A1BEEF /* Duplex */,
+				7AF2A22F2F5C900300A1BEEF /* EndianBytesConvertible */,
+				7AF2A2312F5C900300A1BEEF /* EndianBytes */,
+				7AF2A2252F5C900300A1BEEF /* EndianBytesSIMD */,
+				7AF2A2262F5C900300A1BEEF /* Whirlpool */,
+				7AF2A2272F5C900300A1BEEF /* WhirlpoolC */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7AF2A2232F5C900300A1BEEF /* BLAKE3 */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A2092F5C900200A1BEEF /* BLAKE3.swift */,
+				7AF2A20B2F5C900200A1BEEF /* ChunkState.swift */,
+				7AF2A20D2F5C900200A1BEEF /* TheOutput.swift */,
+			);
+			path = BLAKE3;
+			sourceTree = "<group>";
+		};
+		7AF2A2242F5C900300A1BEEF /* Duplex */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A20F2F5C900200A1BEEF /* Duplex.swift */,
+				7AF2A2112F5C900200A1BEEF /* KeyedDuplex.swift */,
+			);
+			path = Duplex;
+			sourceTree = "<group>";
+		};
+		7AF2A2252F5C900300A1BEEF /* EndianBytesSIMD */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A2132F5C900200A1BEEF /* Common.swift */,
+				7AF2A2152F5C900200A1BEEF /* BigEndianBytesCollection.swift */,
+				7AF2A2172F5C900200A1BEEF /* LittleEndianBytesCollection.swift */,
+				7AF2A2192F5C900200A1BEEF /* SIMD+EBC.swift */,
+			);
+			path = EndianBytesSIMD;
+			sourceTree = "<group>";
+		};
+		7AF2A2262F5C900300A1BEEF /* Whirlpool */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A21B2F5C900200A1BEEF /* Whirlpool.swift */,
+			);
+			path = Whirlpool;
+			sourceTree = "<group>";
+		};
+		7AF2A2272F5C900300A1BEEF /* WhirlpoolC */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A21D2F5C900200A1BEEF /* Whirlpool.c */,
+				7AF2A2282F5C900300A1BEEF /* include */,
+			);
+			path = WhirlpoolC;
+			sourceTree = "<group>";
+		};
+		7AF2A2282F5C900300A1BEEF /* include */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A2202F5C900300A1BEEF /* nessie.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		7AF2A22F2F5C900300A1BEEF /* EndianBytesConvertible */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A2292F5C900300A1BEEF /* Common.swift */,
+				7AF2A22A2F5C900300A1BEEF /* EndianBytesConvertible.swift */,
+			);
+			path = EndianBytesConvertible;
+			sourceTree = "<group>";
+		};
+		7AF2A2312F5C900300A1BEEF /* EndianBytes */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2A22B2F5C900300A1BEEF /* BigEndianBytesCollection.swift */,
+				7AF2A22C2F5C900300A1BEEF /* FixedWidthInteger+EBC.swift */,
+				7AF2A22D2F5C900300A1BEEF /* LittleEndianBytesCollection.swift */,
+			);
+			path = EndianBytes;
+			sourceTree = "<group>";
+		};
+		7AF2B2202F5D0B2B00A1BEEF /* NetworkMapping */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2B2112F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift */,
+				7AF2B2122F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift */,
+				7AF2B2162F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift */,
+				7AF2B21C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift */,
+				7AF2B21A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift */,
+				7AF2B2172F5D0B2B00A1BEEF /* NetworkProbes.swift */,
+				7AF2B2132F5D0B2B00A1BEEF /* NetworkMappingModels.swift */,
+				7AF2B2142F5D0B2B00A1BEEF /* NetworkPortScanService.swift */,
+				7AF2B2152F5D0B2B00A1BEEF /* NetworkTopologyService.swift */,
+				7AF2B21B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift */,
+				7AF2B3672F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift */,
+			);
+			path = NetworkMapping;
 			sourceTree = "<group>";
 		};
 		BC6C51A529D81F8C00B85797 /* Tests */ = {
@@ -158,18 +407,15 @@
 				7AF2A2082F5C900200A1BEEF /* Utilities */,
 				7AF2A1F72F5C900000A1BEEF /* InternetSecurityToolkit.swift */,
 				7AF2A1EA2F5C617E00A1BEEF /* IntranetSecurity */,
+				9DC6401B24CD43FBBD71F6B0 /* NetworkWorkspaceConsentStore.swift */,
 				7AF2A1ED2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift */,
+				7AC6F0702F9A0B28001234AB /* NetworkAnalyzer */,
+				7AF2B2202F5D0B2B00A1BEEF /* NetworkMapping */,
 				7AF2A2022F5C900200A1BEEF /* CertificateLookupViewModel.swift */,
+				7AF2A23A2F5C900300A1BEEF /* HashGeneratorViewModel.swift */,
+				7A3BB4432EB48A68001D7200 /* PythonProcessRunner.swift */,
 			);
 			path = Engine;
-			sourceTree = "<group>";
-		};
-		7AF2A2082F5C900200A1BEEF /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				7AF2A2002F5C900200A1BEEF /* CRTShClient.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +479,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AF2C00F2F5D70AB00A1BEEF /* analyzer_core in Resources */,
+				7A3BB4422EB489FC001D7200 /* analyzer.py in Resources */,
 				7A3374BB2EAE286A00E37B9B /* Aman.icon in Resources */,
+				7AF2C0132F5D70AB00A1BEEF /* analyzer_pipeline.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,23 +498,74 @@
 				BCD734CE29CDF6A000C0B779 /* ContentView.swift in Sources */,
 				BCD734CC29CDF6A000C0B779 /* AmanApp.swift in Sources */,
 				BCD734F229CF20FF00C0B779 /* AuditCoordinator.swift in Sources */,
+				7A9ECFBC2EB0CA920030CA39 /* TTLCache.swift in Sources */,
 				441417E704184D97AA762F3B /* AuditSidebarView.swift in Sources */,
 				5A64339F3D5242779422F2B3 /* FindingListView.swift in Sources */,
 				7A373B0A2E9CA46900F26CEF /* RemediationCatalog.swift in Sources */,
 				7A373B082E9CA45F00F26CEF /* AuditFinding.swift in Sources */,
 				BB1111112F1234567890ABCD /* AuditDomain.swift in Sources */,
+				7A9ECFBE2EB0CA920030CA39 /* EnrichmentService.swift in Sources */,
 				BB2222222F1234567890ABCD /* ShellCommandRunner.swift in Sources */,
 				7AF2A1E62F5C617E00A1BEEF /* IntranetSecurityScanner.swift in Sources */,
 				7AF2A1E72F5C617E00A1BEEF /* IntranetConsentStore.swift in Sources */,
 				7AF2A1F62F5C900000A1BEEF /* InternetSecurityToolkit.swift in Sources */,
 				7AF2A1EB2F5C61F000A1BEEF /* NetworkSecurityViewModel.swift in Sources */,
 				7AF2A1EC2F5C61F000A1BEEF /* NetworkSecurityView.swift in Sources */,
+				7AF2B3012F5D0B2B00A1BEEF /* NetworkMappingCoordinator.swift in Sources */,
+				7AF2B3022F5D0B2B00A1BEEF /* NetworkDiscoveryService.swift in Sources */,
+				7AF2B3062F5D0B2B00A1BEEF /* NetworkDiscoveryHistoryStore.swift in Sources */,
+				7AF2B3072F5D0B2B00A1BEEF /* NetworkProbes.swift in Sources */,
+				7AF2B3032F5D0B2B00A1BEEF /* NetworkMappingModels.swift in Sources */,
+				7AF2B3042F5D0B2B00A1BEEF /* NetworkPortScanService.swift in Sources */,
+				7AF2B3052F5D0B2B00A1BEEF /* NetworkTopologyService.swift in Sources */,
+				7AF2B30A2F5D0B2B00A1BEEF /* NetworkPortScanHistoryStore.swift in Sources */,
+				7AF2B30B2F5D0B2B00A1BEEF /* NetworkScanLogger.swift in Sources */,
+				7AF2B30C2F5D0B2B00A1BEEF /* NetworkInterfaceService.swift in Sources */,
+				7AF2B3682F5D0B2B00A1BEEF /* NetworkMappingExportManager.swift in Sources */,
+				2EF15C95789B47A6B0E6EE00 /* NetworkWorkspaceConsentStore.swift in Sources */,
 				7AF2A1F82F5C900100A1BEEF /* InternetSecurityToolkitView.swift in Sources */,
+				7A9ECFB62EB0A2B60030CA39 /* NetworkProfileViewModel.swift in Sources */,
+				7A9ECFB42EB0A2AB0030CA39 /* NetworkInfoService.swift in Sources */,
+				7A9ECFB22EB0998B0030CA39 /* HashGeneratorDetailView.swift in Sources */,
 				7AF2A2012F5C900200A1BEEF /* CRTShClient.swift in Sources */,
 				7AF2A2032F5C900200A1BEEF /* CertificateLookupViewModel.swift in Sources */,
 				7AF2A2052F5C900200A1BEEF /* CertificateLookupView.swift in Sources */,
 				7AF2A2072F5C900200A1BEEF /* CertificateLookupDetailView.swift in Sources */,
+				7AF2A23B2F5C900300A1BEEF /* HashGeneratorViewModel.swift in Sources */,
+				7AF2A23D2F5C900300A1BEEF /* HashGeneratorView.swift in Sources */,
+				7AF2A2402F5C900300A1BEEF /* Common.swift in Sources */,
+				7AF2A2422F5C900300A1BEEF /* BigEndianBytesCollection.swift in Sources */,
+				7AF7AE7F2EB78362008843E5 /* NetworkAnalyzerPreferencesSheet.swift in Sources */,
+				7AF2A2442F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */,
+				7AF2A20A2F5C900200A1BEEF /* BLAKE3.swift in Sources */,
+				7AF2A20C2F5C900200A1BEEF /* ChunkState.swift in Sources */,
+				7AF2A20E2F5C900200A1BEEF /* TheOutput.swift in Sources */,
+				7A9ECFB82EB0A2BE0030CA39 /* NetworkProfileView.swift in Sources */,
+				7AF2A2102F5C900200A1BEEF /* Duplex.swift in Sources */,
+				7AF2A2122F5C900200A1BEEF /* KeyedDuplex.swift in Sources */,
+				7AF2A22E2F5C900300A1BEEF /* Common.swift in Sources */,
+				7AF2A2302F5C900300A1BEEF /* EndianBytesConvertible.swift in Sources */,
+				7AF2A2322F5C900300A1BEEF /* BigEndianBytesCollection.swift in Sources */,
+				7AF2A2342F5C900300A1BEEF /* FixedWidthInteger+EBC.swift in Sources */,
+				7AF2A2362F5C900300A1BEEF /* LittleEndianBytesCollection.swift in Sources */,
+				7AF2A21A2F5C900200A1BEEF /* SIMD+EBC.swift in Sources */,
+				7AF2A21C2F5C900200A1BEEF /* Whirlpool.swift in Sources */,
+				7A3BB4532EB48B96001D7200 /* NetworkAnalyzerModels.swift in Sources */,
+				7A3BB4B62EB495BD001D7200 /* NetworkAnalyzerAdvancedModels.swift in Sources */,
+				7A3BB4542EB48B96001D7200 /* NetworkAnalyzerViewModel.swift in Sources */,
+				7A3BB4552EB48B96001D7200 /* NetworkAnalyzerView.swift in Sources */,
+				7A3BB4562EB48B96001D7200 /* NetworkAnalyzerDetailView.swift in Sources */,
+				4014108C3AF643CCAF373FB2 /* NetworkConsentView.swift in Sources */,
+				7AF2B3082F5D0B2B00A1BEEF /* NetworkMappingView.swift in Sources */,
+				7AF2B3092F5D0B2B00A1BEEF /* NetworkMappingDetailView.swift in Sources */,
+				7AF2B30D2F5D0B2B00A1BEEF /* NetworkTopologyView.swift in Sources */,
+				7AC6F0532F9A0B28001234AB /* PacketListView.swift in Sources */,
+				7A3BB4442EB48A68001D7200 /* PythonProcessRunner.swift in Sources */,
+				7AC6F0612F9A0B28001234AB /* PcapCaptureController.swift in Sources */,
+				7AC6F0632F9A0B28001234AB /* PcapPacket.swift in Sources */,
+				7AF2A21E2F5C900200A1BEEF /* Whirlpool.c in Sources */,
 				7AF2A1EF2F5C61F000A1BEEF /* LandingSelectorView.swift in Sources */,
+				7A9ECFBA2EB0B5DC0030CA39 /* NetworkProfileDetailView.swift in Sources */,
 				7AF2A1F32F5C7E6100A1BEEF /* WindowManager.swift in Sources */,
 				D2834ADBC22C43F28FA317F3 /* FindingDetailView.swift in Sources */,
 				DAA8A4A102784CCB94355659 /* LandingView.swift in Sources */,
@@ -329,6 +629,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Engine/Utilities/WhirlpoolC/include";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -336,6 +637,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Support/Aman-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -388,6 +690,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Engine/Utilities/WhirlpoolC/include";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -395,6 +698,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "Support/Aman-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -409,18 +713,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
-				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
-				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
-				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
-				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
-				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
-				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
-				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Aman;
 				INFOPLIST_KEY_CFBundleIconFile = Aman.icon;
@@ -450,20 +745,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = NO;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
-				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
-				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
-				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
-				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
-				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
-				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
-				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Aman;
 				INFOPLIST_KEY_CFBundleIconFile = Aman.icon;

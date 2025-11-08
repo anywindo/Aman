@@ -372,7 +372,7 @@ private extension InternetSecurityToolkit {
             .components(separatedBy: .newlines)
             .filter { $0.contains("LISTEN") && !$0.trimmingCharacters(in: .whitespaces).isEmpty }
 
-        var details: [InternetSecurityCheckResult.Detail] = [
+        let details: [InternetSecurityCheckResult.Detail] = [
             .init(label: "Firewall", value: firewallEnabled ? "Enabled" : "Disabled"),
             .init(label: "Stealth Mode", value: stealthEnabled ? "Enabled" : "Disabled"),
             .init(label: "Listening Ports", value: "\(listeningSockets.count)")
@@ -676,7 +676,11 @@ private extension InternetSecurityToolkit {
             rawDictionary: dict
         )
     }
+}
 
+// MARK: - Public/Internal helpers usable by other files
+
+extension InternetSecurityToolkit {
     static func makeDefaultSession() -> URLSession {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForRequest = 15
