@@ -1,8 +1,8 @@
 //
 //  CertificateLookupViewModel.swift
-//  Aman
+//  Aman - Engine
 //
-//  Handles crt.sh certificate discovery for the Network Security utilities.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation
@@ -44,7 +44,6 @@ final class CertificateLookupViewModel: ObservableObject {
             }
         } catch let err {
             results = []
-            // Assign to our @Published String? property, using the caught error's description
             self.error = (err as? CRTError)?.localizedDescription ?? err.localizedDescription
         }
 

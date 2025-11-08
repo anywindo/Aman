@@ -1,16 +1,8 @@
 //
-//  CryptoSwift
+//  CMAC.swift
+//  Aman - Engine
 //
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 public class CMAC: Authenticator {
@@ -30,13 +22,13 @@ public class CMAC: Authenticator {
 
   // MARK: Authenticator
 
-  // AES-CMAC
+  
   public func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
     let cipher = try AES(key: Array(key), blockMode: CBC(iv: CMAC.Zero), padding: .noPadding)
     return try self.authenticate(bytes, cipher: cipher)
   }
 
-  // CMAC using a Cipher
+  
   public func authenticate(_ bytes: Array<UInt8>, cipher: Cipher) throws -> Array<UInt8> {
     let l = try cipher.encrypt(CMAC.Zero)
     var subKey1 = self.leftShiftOneBit(l)
@@ -74,7 +66,7 @@ public class CMAC: Authenticator {
       y = xor(block, x)
       x = try cipher.encrypt(y)
     }
-    // the difference between CMAC and CBC-MAC is that CMAC xors the final block with a secret value
+    
     y = self.process(lastBlock: lastBlock, with: x)
     return try cipher.encrypt(y)
   }
@@ -85,12 +77,7 @@ public class CMAC: Authenticator {
 
   // MARK: Helper methods
 
-  /**
-   Performs left shift by one bit to the bit string acquired after concatenating al bytes in the byte array
-   - parameters:
-   - bytes: byte array
-   - returns: bit shifted bit string split again in array of bytes
-   */
+  
   private func leftShiftOneBit(_ bytes: Array<UInt8>) -> Array<UInt8> {
     var shifted = Array<UInt8>(repeating: 0x00, count: bytes.count)
     let last = bytes.count - 1
