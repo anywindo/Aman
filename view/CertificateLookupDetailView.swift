@@ -1,8 +1,8 @@
 //
 //  CertificateLookupDetailView.swift
-//  Aman
+//  Aman - view
 //
-//  Detailed view for crt.sh certificate entries.
+//  Created by Aman Team on 08/11/25
 //
 
 import SwiftUI
