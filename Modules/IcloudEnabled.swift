@@ -1,11 +1,9 @@
 //
 //  IcloudEnabled.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
-
-//Tested in 13-inch, 2020, Four Thunderbolt 3 ports 13.2.1 (22D68)
 
 import Foundation
 
@@ -23,12 +21,6 @@ class iCloudDriveCheck: SystemCheck {
             docID: 3
         )
     }
-    
-// It is really hard to understand whether Icloud is enabled and synced in the latest version. I found a simple solution here: https://community.jamf.com/t5/jamf-pro/search-criteria-for-computers-that-have-desktop-and-documents-in/m-p/186282
-//    Thank you. @ andy_granger
-//iCloudDesktop=$(defaults read /Users/$loggedInUser/Library/Preferences/com.apple.finder.plist FXICloudDriveDesktop)
-//    FXICloudDriveDesktop
-//    FXICloudDriveDocuments
     
     override func check() {
             let task = Process()

@@ -13,7 +13,6 @@ struct HashGeneratorView: View {
     @ObservedObject var viewModel: HashGeneratorViewModel
     @State private var showingFileImporter = false
 
-    // Local multi-selection that we translate to the current ViewModel API on generate()
     @State private var selectedAlgorithms: Set<HashAlgorithm> = [.sha256]
 
     var body: some View {
@@ -24,7 +23,6 @@ struct HashGeneratorView: View {
             algorithmMultiSelect
             actionRow
 
-            // Hint that results are now in the detail pane
             Divider()
             Text("Results appear in the right-hand pane after you generate.")
                 .font(.footnote)
@@ -61,18 +59,13 @@ struct HashGeneratorView: View {
                 .font(.headline)
             InputModeCardPicker(selection: $viewModel.inputMode)
         }
-        // Defer any secondary state changes caused by mode switch to avoid
-        // “Publishing changes from within view updates” warnings.
         .onChange(of: viewModel.inputMode) { newMode in
             Task { @MainActor in
-                // Clear any stale error when switching modes.
                 viewModel.error = nil
                 switch newMode {
                 case .text:
-                    // Leaving file mode: drop file selection; keep any existing text.
                     viewModel.fileURL = nil
                 case .file:
-                    // Leaving text mode: clear text; user will pick a file.
                     viewModel.textInput = ""
                 }
             }
@@ -168,7 +161,6 @@ struct HashGeneratorView: View {
                 .buttonStyle(.bordered)
             }
 
-            // Adaptive grid of toggleable algorithm "buttons"
             let columns = [GridItem(.adaptive(minimum: 220, maximum: 320), spacing: 12)]
             LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                 ForEach(HashAlgorithm.ordered) { algorithm in
@@ -201,16 +193,11 @@ struct HashGeneratorView: View {
     private var actionRow: some View {
         HStack(spacing: 12) {
             Button {
-                // Bridge local multi-select into current ViewModel selection model.
                 if selectedAlgorithms.isEmpty {
-                    // Treat empty as "All"
                     viewModel.setSelection(.all)
                 } else if selectedAlgorithms.count == 1, let only = selectedAlgorithms.first {
                     viewModel.setSelection(.single(only))
                 } else {
-                    // Multiple selected, but the VM only supports single/all.
-                    // Fallback to "All" to keep build and functionality working,
-                    // and inform the user.
                     viewModel.setSelection(.all)
                     viewModel.error = "Multiple algorithms selected: hashing all supported algorithms."
                 }
@@ -227,7 +214,6 @@ struct HashGeneratorView: View {
 
             Button {
                 viewModel.clear()
-                // Keep a sensible default in the local selection
                 selectedAlgorithms = [.sha256]
             } label: {
                 Label("Clear", systemImage: "trash")
@@ -288,7 +274,6 @@ private struct AlgorithmToggleCard: View {
     }
 
     private func shortDescription(for algorithm: HashAlgorithm) -> String {
-        // Use the provided explanation; if you want shorter blurbs, you can customize here.
         algorithm.explanation
     }
 }
