@@ -1,8 +1,8 @@
 //
 //  HashGeneratorViewModel.swift
-//  Aman
+//  Aman - Engine
 //
-//  Drives the Network Security hash generator utility.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation

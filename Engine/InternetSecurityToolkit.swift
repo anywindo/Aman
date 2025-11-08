@@ -1,9 +1,8 @@
 //
 //  InternetSecurityToolkit.swift
-//  Aman
+//  Aman - Engine
 //
-//  Provides DNS, IP exposure, IPv6 leak, firewall, and proxy/VPN diagnostics
-//  backing the Network Security dashboard's Internet Toolkit.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation

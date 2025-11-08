@@ -1,8 +1,8 @@
 //
 //  ShellCommandRunner.swift
-//  Aman
+//  Aman - Engine
 //
-//  Reauthored by Codex.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation

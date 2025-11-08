@@ -1,13 +1,12 @@
 //
 //  AuditFinding.swift
-//  Aman
+//  Aman - Engine
 //
-//  Created by Codex.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation
 
-/// Immutable representation of a single security check outcome shown in the UI.
 struct AuditFinding: Identifiable, Hashable {
     struct Metadata: Hashable {
         let title: String
@@ -94,7 +93,6 @@ struct AuditFinding: Identifiable, Hashable {
     let rawSeverityLabel: String
     let runtimeError: String?
 
-    // Convenience surface used heavily by SwiftUI views.
     var title: String { metadata.title }
     var synopsis: String { metadata.synopsis }
     var categories: [String] { metadata.categories }
