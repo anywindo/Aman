@@ -1,13 +1,12 @@
 //
 //  EfiCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
 
-//This implementation uses the system_profiler command to obtain information about the system hardware, including the EFI version. The code checks whether the EFI version is outdated and at risk of firmware attacks, and whether the last EFI firmware update check was performed within the last 30 days. If the EFI version is valid and the last update check was performed within the last 30 days, the status is set to "EFI version is valid and being regularly checked", and the checkstatus is set to "Green". If the last update check was performed more than 30 days ago, the status is set to "EFI version is valid but last firmware update check was more than 30 days ago", and the checkstatus is set to "Yellow".
 
 class EFIVersionCheck: SystemCheck {
     

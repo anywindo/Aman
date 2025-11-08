@@ -1,12 +1,9 @@
 //
 //  WakeForNetworkAccessCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
-
-
-//This script checks if the value of "womp" is 0 in the output of pmset command and sets the status accordingly.
 
 
 import Foundation

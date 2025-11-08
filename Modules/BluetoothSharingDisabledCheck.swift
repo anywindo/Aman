@@ -1,12 +1,9 @@
 //
 //  BluetoothSharingDisabledCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
-
-//This check runs the defaults read command with the com.apple.Bluetooth domain and the PrefKeyServicesEnabled key to check the status of Bluetooth Sharing. If the value of the key is 0, it sets the status to "Bluetooth Sharing is Disabled" and the check status to "Green". If the value of the key is anything else, it sets the status to "Bluetooth Sharing is Enabled" and the check status to "Red".
-
 
 import Foundation
 

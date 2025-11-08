@@ -1,8 +1,8 @@
 //
 //  SmartcardAllowCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Codex.
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation

@@ -1,16 +1,12 @@
 //
 //  InternetSharingDisabledCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
 
-//This implementation checks for the existence of the file at /Library/Preferences/SystemConfiguration/com.apple.nat, and if it exists, it runs the defaults read command to check for the string "Enabled = 1;" in the output. If the file does not exist, it assumes that Internet Sharing is disabled and sets the status to "Internet Sharing is Disabled" and check status to "Green".
-
-//Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems.
-// I hate regex.
 
 
 class InternetSharingDisabledCheck: SystemCheck {

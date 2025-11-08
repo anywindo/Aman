@@ -1,7 +1,8 @@
-//  BluetoothMenuIconVisibleCheck.swift
-//  Aman
 //
-//  Created by Arwindo Pratama.
+//  BluetoothMenuIconVisibleCheck.swift
+//  Aman - Modules
+//
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
