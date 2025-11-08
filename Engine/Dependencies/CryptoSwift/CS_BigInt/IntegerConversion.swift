@@ -1,10 +1,9 @@
-//
-//  IntegerConversion.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2017-08-11.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [IntegerConversion].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS.BigUInt {
     public init?<T: BinaryInteger>(exactly source: T) {
@@ -43,7 +42,6 @@ extension CS.BigInt {
         self.init(sign: .plus, magnitude: 0)
     }
 
-    /// Initializes a new signed big integer with the same value as the specified unsigned big integer.
     public init(_ integer: CS.BigUInt) {
         self.magnitude = integer
         self.sign = .plus
@@ -74,14 +72,12 @@ extension CS.BigInt {
 }
 
 extension CS.BigUInt: ExpressibleByIntegerLiteral {
-    /// Initialize a new big integer from an integer literal.
     public init(integerLiteral value: UInt64) {
         self.init(value)
     }
 }
 
 extension CS.BigInt: ExpressibleByIntegerLiteral {
-    /// Initialize a new big integer from an integer literal.
     public init(integerLiteral value: Int64) {
         self.init(value)
     }

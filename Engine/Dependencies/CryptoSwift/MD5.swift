@@ -1,28 +1,19 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
+// 
+//  [MD5].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 public final class MD5: DigestType {
   static let blockSize: Int = 64
-  static let digestLength: Int = 16 // 128 / 8
+  static let digestLength: Int = 16
   fileprivate static let hashInitialValue: Array<UInt32> = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476]
 
   fileprivate var accumulated = Array<UInt8>()
   fileprivate var processedBytesTotalCount: Int = 0
   fileprivate var accumulatedHash: Array<UInt32> = MD5.hashInitialValue
 
-  /** specifies the per-round shift amounts */
   private let s: Array<UInt32> = [
     7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
     5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
@@ -30,7 +21,6 @@ public final class MD5: DigestType {
     6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21
   ]
 
-  /** binary integer part of the sines of integers (Radians) */
   private let k: Array<UInt32> = [
     0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
     0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
@@ -66,11 +56,9 @@ public final class MD5: DigestType {
   }
 
 
-  // mutating currentHash in place is way faster than returning new result
   fileprivate func process(block chunk: ArraySlice<UInt8>, currentHash: inout Array<UInt32>) {
     assert(chunk.count == 16 * 4)
 
-    // Initialize hash value for this chunk:
     var A: UInt32 = currentHash[0]
     var B: UInt32 = currentHash[1]
     var C: UInt32 = currentHash[2]
@@ -78,7 +66,6 @@ public final class MD5: DigestType {
 
     var dTemp: UInt32 = 0
 
-    // Main loop
     for j in 0..<self.k.count {
       var g = 0
       var F: UInt32 = 0
@@ -103,7 +90,6 @@ public final class MD5: DigestType {
       D = C
       C = B
 
-      // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15 and get M[g] value
       let gAdvanced = g << 2
 
       var Mg = UInt32(chunk[chunk.startIndex &+ gAdvanced])
@@ -130,10 +116,8 @@ extension MD5: Updatable {
       let lengthInBits = (processedBytesTotalCount + self.accumulated.count) * 8
       let lengthBytes = lengthInBits.bytes(totalBytes: 64 / 8) // A 64-bit representation of b
 
-      // Step 1. Append padding
       bitPadding(to: &self.accumulated, blockSize: MD5.blockSize, allowance: 64 / 8)
 
-      // Step 2. Append Length a 64-bit representation of lengthInBits
       self.accumulated += lengthBytes.reversed()
     }
 
@@ -147,7 +131,6 @@ extension MD5: Updatable {
     self.accumulated.removeFirst(processedBytes)
     self.processedBytesTotalCount += processedBytes
 
-    // output current hash
     var result = Array<UInt8>()
     result.reserveCapacity(MD5.digestLength)
 
@@ -156,7 +139,6 @@ extension MD5: Updatable {
       result += Array<UInt8>(arrayLiteral: UInt8(hLE & 0xff), UInt8((hLE >> 8) & 0xff), UInt8((hLE >> 16) & 0xff), UInt8((hLE >> 24) & 0xff))
     }
 
-    // reset hash value for instance
     if isLast {
       self.accumulatedHash = MD5.hashInitialValue
     }

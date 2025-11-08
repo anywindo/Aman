@@ -1,9 +1,9 @@
-//
-//  RemediationCatalog.swift
-//  Aman
-//
-//  Created by Codex.
-//
+// 
+//  [RemediationCatalog].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 

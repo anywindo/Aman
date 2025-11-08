@@ -1,9 +1,9 @@
-//
-//  IntranetConsentStore.swift
-//  Aman
-//
-//  Persists user consent and runtime preferences for the intranet security scanner.
-//
+// 
+//  [IntranetConsentStore].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 
@@ -57,5 +57,4 @@ final class IntranetConsentStore {
         defaults.set(state.targets, forKey: targetsKey)
     }
 
-    // Legacy helper removed – configuration is now assembled directly in the view model.
 }

@@ -1,10 +1,9 @@
-//
-//  Shifts.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2016-01-03.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [Shifts].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS.BigUInt {
 
@@ -13,8 +12,8 @@ extension CS.BigUInt {
     internal func shiftedLeft(by amount: Word) -> CS.BigUInt {
         guard amount > 0 else { return self }
         
-        let ext = Int(amount / Word(Word.bitWidth)) // External shift amount (new words)
-        let up = Word(amount % Word(Word.bitWidth)) // Internal shift amount (subword shift)
+        let ext = Int(amount / Word(Word.bitWidth)) 
+        let up = Word(amount % Word(Word.bitWidth)) 
         let down = Word(Word.bitWidth) - up
         
         var result = CS.BigUInt()
@@ -39,8 +38,8 @@ extension CS.BigUInt {
     internal mutating func shiftLeft(by amount: Word) {
         guard amount > 0 else { return }
         
-        let ext = Int(amount / Word(Word.bitWidth)) // External shift amount (new words)
-        let up = Word(amount % Word(Word.bitWidth)) // Internal shift amount (subword shift)
+        let ext = Int(amount / Word(Word.bitWidth)) 
+        let up = Word(amount % Word(Word.bitWidth)) 
         let down = Word(Word.bitWidth) - up
         
         if up > 0 {
@@ -62,8 +61,8 @@ extension CS.BigUInt {
         guard amount > 0 else { return self }
         guard amount < self.bitWidth else { return 0 }
         
-        let ext = Int(amount / Word(Word.bitWidth)) // External shift amount (new words)
-        let down = Word(amount % Word(Word.bitWidth)) // Internal shift amount (subword shift)
+        let ext = Int(amount / Word(Word.bitWidth)) 
+        let down = Word(amount % Word(Word.bitWidth)) 
         let up = Word(Word.bitWidth) - down
         
         var result = CS.BigUInt()
@@ -87,8 +86,8 @@ extension CS.BigUInt {
         guard amount > 0 else { return }
         guard amount < self.bitWidth else { self.clear(); return }
         
-        let ext = Int(amount / Word(Word.bitWidth)) // External shift amount (new words)
-        let down = Word(amount % Word(Word.bitWidth)) // Internal shift amount (subword shift)
+        let ext = Int(amount / Word(Word.bitWidth)) 
+        let down = Word(amount % Word(Word.bitWidth)) 
         let up = Word(Word.bitWidth) - down
         
         if ext > 0 {

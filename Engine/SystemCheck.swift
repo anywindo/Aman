@@ -1,16 +1,13 @@
-//
-//  SystemCheck.swift
-//  Aman
-//
-//  Created by Codex.
-//
+// 
+//  [SystemCheck].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 
-/// Base class for every concrete security check. Subclasses override `check()`
-/// and use the provided stored properties (`status`, `checkstatus`, etc.) to
-/// describe their outcome. The engine converts that mutable state into an
-/// immutable `AuditFinding` once execution finishes.
+
 class SystemCheck: Identifiable, Hashable {
     private let titleValue: String
     private let synopsisValue: String
@@ -23,7 +20,6 @@ class SystemCheck: Identifiable, Hashable {
     private let referenceValue: Int32
     private let baselineVerdict: String?
 
-    /// Mutable fields populated by subclasses while running `check()`.
     var status: String?
     var checkstatus: String?
     var error: Error?
@@ -65,19 +61,16 @@ class SystemCheck: Identifiable, Hashable {
 
     // MARK: - Execution
 
-    /// Override to provide custom preparation before each run.
     func prepareForExecution() {
         status = nil
         error = nil
         checkstatus = baselineVerdict
     }
 
-    /// Entry point used by the engine. Subclasses should override `check()`.
     func evaluate() {
         check()
     }
 
-    /// Legacy override point preserved for existing modules.
     func check() {
         fatalError("Subclasses must override `check()` in \(String(describing: Self.self)).")
     }
@@ -147,7 +140,6 @@ class SystemCheck: Identifiable, Hashable {
         hasher.combine(id)
     }
 
-    /// Allows the registry to append additional catalog tags (e.g. "Network") after initialization.
     func appendCategories(_ categories: [String]) {
         categoriesValue = Self.mergeCategories(existing: categoriesValue, additional: categories)
     }

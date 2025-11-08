@@ -1,8 +1,8 @@
-//
-//  NetworkWorkspaceConsentStore.swift
-//  Aman
-//
-//  Persists consent decisions for Network Analyzer and Network Mapping tooling.
+// 
+//  [NetworkWorkspaceConsentStore].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
 //
 
 import Foundation

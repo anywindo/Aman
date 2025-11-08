@@ -1,3 +1,10 @@
+// 
+//  [CommonSIMD].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 extension SIMD where Scalar: FixedWidthInteger {
     static var bitWidth: Int {
         scalarCount * Scalar.bitWidth

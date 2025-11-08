@@ -1,3 +1,10 @@
+// 
+//  [BigEndianBytesCollection].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 public struct BigEndianBytesCollection<Integer> where Integer: FixedWidthInteger {
     private let value: Integer
     

@@ -1,9 +1,9 @@
-//
-//  AuditCoordinator.swift
-//  Aman
-//
-//  Created by Codex.
-//
+// 
+//  [AuditCoordinator].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 
@@ -35,23 +35,19 @@ final class AuditCoordinator: ObservableObject {
         let modules = registry.checks(matching: domain)
         let total = max(modules.count, 1)
 
-        // Run on the MainActor (no detached task), avoiding capturing a main-actor 'self' in a @Sendable context.
         runningTask = Task(priority: .userInitiated) { [timeoutSeconds] in
             var completed = 0
 
             for check in modules {
                 if Task.isCancelled { break }
 
-                // Heavy work happens off-main inside AuditExecutor
                 let finding = AuditExecutor.evaluate(check: check, timeout: timeoutSeconds)
                 completed += 1
 
-                // Update main-actor state
                 self.findings.append(finding)
                 self.progress = Double(completed) / Double(total)
             }
 
-            // Finalize
             self.isRunning = false
             if Task.isCancelled {
                 self.findings.removeAll()

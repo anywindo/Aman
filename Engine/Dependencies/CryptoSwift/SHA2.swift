@@ -1,20 +1,9 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
-
-//  TODO: generic for process32/64 (UInt32/UInt64)
-//
+// 
+//  [SHA2].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 public final class SHA2: DigestType {
   @usableFromInline
@@ -120,7 +109,7 @@ public final class SHA2: DigestType {
     self.variant = variant
     switch self.variant {
       case .sha224, .sha256:
-        self.accumulatedHash32 = variant.h.map { UInt32($0) } // FIXME: UInt64 for process64
+        self.accumulatedHash32 = variant.h.map { UInt32($0) } 
         self.blockSize = variant.blockSize
         self.size = variant.rawValue
         self.digestLength = variant.digestLength
@@ -175,8 +164,7 @@ public final class SHA2: DigestType {
 
   @usableFromInline
   func process64(block chunk: ArraySlice<UInt8>, currentHash hh: inout Array<UInt64>) {
-    // break chunk into sixteen 64-bit words M[j], 0 ≤ j ≤ 15, big-endian
-    // Extend the sixteen 64-bit words into eighty 64-bit words:
+
     let M = UnsafeMutablePointer<UInt64>.allocate(capacity: self.k.count)
     M.initialize(repeating: 0, count: self.k.count)
     defer {
@@ -186,7 +174,7 @@ public final class SHA2: DigestType {
     for x in 0..<self.k.count {
       switch x {
         case 0...15:
-          let start = chunk.startIndex.advanced(by: x * 8) // * MemoryLayout<UInt64>.size
+          let start = chunk.startIndex.advanced(by: x * 8) 
           M[x] = UInt64(bytes: chunk, fromIndex: start)
         default:
           let s0 = rotateRight(M[x - 15], by: 1) ^ rotateRight(M[x - 15], by: 8) ^ (M[x - 15] >> 7)
@@ -204,7 +192,6 @@ public final class SHA2: DigestType {
     var G = hh[6]
     var H = hh[7]
 
-    // Main loop
     for j in 0..<self.k.count {
       let s0 = rotateRight(A, by: 28) ^ rotateRight(A, by: 34) ^ rotateRight(A, by: 39)
       let maj = (A & B) ^ (A & C) ^ (B & C)
@@ -233,11 +220,9 @@ public final class SHA2: DigestType {
     hh[7] = (hh[7] &+ H)
   }
 
-  // mutating currentHash in place is way faster than returning new result
   @usableFromInline
   func process32(block chunk: ArraySlice<UInt8>, currentHash hh: inout Array<UInt32>) {
-    // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15, big-endian
-    // Extend the sixteen 32-bit words into sixty-four 32-bit words:
+    
     let M = UnsafeMutablePointer<UInt32>.allocate(capacity: self.k.count)
     M.initialize(repeating: 0, count: self.k.count)
     defer {
@@ -248,7 +233,7 @@ public final class SHA2: DigestType {
     for x in 0..<self.k.count {
       switch x {
         case 0...15:
-          let start = chunk.startIndex.advanced(by: x * 4) // * MemoryLayout<UInt32>.size
+          let start = chunk.startIndex.advanced(by: x * 4) 
           M[x] = UInt32(bytes: chunk, fromIndex: start)
         default:
           let s0 = rotateRight(M[x - 15], by: 7) ^ rotateRight(M[x - 15], by: 18) ^ (M[x - 15] >> 3)
@@ -266,7 +251,7 @@ public final class SHA2: DigestType {
     var G = hh[6]
     var H = hh[7]
 
-    // Main loop
+ 
     for j in 0..<self.k.count {
       let s0 = rotateRight(A, by: 2) ^ rotateRight(A, by: 13) ^ rotateRight(A, by: 22)
       let maj = (A & B) ^ (A & C) ^ (B & C)
@@ -306,10 +291,9 @@ extension SHA2: Updatable {
       let lengthInBits = (processedBytesTotalCount + self.accumulated.count) * 8
       let lengthBytes = lengthInBits.bytes(totalBytes: self.blockSize / 8) // A 64-bit/128-bit representation of b. blockSize fit by accident.
 
-      // Step 1. Append padding
+    
       bitPadding(to: &self.accumulated, blockSize: self.blockSize, allowance: self.blockSize / 8)
 
-      // Step 2. Append Length a 64-bit representation of lengthInBits
       self.accumulated += lengthBytes
     }
 
@@ -328,7 +312,6 @@ extension SHA2: Updatable {
     self.accumulated.removeFirst(processedBytes)
     self.processedBytesTotalCount += processedBytes
 
-    // output current hash
     var result = Array<UInt8>(repeating: 0, count: variant.digestLength)
     switch self.variant {
       case .sha224, .sha256:
@@ -357,12 +340,11 @@ extension SHA2: Updatable {
         }
     }
 
-    // reset hash value for instance
+
     if isLast {
       switch self.variant {
         case .sha224, .sha256:
-          self.accumulatedHash32 = self.variant.h.lazy.map { UInt32($0) } // FIXME: UInt64 for process64
-        case .sha384, .sha512:
+          self.accumulatedHash32 = self.variant.h.lazy.map { UInt32($0) } 
           self.accumulatedHash64 = self.variant.h
       }
     }

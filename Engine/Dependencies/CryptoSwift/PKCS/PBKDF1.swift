@@ -1,24 +1,12 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
+// 
+//  [PBKDF1].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 public extension PKCS5 {
-  /// A key derivation function.
-  ///
-  /// PBKDF1 is recommended only for compatibility with existing
-  /// applications since the keys it produces may not be large enough for
-  /// some applications.
+
   struct PBKDF1 {
     public enum Error: Swift.Error {
       case invalidInput
@@ -61,12 +49,7 @@ public extension PKCS5 {
     @usableFromInline
     let t1: Array<UInt8>
 
-    /// - parameters:
-    ///   - salt: salt, an eight-bytes
-    ///   - variant: hash variant
-    ///   - iterations: iteration count, a positive integer
-    ///   - keyLength: intended length of derived key
-    public init(password: Array<UInt8>, salt: Array<UInt8>, variant: Variant = .sha1, iterations: Int = 4096 /* c */, keyLength: Int? = nil /* dkLen */ ) throws {
+      public init(password: Array<UInt8>, salt: Array<UInt8>, variant: Variant = .sha1, iterations: Int = 4096 /* c */, keyLength: Int? = nil /* dkLen */ ) throws {
       precondition(iterations > 0)
       precondition(salt.count == 8)
 
@@ -84,7 +67,6 @@ public extension PKCS5 {
       self.t1 = t1
     }
 
-    /// Apply the underlying hash function Hash for c iterations
     @inlinable
     public func calculate() -> Array<UInt8> {
       var t = self.t1

@@ -1,9 +1,9 @@
-//
-//  NetworkPortScanHistoryStore.swift
-//  Aman
-//
-//  Persists targeted port scan results for each host.
-//
+// 
+//  [NetworkPortScanHistoryStore].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 
@@ -71,7 +71,6 @@ final class NetworkPortScanHistoryStore: NetworkPortScanHistoryManaging {
             )
             try data.write(to: fileURL, options: [.atomic])
         } catch {
-            // Persisting history is best-effort; ignore failures for now.
         }
     }
 }

@@ -1,3 +1,10 @@
+// 
+//  [BigEndianBytesCollectionSIMD].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 public struct SIMDBigEndianBytesCollection<Vector>
 where Vector: SIMD, Vector.Scalar: FixedWidthInteger {
     private let value: Vector

@@ -1,19 +1,15 @@
-//
-//  Multiplication.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2016-01-03.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [Multiplication].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS.BigUInt {
 
     //MARK: Multiplication
 
-    /// Multiply this big integer by a single word, and store the result in place of the original big integer.
-    ///
-    /// - Complexity: O(count)
-    public mutating func multiply(byWord y: Word) {
+   public mutating func multiply(byWord y: Word) {
         guard y != 0 else { self = 0; return }
         guard y != 1 else { return }
         var carry: Word = 0
@@ -27,21 +23,13 @@ extension CS.BigUInt {
         self[c] = carry
     }
 
-    /// Multiply this big integer by a single Word, and return the result.
-    ///
-    /// - Complexity: O(count)
     public func multiplied(byWord y: Word) -> CS.BigUInt {
         var r = self
         r.multiply(byWord: y)
         return r
     }
 
-    /// Multiply `x` by `y`, and add the result to this integer, optionally shifted `shift` words to the left.
-    ///
-    /// - Note: This is the fused multiply/shift/add operation; it is more efficient than doing the components
-    ///   individually. (The fused operation doesn't need to allocate space for temporary big integers.)
-    /// - Returns: `self` is set to `self + (x * y) << (shift * 2^Word.bitWidth)`
-    /// - Complexity: O(count)
+
     public mutating func multiplyAndAdd(_ x: CS.BigUInt, _ y: Word, shiftedBy shift: Int = 0) {
         precondition(shift >= 0)
         guard y != 0 && x.count > 0 else { return }

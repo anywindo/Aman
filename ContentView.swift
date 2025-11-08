@@ -1,9 +1,9 @@
-//
-//  ContentView.swift
-//  Aman
-//
-//  Reauthored by Codex.
-//
+// 
+//  [ContentView].swift 
+//  Aman - [Aman] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import SwiftUI
 import AppKit
@@ -33,7 +33,6 @@ struct ContentView: View {
     @State private var sortKey: SortKey = .verdict
     @State private var ascending: Bool = true
 
-    // Tracks a pending, coalesced selection update to avoid multiple rapid changes in one update pass.
     @State private var pendingAutoSelection = false
 
     private var displayedFindings: [AuditFinding] {
@@ -119,7 +118,6 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 900, minHeight: 560)
-        // Coalesce selection updates whenever inputs that affect the list change.
         .onChange(of: selectedDomain) { scheduleSafeAutoSelection(clearFirst: true) }
         .onChange(of: coordinator.findings) { scheduleSafeAutoSelection(clearFirst: false) }
         .onChange(of: searchText) { scheduleSafeAutoSelection(clearFirst: true) }
@@ -128,7 +126,6 @@ struct ContentView: View {
     }
 
     private func runAudit() {
-        // Clear selection before results start streaming in.
         selection = nil
         if selectedDomain != .all {
             selectedDomain = .all
@@ -141,16 +138,13 @@ struct ContentView: View {
         coordinator.reset()
     }
 
-    // Schedule selection correction to the next runloop so it runs after List reconciles rows.
     private func scheduleSafeAutoSelection(clearFirst: Bool) {
-        // Avoid meddling while the audit is running; results are in flux.
         guard !coordinator.isRunning else { return }
 
         if clearFirst {
             selection = nil
         }
 
-        // Only schedule one pending update per cycle.
         guard !pendingAutoSelection else { return }
         pendingAutoSelection = true
 
@@ -160,20 +154,16 @@ struct ContentView: View {
         }
     }
 
-    // Only change selection if current selection is invalid for the current displayedFindings.
     private func safeAutoSelectFirstIfNeeded() {
-        // If there are no rows, keep selection nil.
         guard !displayedFindings.isEmpty else {
             selection = nil
             return
         }
 
-        // If current selection maps to an existing item in the current displayed list, keep it.
         if let sel = selection, displayedFindings.contains(where: { $0.id == sel }) {
             return
         }
 
-        // Otherwise, pick the first row deterministically.
         selection = displayedFindings.first?.id
     }
 

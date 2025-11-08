@@ -1,11 +1,9 @@
-//
-//  FloatingPointConversion.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2017-08-11.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
-
+// 
+//  [FloatingPointConversion].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 extension CS.BigUInt {
     public init?<T: BinaryFloatingPoint>(exactly source: T) {
         guard source.isFinite else { return nil }
@@ -49,7 +47,7 @@ extension BinaryFloatingPoint where RawExponent: FixedWidthInteger, RawSignifica
         var exponent = bitWidth - 1
         let shift = bitWidth - Self.significandBitCount - 1
         var significand = value.magnitude >> (shift - 1)
-        if significand[0] & 3 == 3 { // Handle rounding
+        if significand[0] & 3 == 3 {
             significand >>= 1
             significand += 1
             if significand.trailingZeroBitCount >= Self.significandBitCount {

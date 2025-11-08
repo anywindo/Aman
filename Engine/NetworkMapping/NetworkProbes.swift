@@ -1,9 +1,9 @@
-//
-//  NetworkProbes.swift
-//  Aman
-//
-//  Provides ARP and ICMP sweep helpers used by discovery service.
-//
+// 
+//  [NetworkProbes].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 
@@ -43,7 +43,6 @@ final class DefaultARPScanner: ARPScanning {
     }
 
     private func parseARPLine(_ line: String) -> DiscoveredHost? {
-        // Example: ? (192.168.1.1) at 0:11:22:33:44:55 on en0 ifscope [ethernet]
         guard let addressStart = line.firstIndex(of: "("),
               let addressEnd = line.firstIndex(of: ")"),
               addressStart < addressEnd else {

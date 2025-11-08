@@ -1,3 +1,10 @@
+// 
+//  [CRTShClient].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 public protocol DuplexProtocol {
     associatedtype Output: Sequence where Output.Element == UInt8
     
