@@ -1,23 +1,10 @@
 //
-//  CryptoSwift
+//  Scrypt.swift
+//  Aman - Engine
 //
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
-//
-// https://tools.ietf.org/html/rfc7914
-//
-
-/// Implementation of the scrypt key derivation function.
 public final class Scrypt {
   enum Error: Swift.Error {
     case nIsTooLarge
@@ -26,7 +13,6 @@ public final class Scrypt {
     case invalidInput
   }
 
-  /// Configuration parameters.
   private let salt: SecureBytes
   private let password: SecureBytes
   private let blocksize: Int // 128 * r
@@ -36,13 +22,7 @@ public final class Scrypt {
   private let r: Int
   private let p: Int
 
-  /// - parameters:
-  ///   - password: password
-  ///   - salt: salt
-  ///   - dkLen: output length
-  ///   - N: determines extra memory used
-  ///   - r: determines a block size
-  ///   - p: determines parallelicity degree
+  
   public init(password: Array<UInt8>, salt: Array<UInt8>, dkLen: Int, N: Int, r: Int, p: Int) throws {
     precondition(dkLen > 0)
     precondition(N > 0)
@@ -67,14 +47,11 @@ public final class Scrypt {
     self.dkLen = dkLen
   }
 
-  /// Runs the key derivation function with a specific password.
   public func calculate() throws -> [UInt8] {
-    // Allocate memory (as bytes for now) for further use in mixing steps
     let B = UnsafeMutableRawPointer.allocate(byteCount: 128 * self.r * self.p, alignment: 64)
     let XY = UnsafeMutableRawPointer.allocate(byteCount: 256 * self.r + 64, alignment: 64)
     let V = UnsafeMutableRawPointer.allocate(byteCount: 128 * self.r * self.N, alignment: 64)
 
-    // Deallocate memory when done
     defer {
       B.deallocate()
       XY.deallocate()
@@ -82,14 +59,12 @@ public final class Scrypt {
     }
 
     /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
-    // Expand the initial key
     let barray = try PKCS5.PBKDF2(password: Array(self.password), salt: Array(self.salt), iterations: 1, keyLength: self.p * 128 * self.r, variant: .sha2(.sha256)).calculate()
     barray.withUnsafeBytes { p in
       B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
     }
 
     /* 2: for i = 0 to p - 1 do */
-    // do the mixing
     for i in 0 ..< self.p {
       /* 3: B_i <-- MF(B_i, N) */
       smix(B + i * 128 * self.r, V.assumingMemoryBound(to: UInt32.self), XY.assumingMemoryBound(to: UInt32.self))
@@ -109,11 +84,7 @@ public final class Scrypt {
 }
 
 private extension Scrypt {
-  /// Computes `B = SMix_r(B, N)`.
-  ///
-  /// The input `block` must be `128*r` bytes in length; the temporary storage `v` must be `128*r*n` bytes in length;
-  /// the temporary storage `xy` must be `256*r + 64` bytes in length. The arrays `block`, `v`, and `xy` must be
-  /// aligned to a multiple of 64 bytes.
+ 
   @inline(__always) func smix(_ block: UnsafeMutableRawPointer, _ v: UnsafeMutablePointer<UInt32>, _ xy: UnsafeMutablePointer<UInt32>) {
     let X = xy
     let Y = xy + 32 * self.r
@@ -169,16 +140,12 @@ private extension Scrypt {
     }
   }
 
-  /// Returns the result of parsing `B_{2r-1}` as a little-endian integer.
   @inline(__always) func integerify(_ block: UnsafeRawPointer) -> UInt64 {
     let bi = block + (2 * self.r - 1) * 64
     return bi.load(as: UInt64.self).littleEndian
   }
 
-  /// Compute `bout = BlockMix_{salsa20/8, r}(bin)`.
-  ///
-  /// The input `bin` must be `128*r` bytes in length; the output `bout` must also be the same size. The temporary
-  /// space `x` must be 64 bytes.
+ 
   @inline(__always) func blockMixSalsa8(_ bin: UnsafePointer<UInt32>, _ bout: UnsafeMutablePointer<UInt32>, _ x: UnsafeMutablePointer<UInt32>) {
     /* 1: X <-- B_{2r - 1} */
     UnsafeMutableRawPointer(x).copyMemory(from: bin + (2 * self.r - 1) * 16, byteCount: 64)
