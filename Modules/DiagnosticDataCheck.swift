@@ -1,8 +1,8 @@
 //
 //  DiagnosticDataCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation

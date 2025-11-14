@@ -1,19 +1,12 @@
 //
 //  ContentCachingDisabledCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Crreated by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Foundation
 
-
-//The main use case for Mac computers is as mobile user endpoints. P2P sharing
-//services should not be enabled on laptops that are using untrusted networks. Content
-//Caching can allow a computer to be a server for local nodes on an untrusted network.
-//While there are certainly logical controls that could be used to mitigate risk, they add to
-//the management complexity. Since the value of the service is in specific use cases
-//organizations with the use case described above can accept risk as necessary.
                                                     
                                                     
 class ContentCachingDisabledCheck: SystemCheck {

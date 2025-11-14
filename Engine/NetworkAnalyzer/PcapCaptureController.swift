@@ -1,3 +1,11 @@
+//
+//  PcapCaptureController.swift
+//  Aman - Engine
+//
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
+//
+
+
 import Foundation
 
 enum PcapCaptureError: LocalizedError {
@@ -50,8 +58,7 @@ final class PcapCaptureController {
             self.capturePayload = capturePayload
         }
 
-        // Use brief, numeric, line-buffered, epoch timestamps
-        // -tt: epoch with fractional, -n: no name resolution, -q: brief, -l: line buffered
+       
         var tcpdumpArgs: [String] {
             var args = ["-i", interface, "-tt", "-n", "-q", "-l"]
             if capturePayload {
@@ -69,7 +76,7 @@ final class PcapCaptureController {
     private var stderrPipe: Pipe?
     private let queue = DispatchQueue(label: "com.aman.pcap.capture", qos: .utility)
 
-    // Line callback
+
     var onPacketLine: ((String) -> Void)?
     var onError: ((PcapCaptureError) -> Void)?
 
@@ -93,7 +100,7 @@ final class PcapCaptureController {
         stderrPipe = err
         process = proc
 
-        // Observe stdout lines
+      
         out.fileHandleForReading.readabilityHandler = { [weak self] handle in
             guard let self else { return }
             let data = handle.availableData
@@ -103,7 +110,7 @@ final class PcapCaptureController {
             }
         }
 
-        // Observe stderr for permission errors
+       
         err.fileHandleForReading.readabilityHandler = { [weak self] handle in
             guard let self else { return }
             let data = handle.availableData
@@ -118,7 +125,7 @@ final class PcapCaptureController {
                 return
             }
 
-            // tcpdump writes certain informational messages to stderr; ignore those.
+          
             let informationalPrefixes = [
                 "tcpdump: verbose output suppressed",
                 "listening on ",
@@ -155,8 +162,7 @@ final class PcapCaptureController {
     }
 
     private func dispatchLines(_ chunk: String) {
-        // tcpdump -tt -n -q -l emits one packet per line; however, buffering can coalesce lines.
-        // Split by newlines and feed each line.
+       
         queue.async { [weak self] in
             for line in chunk.split(whereSeparator: \.isNewline).map(String.init) {
                 self?.onPacketLine?(line)
