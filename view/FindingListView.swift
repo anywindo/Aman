@@ -1,8 +1,8 @@
 //
 //  FindingListView.swift
-//  Aman
+//  Aman - view
 //
-//  Reauthored by Codex.
+//  Created by Aman Team on 08/11/25
 //
 
 import SwiftUI

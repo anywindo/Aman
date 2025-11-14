@@ -1,8 +1,8 @@
 //
 //  PortScannerCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Arwindo Pratama
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
@@ -22,7 +22,6 @@ final class PortScannerCheck: SystemCheck {
         let enableBannerGrab: Bool
 
         static func `default`() -> Config {
-            // Curated common ports + a few extras
             let common: [Int] = [
                 20,21,22,23,25,53,67,68,69,80,110,111,123,135,137,138,139,
                 143,161,389,443,445,465,500,514,515,587,631,993,995,
@@ -34,10 +33,8 @@ final class PortScannerCheck: SystemCheck {
             return Config(
                 host: "127.0.0.1",
                 ports: common,
-                // Tighter defaults to reduce long-tail and perceived hang
                 connectTimeoutSeconds: 1.0,
                 readTimeoutSeconds: 0.25,
-                // Less aggressive concurrency to avoid a scheduling spike
                 maxConcurrent: 48,
                 bannerMaxBytes: 160,
                 enableBannerGrab: true
@@ -94,7 +91,6 @@ final class PortScannerCheck: SystemCheck {
         let results = scanHost(host: config.host, ports: config.ports)
         let open = results.filter { $0.open }
 
-        // Determine status color
         let highRiskPorts: Set<Int> = [21,22,23,25,110,139,445,3306,3389,5432,5900,6379,9200,11211,27017]
         let hasHighRisk = open.contains { highRiskPorts.contains($0.port) }
 
@@ -112,7 +108,6 @@ final class PortScannerCheck: SystemCheck {
             return
         }
 
-        // Build detailed multi-line summary
         let header = "Found \(open.count) open TCP port(s) on \(config.host). Scanned \(config.ports.count) ports in \(elapsedMs) ms."
         let lines = open
             .sorted { $0.port < $1.port }
@@ -136,19 +131,16 @@ final class PortScannerCheck: SystemCheck {
     // MARK: - Core scanning
 
     private func scanHost(host: String, ports: [Int]) -> [PortResult] {
-        // Resolve address first
         guard let addr = resolveIPv4(host: host) ?? resolveIPv6(host: host) else {
             return ports.map { PortResult(port: $0, service: serviceName(for: $0), open: false, latencyMs: nil, banner: nil, error: PortScanError.dnsResolutionFailed.description) }
         }
 
-        // Concurrency limiter
         let group = DispatchGroup()
         let semaphore = DispatchSemaphore(value: config.maxConcurrent)
         let resultLock = NSLock()
         var results: [PortResult] = []
         results.reserveCapacity(ports.count)
 
-        // Submit in small batches to reduce initial scheduling spike
         let batchSize = 16
         let batches = stride(from: 0, to: ports.count, by: batchSize).map { start in
             Array(ports[start..<min(start + batchSize, ports.count)])
@@ -181,12 +173,9 @@ final class PortScannerCheck: SystemCheck {
                 }
             }
 
-            // Tiny inter-batch pause to let the system breathe
             if batchIndex < batches.count - 1 {
-                // 3 ms is enough to avoid a burst without slowing the scan noticeably
                 let nanos: UInt64 = 3_000_000
                 let deadline = DispatchTime.now() + .nanoseconds(Int(nanos))
-                // Sleep the submitting thread (not the main thread)
                 _ = DispatchSemaphore(value: 0).wait(timeout: deadline)
             }
         }
@@ -259,7 +248,6 @@ final class PortScannerCheck: SystemCheck {
                 return .failure(.connectError(code))
             }
 
-            // Wait for writability or timeout
             var wfds = fd_set()
             fdZero(&wfds)
             fdSet(fd, &wfds)
@@ -352,7 +340,6 @@ final class PortScannerCheck: SystemCheck {
         return nil
     }
 
-    // Basic service mapping for common ports
     private func serviceName(for port: Int) -> String {
         switch port {
         case 20,21: return "ftp"
@@ -420,13 +407,10 @@ final class PortScannerCheck: SystemCheck {
 // MARK: - fd_set helpers replacing FD_ZERO/FD_SET macros
 
 private func fdZero(_ set: inout fd_set) {
-    // fd_set is a struct with an array field fds_bits on Apple platforms.
-    // Zero the whole struct memory.
     memset(&set, 0, MemoryLayout<fd_set>.size)
 }
 
 private func fdSet(_ fd: Int32, _ set: inout fd_set) {
-    // Mirror of FD_SET macro: set the bit for fd.
     let intSize = MemoryLayout<Int>.size * 8
     let idx = Int(fd) / intSize
     let mask = 1 << (Int(fd) % intSize)
@@ -442,7 +426,6 @@ private func fdSet(_ fd: Int32, _ set: inout fd_set) {
 private func makeTimeval(_ timeout: TimeInterval) -> timeval {
     let secs = Int(timeout)
     let usecsDouble = (timeout - TimeInterval(secs)) * 1_000_000
-    // Clamp to valid range [0, 999_999] and cast to platform C types
     let clampedUsecs = max(0, min(999_999, Int(usecsDouble.rounded())))
     return timeval(tv_sec: time_t(secs), tv_usec: suseconds_t(clampedUsecs))
 }

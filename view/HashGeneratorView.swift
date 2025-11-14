@@ -1,8 +1,8 @@
 //
 //  HashGeneratorView.swift
-//  Aman
+//  Aman - view
 //
-//  SwiftUI interface for the Network Security hash generator utility.
+//  Created by Aman Team on 08/11/25
 //
 
 import SwiftUI
@@ -61,6 +61,13 @@ struct HashGeneratorView: View {
                 .font(.headline)
             InputModeCardPicker(selection: $viewModel.inputMode)
         }
+        .onChange(of: viewModel.inputMode) { newMode in
+            Task { @MainActor in
+                viewModel.error = nil
+                switch newMode {
+                case .text:
+                    viewModel.fileURL = nil
+                case .file:
         // Defer any secondary state changes caused by mode switch to avoid
         // “Publishing changes from within view updates” warnings.
         .onChange(of: viewModel.inputMode) { newMode in
@@ -201,6 +208,7 @@ struct HashGeneratorView: View {
     private var actionRow: some View {
         HStack(spacing: 12) {
             Button {
+                if selectedAlgorithms.isEmpty {
                 // Bridge local multi-select into current ViewModel selection model.
                 if selectedAlgorithms.isEmpty {
                     // Treat empty as "All"

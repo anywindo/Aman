@@ -1,8 +1,8 @@
 //
 //  LandingSelectorView.swift
-//  Aman
+//  Aman - view
 //
-//  Landing hub that routes to OS Security or Network Security windows.
+//  Created by Aman Team on 08/11/25
 //
 
 import SwiftUI
