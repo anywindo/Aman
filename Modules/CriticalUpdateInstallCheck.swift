@@ -1,12 +1,9 @@
 //
 //  CriticalUpdateInstallCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
-
-//Since macOS Big Sur, the option to delay software updates has been removed from the system preferences. Therefore, it is not possible to check for a deferment period in newer macOS versions. This module checks for CriticalUpdateInstall check.
-//Tested in 13-inch, 2020, Four Thunderbolt 3 ports 13.2.1 (22D68)
 
 import Foundation
 

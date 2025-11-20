@@ -1,7 +1,7 @@
 //  LoginWindowPolicyCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Arwindo Pratama.
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation

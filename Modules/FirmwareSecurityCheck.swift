@@ -1,7 +1,8 @@
-//  FirmwareSecurityCheck.swift
-//  Aman
 //
-//  Created by Arwindo Pratama.
+//  FirmwareSecurityCheck.swift
+//  Aman - Modules
+//
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation

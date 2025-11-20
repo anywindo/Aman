@@ -1,8 +1,8 @@
 //
 //  AppSandboxCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak on 27.03.2023.
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation

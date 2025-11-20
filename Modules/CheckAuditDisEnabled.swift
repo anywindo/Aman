@@ -1,15 +1,13 @@
 //
 //  CheckAuditDisEnabled.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
 
 
 import Foundation
 
-// This module checks if the com.apple.auditd service is running, which indicates security auditing is enabled.
-// A check status of "Green" means security auditing is enabled; "Red" means it is not; "Yellow" indicates an error.
 
 class SecurityAuditingCheck: SystemCheck {
 
