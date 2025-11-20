@@ -1,9 +1,9 @@
-//
-//  IntranetSecurityScanner.swift
-//  Aman
-//
-//  Rewritten CVE scanner built directly on top of nmap output.
-//
+// 
+//  [IntranetSecurityScanner].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 

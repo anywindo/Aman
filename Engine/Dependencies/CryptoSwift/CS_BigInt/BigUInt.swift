@@ -1,38 +1,24 @@
-//
-//  BigUInt.swift
-//  BigInt
-//
-//  Created by Károly Lőrentey on 2015-12-26.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [BigUInt].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS {
 
-  /// An arbitrary precision unsigned integer type, also known as a "big integer".
-  ///
-  /// Operations on big integers never overflow, but they may take a long time to execute.
-  /// The amount of memory (and address space) available is the only constraint to the magnitude of these numbers.
-  ///
-  /// This particular big integer type uses base-2^64 digits to represent integers; you can think of it as a wrapper
-  /// around `Array<UInt64>`. (In fact, `BigUInt` only uses an array if there are more than two digits.)
   public struct BigUInt: UnsignedInteger {
-      /// The type representing a digit in `BigUInt`'s underlying number system.
       public typealias Word = UInt
 
-      /// The storage variants of a `BigUInt`.
       enum Kind {
-          /// Value consists of the two specified words (low and high). Either or both words may be zero.
           case inline(Word, Word)
-          /// Words are stored in a slice of the storage array.
           case slice(from: Int, to: Int)
-          /// Words are stored in the storage array.
           case array
       }
 
-      internal fileprivate(set) var kind: Kind // Internal for testing only
-      internal fileprivate(set) var storage: [Word] // Internal for testing only; stored separately to prevent COW copies
+      internal fileprivate(set) var kind: Kind 
+      internal fileprivate(set) var storage: [Word] 
 
-      /// Initializes a new BigUInt with value 0.
       public init() {
           self.kind = .inline(0, 0)
           self.storage = []
@@ -48,7 +34,6 @@ extension CS {
           self.storage = []
       }
 
-      /// Initializes a new BigUInt with the specified digits. The digits are ordered from least to most significant.
       public init(words: [Word]) {
           self.kind = .array
           self.storage = words
@@ -69,9 +54,6 @@ extension CS.BigUInt {
         return false
     }
 
-    /// Return true iff this integer is zero.
-    ///
-    /// - Complexity: O(1)
     var isZero: Bool {
         switch kind {
         case .inline(0, 0): return true
@@ -81,9 +63,6 @@ extension CS.BigUInt {
         }
     }
 
-    /// Returns `1` if this value is, positive; otherwise, `0`.
-    ///
-    /// - Returns: The sign of this number, expressed as an integer of the same type.
     public func signum() -> CS.BigUInt {
         return isZero ? 0 : 1
     }
@@ -133,7 +112,6 @@ extension CS.BigUInt {
         }
     }
 
-    /// Gets rid of leading zero digits in the digit array and converts slices into inline digits when possible.
     internal mutating func normalize() {
         switch kind {
         case .slice(from: let start, to: var end):
@@ -166,12 +144,10 @@ extension CS.BigUInt {
         }
     }
 
-    /// Set this integer to 0 without releasing allocated storage capacity (if any).
     mutating func clear() {
         self.load(0)
     }
 
-    /// Set this integer to `value` by copying its digits without releasing allocated storage capacity (if any).
     mutating func load(_ value: CS.BigUInt) {
         switch kind {
         case .inline, .slice:
@@ -186,7 +162,6 @@ extension CS.BigUInt {
 extension CS.BigUInt {
     //MARK: Collection-like members
 
-    /// The number of digits in this integer, excluding leading zero digits.
     var count: Int {
         switch kind {
         case let .inline(w0, w1):
@@ -200,16 +175,7 @@ extension CS.BigUInt {
         }
     }
 
-    /// Get or set a digit at a given index.
-    ///
-    /// - Note: Unlike a normal collection, it is OK for the index to be greater than or equal to `endIndex`.
-    ///   The subscripting getter returns zero for indexes beyond the most significant digit.
-    ///   Setting these extended digits automatically appends new elements to the underlying digit array.
-    /// - Requires: index >= 0
-    /// - Complexity: The getter is O(1). The setter is O(1) if the conditions below are true; otherwise it's O(count).
-    ///    - The integer's storage is not shared with another integer
-    ///    - The integer wasn't created as a slice of another integer
-    ///    - `index < count`
+    
     subscript(_ index: Int) -> Word {
         get {
             precondition(index >= 0)
@@ -258,7 +224,6 @@ extension CS.BigUInt {
         storage.append(word)
     }
 
-    /// Returns an integer built from the digits of this integer in the given range.
     internal func extract(_ bounds: Range<Int>) -> CS.BigUInt {
         switch kind {
         case let .inline(w0, w1):
@@ -350,39 +315,21 @@ extension CS.BigUInt {
 extension CS.BigUInt {
     //MARK: Low and High
 
-    /// Split this integer into a high-order and a low-order part.
-    ///
-    /// - Requires: count > 1
-    /// - Returns: `(low, high)` such that
-    ///   - `self == low.add(high, shiftedBy: middleIndex)`
-    ///   - `high.width <= floor(width / 2)`
-    ///   - `low.width <= ceil(width / 2)`
-    /// - Complexity: Typically O(1), but O(count) in the worst case, because high-order zero digits need to be removed after the split.
     internal var split: (high: CS.BigUInt, low: CS.BigUInt) {
         precondition(count > 1)
         let mid = middleIndex
         return (self.extract(mid...), self.extract(..<mid))
     }
 
-    /// Index of the digit at the middle of this integer.
-    ///
-    /// - Returns: The index of the digit that is least significant in `self.high`.
     internal var middleIndex: Int {
         return (count + 1) / 2
     }
 
-    /// The low-order half of this CS.BigUInt.
-    ///
-    /// - Returns: `self[0 ..< middleIndex]`
-    /// - Requires: count > 1
-    internal var low: CS.BigUInt {
+     internal var low: CS.BigUInt {
         return self.extract(0 ..< middleIndex)
     }
 
-    /// The high-order half of this CS.BigUInt.
-    ///
-    /// - Returns: `self[middleIndex ..< count]`
-    /// - Requires: count > 1
+    
     internal var high: CS.BigUInt {
         return self.extract(middleIndex ..< count)
     }

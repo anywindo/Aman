@@ -1,19 +1,11 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
+// 
+//  [Checksum].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
-/// CRC - cyclic redundancy check code.
+
 public final class Checksum {
 
   @usableFromInline
@@ -126,10 +118,9 @@ public final class Checksum {
 
   @usableFromInline
   init() {
-    //
+    
   }
 
-  /// Polynomial: 0xEDB88320 (Reversed) - IEEE
   @inlinable
   func crc32(_ message: Array<UInt8>, seed: UInt32? = nil, reflect: Bool = true) -> UInt32 {
     var crc: UInt32 = seed != nil ? seed! : 0xFFFF_FFFF
@@ -142,7 +133,6 @@ public final class Checksum {
     return (reflect ? crc : reversed(crc)) ^ 0xFFFF_FFFF
   }
 
-  /// Polynomial: 0x82F63B78 (Reversed) - Castagnoli
   @inlinable
   func crc32c(_ message: Array<UInt8>, seed: UInt32? = nil, reflect: Bool = true) -> UInt32 {
     var crc: UInt32 = seed != nil ? seed! : 0xFFFF_FFFF
@@ -155,7 +145,6 @@ public final class Checksum {
     return (reflect ? crc : reversed(crc)) ^ 0xFFFF_FFFF
   }
 
-  /// Polynomial: 0xA001 (Reversed) - IBM
   @inlinable
   func crc16(_ message: Array<UInt8>, seed: UInt16? = nil) -> UInt16 {
     var crc: UInt16 = seed != nil ? seed! : 0x0000
@@ -171,36 +160,19 @@ public final class Checksum {
 // MARK: Public interface
 
 public extension Checksum {
-  /// Calculate CRC32.
-  ///
-  /// - parameter message: Message
-  /// - parameter seed:    Seed value (Optional)
-  /// - parameter reflect: is reflect (default true)
-  ///
-  /// - returns: Calculated code
+
   @inlinable
   static func crc32(_ message: Array<UInt8>, seed: UInt32? = nil, reflect: Bool = true) -> UInt32 {
     Checksum().crc32(message, seed: seed, reflect: reflect)
   }
 
-  /// Calculate CRC32C
-  ///
-  /// - parameter message: Message
-  /// - parameter seed:    Seed value (Optional)
-  /// - parameter reflect: is reflect (default true)
-  ///
-  /// - returns: Calculated code
+
   @inlinable
   static func crc32c(_ message: Array<UInt8>, seed: UInt32? = nil, reflect: Bool = true) -> UInt32 {
     Checksum().crc32c(message, seed: seed, reflect: reflect)
   }
 
-  /// Calculate CRC16
-  ///
-  /// - parameter message: Message
-  /// - parameter seed:    Seed value (Optional)
-  ///
-  /// - returns: Calculated code
+
   @inlinable
   static func crc16(_ message: Array<UInt8>, seed: UInt16? = nil) -> UInt16 {
     Checksum().crc16(message, seed: seed)

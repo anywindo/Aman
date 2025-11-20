@@ -1,14 +1,12 @@
-//
-//  Codable.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2017-8-11.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [Codable].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS {
 
-  // Little-endian to big-endian
   struct Units<Unit: FixedWidthInteger, Words: RandomAccessCollection>: RandomAccessCollection
   where Words.Element: FixedWidthInteger, Words.Index == Int {
       typealias Word = Words.Element
@@ -35,7 +33,6 @@ extension CS {
               }
               return unit
           }
-          // Unit.bitWidth < Word.bitWidth
           let c = Word.bitWidth / Unit.bitWidth
           let i = index / c
           let j = index % c
@@ -45,7 +42,6 @@ extension CS {
 }
 
 extension Array where Element: FixedWidthInteger {
-    // Big-endian to little-endian
     init<Unit: FixedWidthInteger>(count: Int?, generator: () throws -> Unit?) rethrows {
         typealias Word = Element
         precondition(Word.bitWidth % Unit.bitWidth == 0 || Unit.bitWidth % Word.bitWidth == 0)
@@ -106,7 +102,6 @@ extension CS.BigInt: Codable {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
 
-        // Decode sign
         let sign: CS.BigInt.Sign
         switch try container.decode(String.self) {
         case "+":
@@ -118,7 +113,6 @@ extension CS.BigInt: Codable {
                                                     debugDescription: "Invalid big integer sign"))
         }
 
-        // Decode magnitude
         let words = try [UInt](count: container.count?.advanced(by: -1)) { () -> UInt64? in
             guard !container.isAtEnd else { return nil }
             return try container.decode(UInt64.self)

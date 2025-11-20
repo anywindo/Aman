@@ -1,17 +1,9 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
+// 
+//  [SHA1].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 public final class SHA1: DigestType {
 
@@ -51,8 +43,7 @@ public final class SHA1: DigestType {
 
   @usableFromInline
   func process(block chunk: ArraySlice<UInt8>, currentHash hh: inout ContiguousArray<UInt32>) {
-    // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15, big-endian
-    // Extend the sixteen 32-bit words into eighty 32-bit words:
+
     let M = UnsafeMutablePointer<UInt32>.allocate(capacity: 80)
     M.initialize(repeating: 0, count: 80)
     defer {
@@ -63,7 +54,7 @@ public final class SHA1: DigestType {
     for x in 0..<80 {
       switch x {
         case 0...15:
-          let start = chunk.startIndex.advanced(by: x * 4) // * MemoryLayout<UInt32>.size
+          let start = chunk.startIndex.advanced(by: x * 4) 
           M[x] = UInt32(bytes: chunk, fromIndex: start)
         default:
           M[x] = rotateLeft(M[x - 3] ^ M[x - 8] ^ M[x - 14] ^ M[x - 16], by: 1)
@@ -76,7 +67,7 @@ public final class SHA1: DigestType {
     var D = hh[3]
     var E = hh[4]
 
-    // Main loop
+
     for j in 0...79 {
       var f: UInt32 = 0
       var k: UInt32 = 0
@@ -121,12 +112,10 @@ extension SHA1: Updatable {
 
     if isLast {
       let lengthInBits = (processedBytesTotalCount + self.accumulated.count) * 8
-      let lengthBytes = lengthInBits.bytes(totalBytes: 64 / 8) // A 64-bit representation of b
+      let lengthBytes = lengthInBits.bytes(totalBytes: 64 / 8) 
 
-      // Step 1. Append padding
       bitPadding(to: &self.accumulated, blockSize: SHA1.blockSize, allowance: 64 / 8)
 
-      // Step 2. Append Length a 64-bit representation of lengthInBits
       self.accumulated += lengthBytes
     }
 
@@ -140,7 +129,7 @@ extension SHA1: Updatable {
     self.accumulated.removeFirst(processedBytes)
     self.processedBytesTotalCount += processedBytes
 
-    // output current hash
+ 
     var result = Array<UInt8>(repeating: 0, count: SHA1.digestLength)
     var pos = 0
     for idx in 0..<self.accumulatedHash.count {
@@ -152,7 +141,6 @@ extension SHA1: Updatable {
       pos += 4
     }
 
-    // reset hash value for instance
     if isLast {
       self.accumulatedHash = SHA1.hashInitialValue
     }

@@ -1,9 +1,9 @@
-//
-//  NetworkDiscoveryHistoryStore.swift
-//  Aman
-//
-//  Persists host discovery history and computes deltas between snapshots.
-//
+// 
+//  [NetworkDiscoveryHistoryStore].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Foundation
 

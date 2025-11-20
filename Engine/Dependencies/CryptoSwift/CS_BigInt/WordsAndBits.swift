@@ -1,10 +1,9 @@
-//
-//  WordsAndBits.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2017-08-11.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [WordsAndBits].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension Array where Element == UInt {
     mutating func twosComplement() {
@@ -41,32 +40,19 @@ extension CS.BigUInt {
 }
 
 extension CS.BigUInt {
-    /// The minimum number of bits required to represent this integer in binary.
-    ///
-    /// - Returns: floor(log2(2 * self + 1))
-    /// - Complexity: O(1)
+   
     public var bitWidth: Int {
         guard count > 0 else { return 0 }
         return count * Word.bitWidth - self[count - 1].leadingZeroBitCount
     }
 
-    /// The number of leading zero bits in the binary representation of this integer in base `2^(Word.bitWidth)`.
-    /// This is useful when you need to normalize a `BigUInt` such that the top bit of its most significant word is 1.
-    ///
-    /// - Note: 0 is considered to have zero leading zero bits.
-    /// - Returns: A value in `0...(Word.bitWidth - 1)`.
-    /// - SeeAlso: width
-    /// - Complexity: O(1)
+    
     public var leadingZeroBitCount: Int {
         guard count > 0 else { return 0 }
         return self[count - 1].leadingZeroBitCount
     }
 
-    /// The number of trailing zero bits in the binary representation of this integer.
-    ///
-    /// - Note: 0 is considered to have zero trailing zero bits.
-    /// - Returns: A value in `0...width`.
-    /// - Complexity: O(count)
+   
     public var trailingZeroBitCount: Int {
         guard count > 0 else { return 0 }
         let i = self.words.firstIndex { $0 != 0 }!
@@ -81,7 +67,6 @@ extension CS.BigInt {
     }
 
     public var trailingZeroBitCount: Int {
-        // Amazingly, this works fine for negative numbers
         return magnitude.trailingZeroBitCount
     }
 }
@@ -174,7 +159,6 @@ extension CS.BigInt {
         public var endIndex: Int { return count }
 
         public subscript(_ index: Int) -> UInt {
-            // Note that indices above `endIndex` are accepted.
             if value.sign == .plus {
                 return value.magnitude[index]
             }

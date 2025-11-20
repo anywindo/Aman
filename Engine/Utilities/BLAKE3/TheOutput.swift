@@ -1,4 +1,9 @@
-//import SIMDEndianBytes
+// 
+//  [TheOutput].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 struct TheOutput {
     private let inputChainingValue: KeyWords
@@ -56,7 +61,6 @@ struct TheOutput {
                                         .joined())
             
             if output.count > outputByteCount {
-                // Trim without requiring BidirectionalCollection
                 let desiredCount = outputByteCount
                 let prefixSlice = output.prefix(desiredCount)
                 output.removeAll(keepingCapacity: true)

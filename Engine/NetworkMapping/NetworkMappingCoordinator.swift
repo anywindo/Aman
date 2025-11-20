@@ -1,9 +1,9 @@
-//
-//  NetworkMappingCoordinator.swift
-//  Aman
-//
-//  Coordinates discovery, topology, and port scan tasks for the Network Mapping feature.
-//
+// 
+//  [NetworkMappingCoordinator].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import Combine
 import Foundation
@@ -62,7 +62,7 @@ final class NetworkMappingCoordinator: ObservableObject {
                 let snapshot = try await discoveryService.enumerateNetwork()
                 await update(with: snapshot)
             } catch {
-                // TODO: surface error to the UI once we have a place to show it.
+
             }
             isDiscoveryRunning = false
         }

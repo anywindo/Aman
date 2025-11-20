@@ -1,20 +1,15 @@
-//
-//  StringConversion.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2016-01-03.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [StringConversion].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS.BigUInt {
 
     //MARK: String Conversion
 
-    /// Calculates the number of numerals in a given radix that fit inside a single `Word`.
-    ///
-    /// - Returns: (chars, power) where `chars` is highest that satisfy `radix^chars <= 2^Word.bitWidth`. `power` is zero
-    ///   if radix is a power of two; otherwise `power == radix^chars`.
-    fileprivate static func charsPerWord(forRadix radix: Int) -> (chars: Int, power: Word) {
+        fileprivate static func charsPerWord(forRadix radix: Int) -> (chars: Int, power: Word) {
         var power: Word = 1
         var overflow = false
         var count = 0
@@ -32,13 +27,6 @@ extension CS.BigUInt {
         return (count, power)
     }
 
-    /// Initialize a big integer from an ASCII representation in a given radix. Numerals above `9` are represented by
-    /// letters from the English alphabet.
-    ///
-    /// - Requires: `radix > 1 && radix < 36`
-    /// - Parameter `text`: A string consisting of characters corresponding to numerals in the given radix. (0-9, a-z, A-Z)
-    /// - Parameter `radix`: The base of the number system to use, or 10 if unspecified.
-    /// - Returns: The integer represented by `text`, or nil if `text` contains a character that does not represent a numeral in `radix`.
     public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
         precondition(radix > 1 && radix < 36)
         guard !text.isEmpty else { return nil }
@@ -77,14 +65,7 @@ extension CS.BigUInt {
 }
 
 extension CS.BigInt {
-    /// Initialize a big integer from an ASCII representation in a given radix. Numerals above `9` are represented by
-    /// letters from the English alphabet.
-    ///
-    /// - Requires: `radix > 1 && radix < 36`
-    /// - Parameter `text`: A string optionally starting with "-" or "+" followed by characters corresponding to numerals in the given radix. (0-9, a-z, A-Z)
-    /// - Parameter `radix`: The base of the number system to use, or 10 if unspecified.
-    /// - Returns: The integer represented by `text`, or nil if `text` contains a character that does not represent a numeral in `radix`.
-    public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
+     public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
         var magnitude: CS.BigUInt?
         var sign: Sign = .plus
         if text.first == "-" {
@@ -106,19 +87,9 @@ extension CS.BigInt {
 }
 
 extension String {
-    /// Initialize a new string with the base-10 representation of an unsigned big integer.
-    ///
-    /// - Complexity: O(v.count^2)
-    public init(_ v: CS.BigUInt) { self.init(v, radix: 10, uppercase: false) }
+      public init(_ v: CS.BigUInt) { self.init(v, radix: 10, uppercase: false) }
 
-    /// Initialize a new string representing an unsigned big integer in the given radix (base).
-    ///
-    /// Numerals greater than 9 are represented as letters from the English alphabet,
-    /// starting with `a` if `uppercase` is false or `A` otherwise.
-    ///
-    /// - Requires: radix > 1 && radix <= 36
-    /// - Complexity: O(count) when radix is a power of two; otherwise O(count^2).
-    public init(_ v: CS.BigUInt, radix: Int, uppercase: Bool = false) {
+       public init(_ v: CS.BigUInt, radix: Int, uppercase: Bool = false) {
         precondition(radix > 1)
         let (charsPerWord, power) = CS.BigUInt.charsPerWord(forRadix: radix)
 
@@ -144,7 +115,6 @@ extension String {
             let zeroes = charsPerWord - part.count
             assert(zeroes >= 0)
             if !first && zeroes > 0 {
-                // Insert leading zeroes for mid-Words
                 self += String(repeating: "0", count: zeroes)
             }
             first = false
@@ -152,14 +122,7 @@ extension String {
         }
     }
 
-    /// Initialize a new string representing a signed big integer in the given radix (base).
-    ///
-    /// Numerals greater than 9 are represented as letters from the English alphabet,
-    /// starting with `a` if `uppercase` is false or `A` otherwise.
-    ///
-    /// - Requires: radix > 1 && radix <= 36
-    /// - Complexity: O(count) when radix is a power of two; otherwise O(count^2).
-    public init(_ value: CS.BigInt, radix: Int = 10, uppercase: Bool = false) {
+   public init(_ value: CS.BigInt, radix: Int = 10, uppercase: Bool = false) {
         self = String(value.magnitude, radix: radix, uppercase: uppercase)
         if value.sign == .minus {
             self = "-" + self
@@ -168,54 +131,43 @@ extension String {
 }
 
 extension CS.BigUInt: ExpressibleByStringLiteral {
-    /// Initialize a new big integer from a Unicode scalar.
-    /// The scalar must represent a decimal digit.
-    public init(unicodeScalarLiteral value: UnicodeScalar) {
+   public init(unicodeScalarLiteral value: UnicodeScalar) {
         self = CS.BigUInt(String(value), radix: 10)!
     }
 
-    /// Initialize a new big integer from an extended grapheme cluster.
-    /// The cluster must consist of a decimal digit.
     public init(extendedGraphemeClusterLiteral value: String) {
         self = CS.BigUInt(value, radix: 10)!
     }
 
-    /// Initialize a new big integer from a decimal number represented by a string literal of arbitrary length.
-    /// The string must contain only decimal digits.
     public init(stringLiteral value: StringLiteralType) {
         self = CS.BigUInt(value, radix: 10)!
     }
 }
 
 extension CS.BigInt: ExpressibleByStringLiteral {
-    /// Initialize a new big integer from a Unicode scalar.
-    /// The scalar must represent a decimal digit.
+    
     public init(unicodeScalarLiteral value: UnicodeScalar) {
         self = CS.BigInt(String(value), radix: 10)!
     }
 
-    /// Initialize a new big integer from an extended grapheme cluster.
-    /// The cluster must consist of a decimal digit.
+  
     public init(extendedGraphemeClusterLiteral value: String) {
         self = CS.BigInt(value, radix: 10)!
     }
 
-    /// Initialize a new big integer from a decimal number represented by a string literal of arbitrary length.
-    /// The string must contain only decimal digits.
+
     public init(stringLiteral value: StringLiteralType) {
         self = CS.BigInt(value, radix: 10)!
     }
 }
 
 extension CS.BigUInt: CustomStringConvertible {
-    /// Return the decimal representation of this integer.
     public var description: String {
         return String(self, radix: 10)
     }
 }
 
 extension CS.BigInt: CustomStringConvertible {
-    /// Return the decimal representation of this integer.
     public var description: String {
         return String(self, radix: 10)
     }
@@ -223,7 +175,6 @@ extension CS.BigInt: CustomStringConvertible {
 
 extension CS.BigUInt: CustomPlaygroundDisplayConvertible {
 
-    /// Return the playground quick look representation of this integer.
     public var playgroundDescription: Any {
         let text = String(self)
         return text + " (\(self.bitWidth) bits)"
@@ -232,7 +183,6 @@ extension CS.BigUInt: CustomPlaygroundDisplayConvertible {
 
 extension CS.BigInt: CustomPlaygroundDisplayConvertible {
 
-    /// Return the playground quick look representation of this integer.
     public var playgroundDescription: Any {
         let text = String(self)
         return text + " (\(self.magnitude.bitWidth) bits)"

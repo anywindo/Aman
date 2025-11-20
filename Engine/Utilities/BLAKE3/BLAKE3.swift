@@ -1,3 +1,10 @@
+// 
+//  [BLAKE3].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 typealias KeyWords = SIMD8<UInt32>
 
 typealias BlockWords = SIMD16<UInt32>

@@ -1,9 +1,10 @@
-//
-//  NetworkPortScanService.swift
-//  Aman
-//
-//  Declares targeted port scan behaviour for a single host.
-//
+// 
+//  [NetworkPortScanService].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 import Darwin
 import Foundation
 import OSLog
@@ -196,7 +197,7 @@ private struct PortProbe {
                 return attemptConnection()
             }.value
         }, onCancel: {
-            // Nothing to clean up; the detached task will see cancellation.
+
         })
     }
 

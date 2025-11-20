@@ -1,18 +1,14 @@
-//
-//  Addition.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2016-01-03.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [Addition].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 extension CS.BigUInt {
     //MARK: Addition
     
-    /// Add `word` to this integer in place.
-    /// `word` is shifted `shift` words to the left before being added.
-    ///
-    /// - Complexity: O(max(count, shift))
+   
     internal mutating func addWord(_ word: Word, shiftedBy shift: Int = 0) {
         precondition(shift >= 0)
         var carry = word
@@ -25,20 +21,14 @@ extension CS.BigUInt {
         }
     }
 
-    /// Add the digit `d` to this integer and return the result.
-    /// `d` is shifted `shift` words to the left before being added.
-    ///
-    /// - Complexity: O(max(count, shift))
+  
     internal func addingWord(_ word: Word, shiftedBy shift: Int = 0) -> CS.BigUInt {
         var r = self
         r.addWord(word, shiftedBy: shift)
         return r
     }
 
-    /// Add `b` to this integer in place.
-    /// `b` is shifted `shift` words to the left before being added.
-    ///
-    /// - Complexity: O(max(count, b.count + shift))
+    
     internal mutating func add(_ b: CS.BigUInt, shiftedBy shift: Int = 0) {
         precondition(shift >= 0)
         var carry = false
@@ -60,41 +50,28 @@ extension CS.BigUInt {
         }
     }
 
-    /// Add `b` to this integer and return the result.
-    /// `b` is shifted `shift` words to the left before being added.
-    ///
-    /// - Complexity: O(max(count, b.count + shift))
+   
     internal func adding(_ b: CS.BigUInt, shiftedBy shift: Int = 0) -> CS.BigUInt {
         var r = self
         r.add(b, shiftedBy: shift)
         return r
     }
 
-    /// Increment this integer by one. If `shift` is non-zero, it selects
-    /// the word that is to be incremented.
-    ///
-    /// - Complexity: O(count + shift)
+    
     internal mutating func increment(shiftedBy shift: Int = 0) {
         self.addWord(1, shiftedBy: shift)
     }
 
-    /// Add `a` and `b` together and return the result.
-    ///
-    /// - Complexity: O(max(a.count, b.count))
     public static func +(a: CS.BigUInt, b: CS.BigUInt) -> CS.BigUInt {
         return a.adding(b)
     }
 
-    /// Add `a` and `b` together, and store the sum in `a`.
-    ///
-    /// - Complexity: O(max(a.count, b.count))
     public static func +=(a: inout CS.BigUInt, b: CS.BigUInt) {
         a.add(b, shiftedBy: 0)
     }
 }
 
 extension CS.BigInt {
-    /// Add `a` to `b` and return the result.
     public static func +(a: CS.BigInt, b: CS.BigInt) -> CS.BigInt {
         switch (a.sign, b.sign) {
         case (.plus, .plus):
@@ -118,7 +95,6 @@ extension CS.BigInt {
         }
     }
 
-    /// Add `b` to `a` in place.
     public static func +=(a: inout CS.BigInt, b: CS.BigInt) {
         a = a + b
     }

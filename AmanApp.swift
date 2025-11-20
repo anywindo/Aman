@@ -1,8 +1,9 @@
-//
-//  AmanApp.swift
-//  Aman
-//
-//
+// 
+//  [AmanApp].swift 
+//  Aman - [Aman] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 import SwiftUI
 import AppKit
@@ -57,7 +58,6 @@ struct AmanApp: App {
     }
 }
 
-// A small Command view that has access to the SwiftUI environment.
 private struct OpenAboutCommand: View {
     @Environment(\.openWindow) private var openWindow
 

@@ -1,3 +1,10 @@
+// 
+//  [SIMD+EBC].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 extension SIMD where Scalar: FixedWidthInteger {
     public typealias BigEndianBytesSequence = SIMDBigEndianBytesCollection<Self>
 

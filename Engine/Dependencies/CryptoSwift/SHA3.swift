@@ -1,21 +1,9 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
-
-//  http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
-//  http://keccak.noekeon.org/specs_summary.html
-//
+// 
+//  [SHA3].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 #if canImport(Darwin)
 import Darwin
@@ -64,7 +52,7 @@ public final class SHA3: DigestType {
     var markByte: UInt8 {
       switch self {
         case .sha224, .sha256, .sha384, .sha512:
-          return 0x06 // 0x1F for SHAKE
+          return 0x06 
         case .keccak224, .keccak256, .keccak384, .keccak512:
           return 0x01
       }
@@ -104,12 +92,7 @@ public final class SHA3: DigestType {
     calculate(for: bytes)
   }
 
-  ///  1. For all pairs (x,z) such that 0≤x<5 and 0≤z<w, let
-  ///     C[x,z]=A[x, 0,z] ⊕ A[x, 1,z] ⊕ A[x, 2,z] ⊕ A[x, 3,z] ⊕ A[x, 4,z].
-  ///  2. For all pairs (x, z) such that 0≤x<5 and 0≤z<w let
-  ///     D[x,z]=C[(x1) mod 5, z] ⊕ C[(x+1) mod 5, (z –1) mod w].
-  ///  3. For all triples (x, y, z) such that 0≤x<5, 0≤y<5, and 0≤z<w, let
-  ///     A′[x, y,z] = A[x, y,z] ⊕ D[x,z].
+
   private func θ(_ a: inout Array<UInt64>) {
     let c = UnsafeMutablePointer<UInt64>.allocate(capacity: 5)
     c.initialize(repeating: 0, count: 5)
@@ -143,7 +126,7 @@ public final class SHA3: DigestType {
     }
   }
 
-  /// A′[x, y, z]=A[(x &+ 3y) mod 5, x, z]
+
   private func π(_ a: inout Array<UInt64>) {
     let a1 = a[1]
     a[1] = a[6]
@@ -172,8 +155,6 @@ public final class SHA3: DigestType {
     a[10] = a1
   }
 
-  /// For all triples (x, y, z) such that 0≤x<5, 0≤y<5, and 0≤z<w, let
-  /// A′[x, y,z] = A[x, y,z] ⊕ ((A[(x+1) mod 5, y, z] ⊕ 1) ⋅ A[(x+2) mod 5, y, z])
   private func χ(_ a: inout Array<UInt64>) {
     for i in stride(from: 0, to: 25, by: 5) {
       let a0 = a[0 &+ i]
@@ -192,7 +173,7 @@ public final class SHA3: DigestType {
 
   @usableFromInline
   func process(block chunk: ArraySlice<UInt64>, currentHash hh: inout Array<UInt64>) {
-    // expand
+
     hh[0] ^= chunk[0].littleEndian
     hh[1] ^= chunk[1].littleEndian
     hh[2] ^= chunk[2].littleEndian
@@ -202,20 +183,20 @@ public final class SHA3: DigestType {
     hh[6] ^= chunk[6].littleEndian
     hh[7] ^= chunk[7].littleEndian
     hh[8] ^= chunk[8].littleEndian
-    if self.blockSize > 72 { // 72 / 8, sha-512
+    if self.blockSize > 72 { 
       hh[9] ^= chunk[9].littleEndian
       hh[10] ^= chunk[10].littleEndian
       hh[11] ^= chunk[11].littleEndian
       hh[12] ^= chunk[12].littleEndian
-      if self.blockSize > 104 { // 104 / 8, sha-384
+      if self.blockSize > 104 { 
         hh[13] ^= chunk[13].littleEndian
         hh[14] ^= chunk[14].littleEndian
         hh[15] ^= chunk[15].littleEndian
         hh[16] ^= chunk[16].littleEndian
-        if self.blockSize > 136 { // 136 / 8, sha-256
+        if self.blockSize > 136 { 
           hh[17] ^= chunk[17].littleEndian
-          // FULL_SHA3_FAMILY_SUPPORT
-          if self.blockSize > 144 { // 144 / 8, sha-224
+          
+          if self.blockSize > 144 { 
             hh[18] ^= chunk[18].littleEndian
             hh[19] ^= chunk[19].littleEndian
             hh[20] ^= chunk[20].littleEndian
@@ -228,7 +209,7 @@ public final class SHA3: DigestType {
       }
     }
 
-    // Keccak-f
+  
     for round in 0..<24 {
       self.θ(&hh)
 
@@ -271,10 +252,8 @@ extension SHA3: Updatable {
     self.accumulated += bytes
 
     if isLast {
-      // Add padding
       let markByteIndex = self.accumulated.count
 
-      // We need to always pad the input. Even if the input is a multiple of blockSize.
       let r = self.blockSize * 8
       let q = (r / 8) - (accumulated.count % (r / 8))
       self.accumulated += Array<UInt8>(repeating: 0, count: q)
@@ -292,12 +271,10 @@ extension SHA3: Updatable {
     }
     self.accumulated.removeFirst(processedBytes)
 
-    // TODO: verify performance, reduce vs for..in
     let result = self.accumulatedHash.reduce(into: Array<UInt8>()) { (result, value) in
       result += value.bigEndian.bytes()
     }
 
-    // reset hash value for instance
     if isLast {
       self.accumulatedHash = Array<UInt64>(repeating: 0, count: self.digestLength)
     }

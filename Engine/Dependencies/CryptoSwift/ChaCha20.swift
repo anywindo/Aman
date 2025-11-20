@@ -1,20 +1,9 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
-
-//  https://tools.ietf.org/html/rfc7539
-//
+// 
+//  [ChaCha20].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 public final class ChaCha20: BlockCipher {
   public enum Error: Swift.Error {
@@ -22,7 +11,7 @@ public final class ChaCha20: BlockCipher {
     case notSupported
   }
 
-  public static let blockSize = 64 // 512 / 8
+  public static let blockSize = 64 
   public let keySize: Int
 
   fileprivate let key: Key
@@ -51,14 +40,13 @@ public final class ChaCha20: BlockCipher {
     assert(self.counter.count == 16)
   }
 
-  /// https://tools.ietf.org/html/rfc7539#section-2.3.
   fileprivate func core(block: inout Array<UInt8>, counter: Array<UInt8>, key: Array<UInt8>) {
     precondition(block.count == ChaCha20.blockSize)
     precondition(counter.count == 16)
     precondition(key.count == 32)
 
     let j0: UInt32 = 0x61707865
-    let j1: UInt32 = 0x3320646e // 0x3620646e sigma/tau
+    let j1: UInt32 = 0x3320646e 
     let j2: UInt32 = 0x79622d32
     let j3: UInt32 = 0x6b206574
     let j4: UInt32 = UInt32(bytes: key[0..<4]).bigEndian
@@ -77,7 +65,7 @@ public final class ChaCha20: BlockCipher {
     var (x0, x1, x2, x3, x4, x5, x6, x7) = (j0, j1, j2, j3, j4, j5, j6, j7)
     var (x8, x9, x10, x11, x12, x13, x14, x15) = (j8, j9, j10, j11, j12, j13, j14, j15)
 
-    for _ in 0..<10 { // 20 rounds
+    for _ in 0..<10 { 
       x0 = x0 &+ x4
       x12 ^= x0
       x12 = (x12 << 16) | (x12 >> 16)
@@ -211,7 +199,7 @@ public final class ChaCha20: BlockCipher {
     block.replaceSubrange(60..<64, with: x15.bigEndian.bytes())
   }
 
-  // XORKeyStream
+
   func process(bytes: ArraySlice<UInt8>, counter: inout Array<UInt8>, key: Array<UInt8>) -> Array<UInt8> {
     precondition(counter.count == 16)
     precondition(key.count == 32)
@@ -275,7 +263,7 @@ extension ChaCha20 {
       for chunk in self.accumulated.batched(by: ChaCha20.blockSize) {
         if isLast || self.accumulated.count >= ChaCha20.blockSize {
           encrypted += try self.chacha.encrypt(chunk)
-          self.accumulated.removeFirst(chunk.count) // TODO: improve performance
+          self.accumulated.removeFirst(chunk.count) 
         }
       }
       return encrypted
@@ -302,7 +290,7 @@ extension ChaCha20 {
     }
 
     public mutating func update(withBytes bytes: ArraySlice<UInt8>, isLast: Bool = true) throws -> Array<UInt8> {
-      // prepend "offset" number of bytes at the beginning
+      
       if self.offset > 0 {
         self.accumulated += Array<UInt8>(repeating: 0, count: self.offset) + bytes
         self.offsetToRemove = self.offset
@@ -317,9 +305,8 @@ extension ChaCha20 {
         if isLast || self.accumulated.count >= ChaCha20.blockSize {
           plaintext += try self.chacha.decrypt(chunk)
 
-          // remove "offset" from the beginning of first chunk
           if self.offsetToRemove > 0 {
-            plaintext.removeFirst(self.offsetToRemove) // TODO: improve performance
+            plaintext.removeFirst(self.offsetToRemove) 
             self.offsetToRemove = 0
           }
 
@@ -339,7 +326,7 @@ extension ChaCha20 {
 // MARK: Cryptors
 
 extension ChaCha20: Cryptors {
-  //TODO: Use BlockEncryptor/BlockDecryptor
+  
 
   public func makeEncryptor() -> Cryptor & Updatable {
     ChaCha20.ChaChaEncryptor(chacha: self)

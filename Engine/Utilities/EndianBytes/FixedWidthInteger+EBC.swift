@@ -1,3 +1,10 @@
+// 
+//  [FixedWidthInteger+EBC].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
+
 extension FixedWidthInteger {
     public typealias BigEndianBytesSequence = BigEndianBytesCollection<Self>
     

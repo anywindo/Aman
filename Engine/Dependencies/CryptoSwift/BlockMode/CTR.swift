@@ -1,23 +1,12 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
-
-//  Counter (CTR)
+// 
+//  [CTR].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 public struct CTR: StreamMode {
   public enum Error: Swift.Error {
-    /// Invalid IV
     case invalidInitializationVector
   }
 
@@ -40,7 +29,6 @@ public struct CTR: StreamMode {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 struct CTRModeWorker: StreamModeWorker, SeekableModeWorker, CounterModeWorker {
   typealias Counter = CTRCounter
@@ -48,7 +36,6 @@ struct CTRModeWorker: StreamModeWorker, SeekableModeWorker, CounterModeWorker {
   final class CTRCounter {
     private let constPrefix: Array<UInt8>
     private var value: UInt64
-    //TODO: make it an updatable value, computing is too slow
     var bytes: Array<UInt8> {
       self.constPrefix + self.value.bytes()
     }
@@ -78,8 +65,6 @@ struct CTRModeWorker: StreamModeWorker, SeekableModeWorker, CounterModeWorker {
 
   private let blockSize: Int
 
-  // The same keystream is used for the block length plaintext
-  // As new data is added, keystream suffix is used to xor operation.
   private var keystream: Array<UInt8>
   private var keystreamPosIdx = 0
 
@@ -88,7 +73,6 @@ struct CTRModeWorker: StreamModeWorker, SeekableModeWorker, CounterModeWorker {
     self.blockSize = blockSize
     self.iv = Array(iv)
 
-    // the first keystream is calculated from the nonce = initial value of counter
     self.counter = CTRCounter(nonce: Array(iv), startAt: counter)
     self.keystream = Array(cipherOperation(self.counter.bytes.slice)!)
   }
@@ -101,14 +85,12 @@ struct CTRModeWorker: StreamModeWorker, SeekableModeWorker, CounterModeWorker {
     self.keystreamPosIdx = offset
   }
 
-  // plaintext is at most blockSize long
   @inlinable
   mutating func encrypt(block plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
     var result = Array<UInt8>(reserveCapacity: plaintext.count)
 
     var processed = 0
     while processed < plaintext.count {
-      // Update keystream
       if self.keystreamPosIdx == self.blockSize {
         self.counter += 1
         self.keystream = Array(self.cipherOperation(self.counter.bytes.slice)!)

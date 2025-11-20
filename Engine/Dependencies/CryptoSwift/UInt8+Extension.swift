@@ -1,17 +1,9 @@
-//
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2025 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
-//  This software is provided 'as-is', without any express or implied warranty.
-//
-//  In no event will the authors be held liable for any damages arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-//
-//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
-//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-//  - This notice may not be removed or altered from any source or binary distribution.
-//
+// 
+//  [UInt8+Extension].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 #if canImport(Darwin)
 import Darwin
@@ -28,9 +20,7 @@ import ucrt
 public protocol _UInt8Type {}
 extension UInt8: _UInt8Type {}
 
-/** casting */
 extension UInt8 {
-  /** cast because UInt8(<UInt32>) because std initializer crash if value is > byte */
   static func with(value: UInt64) -> UInt8 {
     let tmp = value & 0xff
     return UInt8(tmp)
@@ -47,9 +37,7 @@ extension UInt8 {
   }
 }
 
-/** Bits */
 extension UInt8 {
-  /** array of bits */
   public func bits() -> [Bit] {
     let totalBitsCount = MemoryLayout<UInt8>.size * 8
 

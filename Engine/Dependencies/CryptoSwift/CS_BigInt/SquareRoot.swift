@@ -1,19 +1,14 @@
-//
-//  SquareRoot.swift
-//  CS.BigInt
-//
-//  Created by Károly Lőrentey on 2016-01-03.
-//  Copyright © 2016-2017 Károly Lőrentey.
-//
+// 
+//  [SquareRoot].swift 
+//  Aman - [Engine] 
+// 
+//  Created by Aman Team on [08/11/25]. 
+// 
 
 //MARK: Square Root
 
 extension CS.BigUInt {
-    /// Returns the integer square root of a big integer; i.e., the largest integer whose square isn't greater than `value`.
-    ///
-    /// - Returns: floor(sqrt(self))
-    public func squareRoot() -> CS.BigUInt {
-        // This implementation uses Newton's method.
+   public func squareRoot() -> CS.BigUInt {
         guard !self.isZero else { return CS.BigUInt() }
         var x = CS.BigUInt(1) << ((self.bitWidth + 1) / 2)
         var y: CS.BigUInt = 0
@@ -30,10 +25,6 @@ extension CS.BigUInt {
 }
 
 extension CS.BigInt {
-    /// Returns the integer square root of a big integer; i.e., the largest integer whose square isn't greater than `value`.
-    ///
-    /// - Requires: self >= 0
-    /// - Returns: floor(sqrt(self))
     public func squareRoot() -> CS.BigInt {
         precondition(self.sign == .plus)
         return CS.BigInt(sign: .plus, magnitude: self.magnitude.squareRoot())
