@@ -1,8 +1,8 @@
 //
 //  CredentialFlowsCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Arwindo Pratama.
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
@@ -50,7 +50,6 @@ class CredentialFlowsCheck: SystemCheck {
         var issues: [String] = []
         var warnings: [String] = []
 
-        // Touch ID state
         if let permitted = touchStatus.permitted {
             lines.append("Touch ID biometrics for unlock: \(permitted ? "enabled" : "disabled")")
         } else {
@@ -65,7 +64,6 @@ class CredentialFlowsCheck: SystemCheck {
             warnings.append("bioutil error: \(error)")
         }
 
-        // Touch ID policy comparison
         if let policy = policies.touchID {
             lines.append("Managed Touch ID policy \(policy.key)=\(policy.value ? "allow" : "deny") (\(policy.source))")
             if let effective = touchStatus.effective, policy.value == false && effective {
@@ -78,7 +76,6 @@ class CredentialFlowsCheck: SystemCheck {
             warnings.append("No explicit Touch ID policy found.")
         }
 
-        // Auto Unlock state
         if let enabled = autoUnlockStatus.enabled {
             lines.append("Apple Watch Auto Unlock: \(enabled ? "enabled" : "disabled")")
         } else if autoUnlockStatus.details.isEmpty {

@@ -1,8 +1,8 @@
 //
 //  WindowManager.swift
-//  Aman
+//  Aman - Support
 //
-//  Centralises NSWindow access so SwiftUI scenes can close or tag windows safely.
+//  Created by Aman Team on 08/11/2025
 //
 
 import SwiftUI

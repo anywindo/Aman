@@ -1,8 +1,8 @@
 //
 //  NetworkSecurityViewModel.swift
-//  Aman
+//  Aman - Engine
 //
-//  Simplified view model driving the Network Security dashboard.
+//  Created by Aman Team on [Tanggal diedit, ex: 08/11/25].
 //
 
 import Combine

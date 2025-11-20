@@ -1,8 +1,8 @@
 //
-//  RemoteLoginDisabledCheck.swift
-//  Aman
+//  RemoteLoginDisablesCheck.swift
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation

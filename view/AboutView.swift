@@ -1,8 +1,8 @@
 //
 //  AboutView.swift
-//  Aman
+//  Aman - view
 //
-//  Created by Assistant
+//  Created by Aman Team on 08/11/25
 //
 
 import SwiftUI

@@ -1,10 +1,9 @@
 //
 //  SecureKernelExtensionLoadingCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
-//Tested in 13-inch, 2020, Four Thunderbolt 3 ports 13.2.1 (22D68)
 
 import Foundation
 
