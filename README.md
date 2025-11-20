@@ -92,79 +92,126 @@ graph TD
 
 **System Integrity and Firmware**
 
-* `EfiCheck.swift` – verifies EFI firmware integrity and bootloader validation
-* `FirmwareSecurityCheck.swift` – audits Secure Enclave and T2 firmware protections
-* `SIPCheck.swift` – confirms System Integrity Protection status
-* `FileVaultCheck.swift` – checks full-disk encryption and SecureToken compliance
-* `SecureTokenStatusCheck.swift` – inspects user-level token bindings for FileVault access
+- Memastikan integritas firmware dan proses boot, termasuk perlindungan Secure Enclave/T2.
+- Memverifikasi status System Integrity Protection (SIP).
+- Memeriksa enkripsi penuh disk (FileVault) dan keterkaitan akun dengan akses enkripsi.
 
 **Access Control and Authentication**
 
-* `AdminPasswordForSecureSettingsCheck.swift` – enforces admin credentials for secure settings
-* `LoginWindowPolicyCheck.swift` – validates login behavior (auto-login disabled, banner text)
-* `PasswordPolicyCheck.swift` / `PasswordPolicyInspector.swift` – parses and evaluates local password policies
-* `PasswordAlphanumericRequirementCheck.swift`, `PasswordSpecialCharacterRequirementCheck.swift`, `PasswordSimpleSequenceRestrictionCheck.swift`, `PasswordCustomRegexRequirementCheck.swift` – enforce password complexity and format rules
-* `PasswordOnWakeCheck.swift` – ensures authentication is required after sleep
-* `PamSuSmartcardEnforceCheck.swift`, `PamSudoSmartcardEnforceCheck.swift`, `SmartcardAllowCheck.swift`, `SmartcardEnforcementCheck.swift` – enforce smartcard authentication and MFA policies
+- Menegakkan penggunaan kredensial administrator untuk perubahan pengaturan sensitif.
+- Memastikan perilaku login aman (misalnya auto‑login nonaktif, pesan peringatan ditampilkan).
+- Mengevaluasi kebijakan kata sandi dan memastikan kompleksitas kata sandi yang memadai.
+- Memastikan autentikasi diwajibkan setelah perangkat bangun dari mode tidur.
+- Menilai dan menegakkan kebijakan penggunaan smartcard dan autentikasi multi‑faktor.
 
 **Network and Remote Access**
 
-* `FirewallCheck.swift` / `FirewallStealthModeCheck.swift` – confirm firewall enablement and stealth mode
-* `RemoteLoginDisabledCheck.swift` / `RemoteManagementCheck.swift` – disable or restrict SSH and ARD access
-* `InternetSharingDisabledCheck.swift` / `FileSharingCheck.swift` / `PrinterSharingDisabledCheck.swift` – restrict network sharing services
-* `WakeForNetworkAccessCheck.swift` – ensures wake-on-LAN is managed securely
-* `PortListeningInventoryCheck.swift` / `PortScannerCheck.swift` – enumerates open network ports and associated services
-* `IntranetSecurityPortScanCheck.swift` – internal port scanning audit for local network
+- Memeriksa apakah firewall aktif dan dikonfigurasi dengan mode perlindungan yang tepat.
+- Meninjau status akses jarak jauh (SSH, remote management) agar tidak terbuka tanpa kebutuhan.
+- Membatasi layanan berbagi jaringan (internet sharing, file sharing, printer sharing) yang tidak diperlukan.
+- Mengontrol kebijakan bangun dari jaringan (wake‑on‑LAN) agar tidak menjadi celah serangan.
+- Menginventarisasi port yang sedang mendengarkan dan layanan terkait di perangkat.
+- Melakukan pemindaian port internal di jaringan lokal sebagai bagian dari audit intranet.
 
 **Software Update and Patch Management**
 
-* `AppleSoftwareUpdateCheck.swift` / `AutomaticSoftwareUpdateCheck.swift` – confirm automatic updates and Apple security patching
-* `CriticalUpdateInstallCheck.swift` / `SecurityUpdateCheck.swift` – validate mandatory update installation
-* `RapidSecurityResponseCheck.swift` – checks macOS RSR (Rapid Security Response) version and enablement
-* `SoftwareUpdateDeferralCheck.swift` / `BridgeOSCompanionUpdateCheck.swift` – monitor deferral policies and device companion updates
+- Memastikan pembaruan sistem dan keamanan berjalan otomatis dan tidak tertunda berlebihan.
+- Memverifikasi bahwa pembaruan penting dan pembaruan keamanan telah terpasang.
+- Memeriksa status Rapid Security Response (RSR) pada macOS.
+- Meninjau kebijakan penundaan pembaruan dan konsistensi pembaruan perangkat pendamping.
 
 **System and Service Configuration**
 
-* `GatekeeperAutoUpdateCheck.swift` / `GatekeeperBypassCheck.swift` – verify Gatekeeper enforcement and auto-update status
-* `AppSandboxCheck.swift` – confirms sandbox compliance for installed apps
-* `AppStoreUpdateCheck.swift` – validates automatic App Store update settings
-* `ContinuityFeaturesCheck.swift` / `UniversalControlCheck.swift` – audits Continuity, Handoff, and Universal Control policies
-* `LockdownModeCheck.swift` – validates Lockdown Mode status for high-security environments
-* `LoginWindowPolicyCheck.swift` – enforces login security configuration
+- Memastikan Gatekeeper aktif dan tidak mudah dilewati.
+- Menilai penerapan sandbox untuk aplikasi yang terpasang.
+- Memeriksa pengaturan pembaruan dari App Store.
+- Mengkaji konfigurasi fitur kontinu seperti Handoff dan Universal Control agar tidak menambah risiko.
+- Meninjau status Lockdown Mode untuk skenario dengan kebutuhan keamanan tinggi.
+- Menjamin konfigurasi jendela login sesuai kebijakan keamanan organisasi.
 
 **Privacy and Telemetry**
 
-* `DiagnosticDataCheck.swift` / `SensitiveLogAuditingCheck.swift` – reviews analytics and diagnostic submission policies
-* `AppTrackingTransparencyCheck.swift` / `PersonalizedAds.swift` – ensures app tracking and ad personalization compliance
-* `ExternalIntelligenceDisableCheck.swift` / `ExternalIntelligenceSignInDisableCheck.swift` – disables external intelligence integrations (e.g., Siri, AI sign-ins)
-* `SiriStatusCheck.swift` – confirms Siri status per privacy policy
+- Meninjau pengaturan pengiriman data diagnostik dan log sensitif ke pihak ketiga.
+- Memastikan pengaturan pelacakan aplikasi dan personalisasi iklan sejalan dengan kebijakan privasi pengguna.
+- Mengelola integrasi “kecerdasan eksternal” seperti asisten digital dan layanan berbasis akun agar tidak mengumpulkan data berlebihan.
+- Memastikan fitur asisten suara dan layanan sejenis diaktifkan hanya ketika benar‑benar dibutuhkan.
 
 **Media and Peripheral Control**
 
-* `AirDropDisabledCheck.swift` / `AirDropInterfacePolicyCheck.swift` – restricts AirDrop interfaces and visibility
-* `AirPlayReceiverDisabledCheck.swift` / `AirPlayServiceCheck.swift` – controls AirPlay receiver/service activation
-* `BluetoothMenuIconVisibleCheck.swift` / `BluetoothSharingDisabledCheck.swift` / `BluetoothSharingGranularCheck.swift` – manages Bluetooth sharing and icon policies
-* `DVDOrCDSharingDisabledCheck.swift` – ensures removable media sharing is disabled
-* `BonjourCheck.swift` – checks Bonjour advertising and discovery exposure
+- Mengendalikan visibilitas dan izin berbagi melalui AirDrop.
+- Mengatur aktivasi layanan AirPlay agar tidak membuka permukaan serangan baru.
+- Mengelola pengaturan Bluetooth dan kebijakan berbagi perangkat untuk meminimalkan risiko akses tidak sah.
+- Membatasi berbagi media fisik seperti DVD atau CD.
+- Meninjau eksposur layanan penemuan otomatis (seperti Bonjour) pada jaringan.
 
 **Backup, Time, and Miscellaneous**
 
-* `BackupAutomaticallyEnabledCheck.swift` / `CheckTimeMachineEnabled.swift` / `TimeMachineVolumesEncryptedCheck.swift` – ensure encrypted and automated backups
-* `SetTimeAndDateAutomaticallyEnabledCheck.swift` / `TimeWithinLimitsCheck.swift` – confirm time sync and clock integrity
-* `ContentCachingDisabledCheck.swift` / `ApacheHTTPCheck.swift` / `NfsServerCheck.swift` – ensure unneeded local services are disabled
-* `HotCornersDisabledCheck.swift` – disables unsecure screen activation corners
-* `ScreenSaverIntervalCheck.swift` / `ScreenSharingDisabledCheck.swift` – enforces screen lock and sharing policies
-* `GuestLoginCheck.swift` / `GuestConnectCheck.swift` / `TemporaryGuestSessionCheck.swift` – manages guest account and session restrictions
+- Memastikan cadangan otomatis aktif dan terenkripsi dengan benar.
+- Memeriksa sinkronisasi waktu dan integritas pengaturan tanggal/waktu.
+- Menonaktifkan layanan lokal yang tidak diperlukan, seperti server web atau layanan file lama.
+- Mengurangi perilaku antarmuka yang dapat melemahkan keamanan, seperti sudut layar yang mematikan screensaver.
+- Meninjau kebijakan screensaver dan berbagi layar untuk menjaga kerahasiaan tampilan.
+- Mengelola akses akun tamu dan sesi sementara agar tidak menjadi titik lemah.
 
 **Malware and Threat Protection**
 
-* `XProtectStatusCheck.swift` / `XProtectAndMRTCheck.swift` – ensures built-in malware defenses (XProtect, MRT) are active
-* `SafariInternetPluginCheck.swift` / `SafariSafeFileChecks.swift` – checks Safari plugin safety and secure download behavior
+- Memeriksa apakah mekanisme perlindungan malware bawaan sistem aktif dan mutakhir.
+- Menilai pengaturan browser terkait plugin, unduhan, dan penanganan berkas agar meminimalkan risiko infeksi.
 
 
 ## Architecture Overview
 
 The Swift layer coordinates the entire workflow through key controllers such as `AuditCoordinator`, `NetworkMappingCoordinator`, and `PythonProcessRunner`. These components synchronize the macOS-side checks with the embedded Python analyzer, ensuring efficient communication between UI, logic, and analytics. The interface follows SwiftUI’s `NavigationSplitView` architecture, dividing the window into category navigation, audit results, and detailed remediation panels. Reports can be exported in both JSON and HTML formats for portability.
+
+```mermaid
+graph TD
+    subgraph UI[SwiftUI Interface]
+        U1[Landing & Navigation]
+        U2[OS Security View]
+        U3[Network Security View]
+        U4[Network Topology Window]
+        U5[About & Utility Screens]
+    end
+
+    subgraph Engine[Swift Engine Layer]
+        E1[AuditCoordinator\n+ OS Security Checks]
+        E2[NetworkSecurityViewModel\n+ Internet Security Toolkit]
+        E3[NetworkMappingCoordinator\n+ Discovery · Topology · Port Scan]
+        E4[Certificate & Hash Utilities]
+        E5[PythonProcessRunner]
+    end
+
+    subgraph Analyzer[Python Analyzer Layer]
+        P1[analyzer.py\nCLI Entry]
+        P2[AnalyzerPipeline\n(manifest-driven)]
+        P3[Detectors:\nLegacy · Seasonality · ChangePoint · Multivariate · NewTalker]
+    end
+
+    subgraph Outputs[Reports & Exports]
+        O1[OS Audit Findings\n(HTML / JSON)]
+        O2[Network Maps & Topology\nExport Files]
+        O3[Analyzer Results\nadvancedDetection JSON · Logs]
+    end
+
+    %% UI drives engine
+    U2 --> E1
+    U3 --> E2
+    U3 --> E4
+    U4 --> E3
+
+    %% Engine coordination
+    E2 --> E3
+    E2 --> E5
+    E3 --> E5
+
+    %% Python analyzer flow
+    E5 --> P1 --> P2 --> P3
+
+    %% Outputs
+    E1 --> O1
+    E3 --> O2
+    P2 --> O3
+```
 
 
 ## Build and Execution
