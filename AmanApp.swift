@@ -2,8 +2,6 @@
 //  AmanApp.swift
 //  Aman
 //
-//  Created by Samet Sazak.
-//  Updated by Arwindo Pratama.
 //
 
 import SwiftUI
