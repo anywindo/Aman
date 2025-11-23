@@ -1,11 +1,9 @@
 //
 //  CheckMediaSharingDisabled.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
-
-//This script uses the defaults command to read the value of the home-sharing-enabled key in the com.apple.amp.mediasharingd domain. If the value is 1, it means Media Sharing is enabled, and the status is set to "Media Sharing is Enabled" with a check status of "Red". If the value is 0, it means Media Sharing is disabled, and the status is set to "Media Sharing is Disabled" with a check status of "Green".
 
 import Foundation
 

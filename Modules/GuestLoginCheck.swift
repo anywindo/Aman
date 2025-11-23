@@ -1,13 +1,10 @@
 //
 //  GuestLoginCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
 
-//Tested in 13-inch, 2020, Four Thunderbolt 3 ports 13.2.1 (22D68)
-
-//Checks if the Guest account is disabled by running the defaults command and reading the GuestEnabled setting. If the value is "0", it means the Guest account is disabled, and the check status will be "Green". If the value is not "0", it means the Guest account is enabled, and the check status will be "Red". If there's an error parsing the output or running the command, the check status will be "Yellow".
 
 import Foundation
 

@@ -1,14 +1,11 @@
 //
 //  AirDropDisabledCheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Created by Samet Sazak
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
-//This script uses the ps aux command to check if the AirPlayXPCHelper process is running. If the process is running, it indicates that AirPlay Receiver is enabled; otherwise, it is disabled.
-//Since this is not a certain way to understand Airplay is enabled, I couldn't find a solution except this. Based on CIS,         task.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
-// task.arguments = ["read", "com.apple.NetworkBrowser", "DisableAirDrop"]
 
 class AirDropDisabledCheck: SystemCheck {
     init() {

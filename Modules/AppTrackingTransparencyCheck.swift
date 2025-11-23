@@ -1,7 +1,8 @@
-//  AppTrackingTransparencyCheck.swift
-//  Aman
 //
-//  Created by Arwindo Pratama.
+//  AppTrackingTransparencyCheck.swift
+//  Aman - Modules
+//
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation

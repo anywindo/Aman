@@ -1,8 +1,8 @@
 //
 //  IntranetSecurityCVECheck.swift
-//  Aman
+//  Aman - Modules
 //
-//  Orchestrates the Intranet Security & CVE Mapping scan stage.
+//  Created by Aman Team on 08/11/25
 //
 
 import Foundation
